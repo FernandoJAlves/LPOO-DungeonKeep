@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Game {
 	private Map map = new Map();
 	private Hero hero = new Hero();
+	private Guard guard = new Guard();
 	private Scanner s = new Scanner(System.in);
 	public enum Game_State {START, LEVER_ACT, WIN, LOSE};
 	public Game_State state = Game.Game_State.START;
@@ -19,7 +20,10 @@ public class Game {
 		for(int i = 0; i < 10;i++) {
 			for(int j = 0; j < 10; j++) {
 
-				if(i == hero.get_y() && j == hero.get_x()) {
+				if(i == guard.get_y() && j == guard.get_x()) {
+					System.out.print('G');
+				}
+				else if(i == hero.get_y() && j == hero.get_x()) {
 					System.out.print('H');
 				}
 				else {
@@ -89,6 +93,59 @@ public class Game {
 			this.state = Game.Game_State.WIN;
 		}
 	}
+	
+	public void move_guard() {
+		char c = guard.moves[guard.index];
+		guard.index = (guard.index + 1) % guard.moves.length;
+		
+		
+		if(c == 'w'){
+			if(guard.get_y() == 0) {
+				return;
+			}
+			char temp = this.map.getMap()[guard.get_y()-1][guard.get_x()];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			guard.set_y(guard.get_y() - 1);
+			
+		}
+		else if(c == 'd') {
+			if(guard.get_x() == 9) {
+				return;
+			}
+			char temp = this.map.getMap()[guard.get_y()][guard.get_x() + 1];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			guard.set_x(guard.get_x() + 1);
+			
+		}
+		else if(c == 's') {
+			if(guard.get_y() == 9) {
+				return;
+			}
+			char temp = this.map.getMap()[guard.get_y()+1][guard.get_x()];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			guard.set_y(guard.get_y() + 1);
+			
+		}
+		else if(c == 'a') {
+			if(guard.get_x() == 0) {
+				return;
+			}
+			char temp = this.map.getMap()[guard.get_y()][guard.get_x() - 1];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			guard.set_x(guard.get_x() - 1);
+			
+		}
+	}
+	
+	
 	
 	public void close() {
 		s.close();

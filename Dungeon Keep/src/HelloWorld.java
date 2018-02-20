@@ -12,6 +12,7 @@ public class HelloWorld {
 				game.state = Game.Game_State.LOSE;
 			}
 			game.move_hero(c);
+			game.move_guard();
 		} while (!(game.state.equals(Game.Game_State.LOSE)) && !(game.state.equals(Game.Game_State.WIN)));
 		System.out.println();
 		if(game.state.equals(Game.Game_State.LOSE)) {
