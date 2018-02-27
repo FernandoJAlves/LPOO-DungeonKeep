@@ -18,7 +18,7 @@ public class Game {
 			hero.pick_key();
 		}
 		
-		if(this.state.equals(Game_State.LEVER_ACT1) || this.state.equals(Game_State.KEY_TURNED)) {
+		if(this.state.equals(Game_State.LEVER_ACT1) || this.state.equals(Game_State.KEY_TURNED) || this.state.equals(Game_State.KEY_PICKED)) {
 			this.state = map.leversUp(this.state);
 		}
 		
@@ -90,7 +90,7 @@ public class Game {
 		}
 		}
 		
-		if(this.state == Game.Game_State.LVL2) {
+		if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED || this.state == Game.Game_State.KEY_PICKED) {
 		if(hero.get_y() == (ogre.get_y()) && hero.get_x() == (ogre.get_x())) {
 			return Game.Game_State.LOSE;
 		}
@@ -129,7 +129,7 @@ public class Game {
 			if(this.state == Game.Game_State.LVL1) {
 				this.guard.move(this.map.getMap(this.state));
 			}
-			else if(this.state == Game.Game_State.LVL2) {
+			else if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED || this.state == Game.Game_State.KEY_TURNED) {
 				this.ogre.move(this.map.getMap(this.state));
 			}
 

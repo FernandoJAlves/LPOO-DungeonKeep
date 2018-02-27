@@ -24,6 +24,8 @@ public class Hero {
 		this.sprite = 'K';
 	}
 	public Game.Game_State move(char c, Game.Game_State g, char[][] map) {
+		
+		
 		if(c == 'w'){
 			if(this.get_y() == 0) {
 				return g;
@@ -36,6 +38,7 @@ public class Hero {
 			
 		}
 		else if(c == 'd') {
+			
 			if(this.get_x() == map[0].length-1) {
 				return g;
 			}
@@ -58,6 +61,12 @@ public class Hero {
 			
 		}
 		else if(c == 'a') {
+			if(g == Game.Game_State.KEY_PICKED) {
+				if(this.get_x() == 1 && this.get_y() == 1) {
+					return Game.Game_State.KEY_TURNED;
+				}
+			}
+			
 			if(this.get_x() == 0) {
 				return g;
 			}
@@ -78,12 +87,18 @@ public class Hero {
 				return Game.Game_State.KEY_PICKED;
 		}
 		if(pos == 'S') {
-			if(g == Game.Game_State.LVL1)
+			if(g == Game.Game_State.LVL1) {
+				this.set_x(1);
+				this.set_y(7);
 				return Game.Game_State.LVL2;
+			}
+
 			else if(g == Game.Game_State.LVL2)
 				return Game.Game_State.WIN;
 			return Game.Game_State.WIN;
 		}
+
+		
 		return g;
 	}
 	

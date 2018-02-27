@@ -39,7 +39,7 @@ public class Map {
 			return Game.Game_State.LVL1;
 		}
 		else if(state == Game.Game_State.KEY_PICKED) {
-			this.char_map2[7][1] = ' ';
+			this.char_map2[1][7] = ' ';
 			return Game.Game_State.KEY_PICKED;
 		}
 		else if(state == Game.Game_State.KEY_TURNED) {
