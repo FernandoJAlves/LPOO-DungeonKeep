@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Ogre {
 	private int x = 4;
 	private int y = 1;
+	private int direction = 0;
 	
 	public int get_x() {
 		return this.x;
@@ -17,6 +18,13 @@ public class Ogre {
 	public void set_y(int y_t) {
 		this.y = y_t;
 	}
+	public int get_dir() {
+		return this.direction;
+	}
+	public void set_dir(int i) {
+		this.direction = i;
+	}
+	
 	public void move(char[][] map) {
 		int direction = ThreadLocalRandom.current().nextInt(0,4);
 		char temp;

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 	private Map map = new Map();
@@ -41,6 +42,12 @@ public class Game {
 		}
 		
 		else if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED || this.state == Game.Game_State.KEY_TURNED) {
+		
+			Point coords = new Point();
+			
+			this.club_logic(coords, map.getMap(this.state));
+			
+			
 			for(int i = 0; i < map.getMap(this.state).length;i++) {
 				for(int j = 0; j < map.getMap(this.state)[0].length; j++) {
 					
@@ -54,6 +61,9 @@ public class Game {
 					}
 					else if(i == hero.get_y() && j == hero.get_x()) {
 						System.out.print(this.hero.getSprite());
+					}
+					else if(coords.x == i && coords.y == j){
+						System.out.print('*');
 					}
 					else {
 						System.out.print(this.map.getMap(this.state)[i][j]);
@@ -107,6 +117,45 @@ public class Game {
 			return Game.Game_State.LOSE;
 		}
 		}
+		
+		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED || this.state == Game.Game_State.KEY_PICKED) {
+
+			int x_t = 0;
+			int y_t = 0;
+			if(ogre.get_dir() == 0) {
+				x_t = ogre.get_x();
+				y_t = ogre.get_y() - 1;
+			}
+			else if(ogre.get_dir() == 1) {
+				x_t = ogre.get_x() + 1;
+				y_t = ogre.get_y();
+			}
+			else if(ogre.get_dir() == 2) {
+				x_t = ogre.get_x();
+				y_t = ogre.get_y() + 1;
+			}
+			else if(ogre.get_dir() == 3) {
+				x_t = ogre.get_x() - 1;
+				y_t = ogre.get_y();
+			}
+
+		
+			if (hero.get_y() == (y_t) && hero.get_x() == (x_t)) {
+				return Game.Game_State.LOSE;
+			}
+			if (hero.get_y() == (y_t - 1) && hero.get_x() == (x_t)) {
+				return Game.Game_State.LOSE;
+			}
+			if (hero.get_y() == (y_t) && hero.get_x() == (x_t - 1)) {
+				return Game.Game_State.LOSE;
+			}
+			if (hero.get_y() == (y_t + 1) && hero.get_x() == (x_t)) {
+				return Game.Game_State.LOSE;
+			}
+			if (hero.get_y() == (y_t) && hero.get_x() == (x_t + 1)) {
+				return Game.Game_State.LOSE;
+			}
+		}
 
 		
 		return this.state;
@@ -114,6 +163,7 @@ public class Game {
 	
 	public void game_loop() {
 		char c = 'j';
+		Point coords = new Point();
 		do {
 			
 			this.state = this.collision();
@@ -131,6 +181,7 @@ public class Game {
 			}
 			else if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED || this.state == Game.Game_State.KEY_TURNED) {
 				this.ogre.move(this.map.getMap(this.state));
+				this.club_logic(coords, map.getMap(this.state));
 			}
 
 		} while (!(this.state.equals(Game.Game_State.LOSE)) && !(this.state.equals(Game.Game_State.WIN)));
@@ -146,7 +197,59 @@ public class Game {
 		
 	}
 
-	
+	public void club_logic(Point coords, char[][] map) {
+		int direction = ThreadLocalRandom.current().nextInt(0,4);
+		char temp;
+		ogre.set_dir(direction);
+		switch (direction) {
+		case 0:
+			if(ogre.get_y() == 0) {
+				return;
+			}
+			temp = map[ogre.get_y()-1][ogre.get_x()];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			coords.y = ogre.get_y() - 1;
+			break;
+			
+		case 1:
+			if(ogre.get_x() == map[0].length-1) {
+				return;
+			}
+			temp = map[ogre.get_y()][ogre.get_x() + 1];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			coords.x = ogre.get_x() + 1;
+			break;
+		case 2:
+			if(ogre.get_y() == map.length-1) {
+				return;
+			}
+			temp = map[ogre.get_y()+1][ogre.get_x()];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			coords.y = ogre.get_y() + 1;
+			break;
+		case 3:
+			if(ogre.get_x() == 0) {
+				return;
+			}
+			temp = map[ogre.get_y()][ogre.get_x() - 1];
+			if(temp == 'X' || temp == 'I') {
+				return;
+			}
+			coords.x = ogre.get_x() - 1;
+			break;
+			
+			
+		default:
+		}
+		
+		
+	}
 
 	
 	
