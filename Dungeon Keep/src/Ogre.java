@@ -1,10 +1,9 @@
+import java.util.concurrent.ThreadLocalRandom;
 
-public class Guard {
-	
-	private int x = 8;
+
+public class Ogre {
+	private int x = 4;
 	private int y = 1;
-	public int index = 0;
-	public char moves[] = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
 	
 	public int get_x() {
 		return this.x;
@@ -19,54 +18,54 @@ public class Guard {
 		this.y = y_t;
 	}
 	public void move(char[][] map) {
-		char c = this.moves[this.index];
-		this.index = (this.index + 1) % this.moves.length;
-		
-		
-		if(c == 'w'){
+		int direction = ThreadLocalRandom.current().nextInt(0,4);
+		char temp;
+		switch (direction) {
+		case 0:
 			if(this.get_y() == 0) {
 				return;
 			}
-			char temp = map[this.get_y()-1][this.get_x()];
+			temp = map[this.get_y()-1][this.get_x()];
 			if(temp == 'X' || temp == 'I') {
 				return;
 			}
 			this.set_y(this.get_y() - 1);
+			break;
 			
-		}
-		else if(c == 'd') {
+		case 1:
 			if(this.get_x() == map[0].length-1) {
 				return;
 			}
-			char temp = map[this.get_y()][this.get_x() + 1];
+			temp = map[this.get_y()][this.get_x() + 1];
 			if(temp == 'X' || temp == 'I') {
 				return;
 			}
 			this.set_x(this.get_x() + 1);
-			
-		}
-		else if(c == 's') {
+			break;
+		case 2:
 			if(this.get_y() == map.length-1) {
 				return;
 			}
-			char temp = map[this.get_y()+1][this.get_x()];
+			temp = map[this.get_y()+1][this.get_x()];
 			if(temp == 'X' || temp == 'I') {
 				return;
 			}
 			this.set_y(this.get_y() + 1);
-			
-		}
-		else if(c == 'a') {
+			break;
+		case 3:
 			if(this.get_x() == 0) {
 				return;
 			}
-			char temp = map[this.get_y()][this.get_x() - 1];
+			temp = map[this.get_y()][this.get_x() - 1];
 			if(temp == 'X' || temp == 'I') {
 				return;
 			}
 			this.set_x(this.get_x() - 1);
+			break;
 			
+			
+		default:
 		}
-	}
 	
+	}
 }

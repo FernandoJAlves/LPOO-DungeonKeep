@@ -12,16 +12,42 @@ public class Map {
 			{'X',' ','I',' ','I',' ','X','k',' ','X'},
 			{'X','X','X','X','X','X','X','X','X','X'}
 	};
+	private char[][] char_map2 = {
+			{'X','X','X','X','X','X','X','X','X'},
+			{'I',' ',' ',' ',' ',' ',' ','k','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X','X','X','X','X','X','X','X','X'}
+	};
 	
 	
 	
-	public char[][] getMap() {
-		return this.char_map;
+	public char[][] getMap(Game.Game_State state) {
+		if(state == Game.Game_State.LVL1)
+			return this.char_map;
+		return this.char_map2;
 	}
 	
-	public void leversUp() {
-		this.char_map[5][0] = 'S';
-		this.char_map[6][0] = 'S';
+	public Game.Game_State leversUp(Game.Game_State state) {
+		if(state == Game.Game_State.LEVER_ACT1) {
+			this.char_map[5][0] = 'S';
+			this.char_map[6][0] = 'S';
+			return Game.Game_State.LVL1;
+		}
+		else if(state == Game.Game_State.KEY_PICKED) {
+			this.char_map2[7][1] = ' ';
+			return Game.Game_State.KEY_PICKED;
+		}
+		else if(state == Game.Game_State.KEY_TURNED) {
+			this.char_map2[1][0] = 'S';
+			return Game.Game_State.KEY_TURNED;
+		}
+		return Game.Game_State.LVL1;
+
 	}
 	
 	
