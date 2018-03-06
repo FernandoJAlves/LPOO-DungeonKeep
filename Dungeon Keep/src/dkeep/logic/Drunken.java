@@ -41,7 +41,7 @@ public class Drunken extends Guard{
 		
 		if(inverted) {
 			if(this.index == 0) {
-				this.index = this.moves.length;
+				this.index = this.moves.length - 1;
 			}
 			else {
 				this.index = (this.index - 1);
@@ -56,11 +56,12 @@ public class Drunken extends Guard{
 	}
 	
 	public void move(char[][] map) {
-		if(this.sleepCounter > 0) {
-			return;
-		}
-		char c = this.moves[this.index];
+		char c = 0;
 		updateIndex();
+		if(this.sleepCounter == 0) {
+			c = this.moves[this.index];
+		}
+		
 		
 		if(c == 'w'){
 			if(this.get_y() == 0) {
