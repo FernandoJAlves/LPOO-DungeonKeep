@@ -1,3 +1,4 @@
+package dkeep.logic;
 
 public class Point {
 	public int x = 0;

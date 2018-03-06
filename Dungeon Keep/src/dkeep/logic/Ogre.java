@@ -1,24 +1,15 @@
+package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class Ogre {
-	private int x = 4;
-	private int y = 1;
+public class Ogre extends Character{
 	private int direction = 0;
 	Point club_hit = new Point();
 	
-	public int get_x() {
-		return this.x;
+	public Ogre() {
+		super(4,1);
 	}
-	public int get_y() {
-		return this.y;
-	}
-	public void set_x(int x_t) {
-		this.x = x_t;
-	}
-	public void set_y(int y_t) {
-		this.y = y_t;
-	}
+	
 	public int get_dir() {
 		return this.direction;
 	}
@@ -80,8 +71,8 @@ public class Ogre {
 	
 	public void club_logic(char[][] map) {
 		int direction = ThreadLocalRandom.current().nextInt(0,4);
-		club_hit.x = this.x;
-		club_hit.y = this.y;
+		club_hit.x = this.get_x();
+		club_hit.y = this.get_y();
 		char temp;
 		this.set_dir(direction);
 		switch (direction) {

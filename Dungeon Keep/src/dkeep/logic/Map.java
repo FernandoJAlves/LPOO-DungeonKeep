@@ -1,3 +1,4 @@
+package dkeep.logic;
 
 public class Map {
 	private char[][] char_map = {
@@ -43,10 +44,15 @@ public class Map {
 			return Game.Game_State.KEY_PICKED;
 		}
 		else if(state == Game.Game_State.KEY_TURNED) {
-			this.char_map2[1][0] = 'S';
 			return Game.Game_State.KEY_TURNED;
 		}
 		return Game.Game_State.LVL1;
+
+	}
+	
+	public Game.Game_State turnKey(Game.Game_State state) {
+			this.char_map2[1][0] = 'S';
+			return Game.Game_State.KEY_TURNED;
 
 	}
 	

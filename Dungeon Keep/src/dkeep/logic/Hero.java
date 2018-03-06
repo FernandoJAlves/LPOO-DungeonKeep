@@ -1,27 +1,32 @@
+package dkeep.logic;
 
-public class Guard {
+public class Hero extends Character{
+
+
+	private char direction = 0;
+	char sprite = 'H';
 	
-	private int x = 8;
-	private int y = 1;
-	public int index = 0;
-	public char moves[] = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
+	public Hero() {
+		super(1,1);
+	}
+
+	public void set_direction(char c) {
+		this.direction = c;
+	}
 	
-	public int get_x() {
-		return this.x;
+	public char get_direction() {
+		return this.direction;
 	}
-	public int get_y() {
-		return this.y;
+	
+	public char getSprite() {
+		return this.sprite;
 	}
-	public void set_x(int x_t) {
-		this.x = x_t;
+	public void pick_key() {
+		this.sprite = 'K';
 	}
-	public void set_y(int y_t) {
-		this.y = y_t;
-	}
+	
 	public void move(char[][] map) {
-		char c = this.moves[this.index];
-		this.index = (this.index + 1) % this.moves.length;
-		
+		char c = this.direction;
 		
 		if(c == 'w'){
 			if(this.get_y() == 0) {
@@ -35,6 +40,7 @@ public class Guard {
 			
 		}
 		else if(c == 'd') {
+			
 			if(this.get_x() == map[0].length-1) {
 				return;
 			}
@@ -57,6 +63,7 @@ public class Guard {
 			
 		}
 		else if(c == 'a') {
+			
 			if(this.get_x() == 0) {
 				return;
 			}
@@ -67,6 +74,7 @@ public class Guard {
 			this.set_x(this.get_x() - 1);
 			
 		}
+		
 	}
 	
 }

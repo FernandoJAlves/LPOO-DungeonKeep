@@ -1,14 +1,31 @@
-import java.util.Scanner;
+package dkeep.logic;
 
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 	private Map map = new Map();
 	private Hero hero = new Hero();
-	private Guard guard = new Guard();
+	private Guard guard;
 	private Ogre ogre = new Ogre();
-	private Scanner s = new Scanner(System.in);
 	public enum Game_State {LVL1, LVL2, LEVER_ACT1, KEY_PICKED, KEY_TURNED, WIN, LOSE};
 	public Game_State state = Game.Game_State.LVL1;
+	
+	public Game(){
+		//int guard_number = ThreadLocalRandom.current().nextInt(0,3);
+		int guard_number = 1;
+		switch(guard_number) {
+		case 0:
+			guard = new Rookie();
+			break;
+		case 1:
+			guard = new Drunken();
+			break;
+		case 2:
+			break;
+		default:
+			guard = new Rookie();
+		}
+	}
 	
 	public void drawScreen() {
 		for(int i = 0; i < 17; i++) {
@@ -75,11 +92,6 @@ public class Game {
 		}
 		
 
-	}
-	public char input() {
-		System.out.println();
-		System.out.print("Move: ");
-		return s.next().charAt(0);
 	}
 	
 	public Game.Game_State collision(){
@@ -160,46 +172,63 @@ public class Game {
 
 		
 		return this.state;
-	}
+	}	
 	
-	public void game_loop() {
-		char c = 'j';
-		do {
-			
-			this.state = this.collision();
-			this.drawScreen();
-			if(this.state != Game.Game_State.LOSE) {
-				c = this.input();
-			}
-			if(c == 'q') {
-				this.state = Game.Game_State.LOSE;
-			}
-
-			this.state = this.hero.move(c, this.state, this.map.getMap(this.state));
-			if(this.state == Game.Game_State.LVL1) {
-				this.guard.move(this.map.getMap(this.state));
-			}
-			else if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED || this.state == Game.Game_State.KEY_TURNED) {
-				this.ogre.move(this.map.getMap(this.state));
-				ogre.club_logic(map.getMap(this.state));
+	
+	
+	public Game.Game_State updateState() {
+		
+		char pos = map.getMap(this.state)[hero.get_y()][hero.get_x()];
+		Game.Game_State g = this.state;
+		
+		if(pos == 'k') {
+			if(g == Game.Game_State.LVL1)
+				return Game.Game_State.LEVER_ACT1;
+			else if(g == Game.Game_State.LVL2)
+				return Game.Game_State.KEY_PICKED;
+		}
+		if(pos == 'S') {
+			if(g == Game.Game_State.LVL1) {
+				hero.set_x(1);
+				hero.set_y(7);
+				return Game.Game_State.LVL2;
 			}
 
-		} while (!(this.state.equals(Game.Game_State.LOSE)) && !(this.state.equals(Game.Game_State.WIN)));
-		System.out.println();
-		if(this.state.equals(Game.Game_State.LOSE)) {
-			System.out.println("Game Over. Try again");
+			else if(g == Game.Game_State.LVL2)
+				return Game.Game_State.WIN;
+			return Game.Game_State.WIN;
+		}
+
+		
+		return g;
+		
+	}
+		
+	public void updateGame(char c) {
+
+		if(this.state == Game.Game_State.KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
+			this.state = map.turnKey(this.state);
 		}
 		else {
-			System.out.println("Congratulations! You Win the game");
+			this.hero.set_direction(c);
+			this.hero.move(this.map.getMap(this.state));
+			this.state = this.updateState();
 		}
 		
+
 		
-		
+		if (this.state == Game.Game_State.LVL1) {
+			this.guard.move(this.map.getMap(this.state));
+		} else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
+				|| this.state == Game.Game_State.KEY_TURNED) {
+			this.ogre.move(this.map.getMap(this.state));
+			ogre.club_logic(map.getMap(this.state));
+		}
 	}
 
 		
 	
 	public void close() {
-		s.close();
+		
 	}
 }
