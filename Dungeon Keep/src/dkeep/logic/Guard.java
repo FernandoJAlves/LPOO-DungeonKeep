@@ -2,10 +2,10 @@ package dkeep.logic;
 
 public abstract class Guard extends Character{
 	
-	public char sprite = 'G';
-	public int index = 0;
-	public char moves[] = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
-	public char inverted_moves[];
+	protected char sprite = 'G';
+	protected int index = 0;
+	protected char moves[] =     {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
+	protected char moves_inv[] = {'d', 'w', 'w', 'w', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 's', 's', 's', 's', 's'};
 	
 	public Guard(int x, int y) {
 		super(x,y);

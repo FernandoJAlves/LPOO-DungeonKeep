@@ -4,9 +4,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Drunken extends Guard{
 	private int sleepCounter = 0;
-	private int reRollSleep = 0;
+	private int reRollSleep = 5;
+	private boolean sleepy = false;
 	private boolean inverted = false;
-	public char moves_inv[] = {'d', 'w', 'w', 'w', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 's', 's', 's', 's', 's'};
 	
 	public Drunken() {
 		super(8,1);
@@ -14,36 +14,54 @@ public class Drunken extends Guard{
 	
 	public void updateIndex() {
 		int temp;
+		int inverse;
+		
 		if(sleepCounter > 0) {
 			this.sleepCounter--;
 			return;
 		}
-		if(reRollSleep > 0) {
-			this.reRollSleep--;
-		}
-		if(reRollSleep == 0) {
-			reRollSleep = 5;
-			temp = ThreadLocalRandom.current().nextInt(0,3);
-			if(temp == 0) {
-				sleepCounter = ThreadLocalRandom.current().nextInt(3,6);
-				this.setSprite('g');
-			}
-		}
-		
 		if(sleepCounter == 0) {
+			this.sleepy = false;
 			this.setSprite('G');
 		}
 		
-		int inverse = ThreadLocalRandom.current().nextInt(0,2);
 		
-		switch(inverse) {
-		case 0:
-			this.inverted = false;
-		case 1:
-			this.inverted = true;
-		default:
-			this.inverted = false;
+		if(reRollSleep > 0) {
+			this.reRollSleep--;
 		}
+		
+		if(reRollSleep == 0) {
+
+			
+			reRollSleep = 5;
+			temp = ThreadLocalRandom.current().nextInt(0,3);
+			if(temp == 2) {
+				sleepCounter = ThreadLocalRandom.current().nextInt(3,6);
+				this.sleepy = true;
+				this.setSprite('g');
+				
+				inverse = ThreadLocalRandom.current().nextInt(0,2);
+				
+				switch(inverse) {
+				case 0:
+					this.inverted = false;
+					break;
+				case 1:
+					this.inverted = true;
+					break;
+				default:
+					this.inverted = false;
+					break;
+				}
+				
+				
+				
+				return;
+			}
+		}
+		
+		
+
 		
 		if(inverted) {
 			if(this.index == 0) {
@@ -63,8 +81,8 @@ public class Drunken extends Guard{
 	
 	public void move(char[][] map) {
 		char c = 0;
-		updateIndex();
-		if(this.sleepCounter == 0) {
+			
+		if(!this.sleepy) {
 			if(this.inverted) {
 				c = this.moves_inv[this.index];
 			}
@@ -73,6 +91,7 @@ public class Drunken extends Guard{
 			}
 			
 		}
+		this.updateIndex();
 		
 		
 		if(c == 'w'){

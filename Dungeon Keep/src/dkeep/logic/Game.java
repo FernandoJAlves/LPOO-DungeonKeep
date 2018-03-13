@@ -95,24 +95,33 @@ public class Game {
 	}
 	
 	public Game.Game_State collision(){
-		if(this.state == Game.Game_State.LVL1) {
+		if(this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LEVER_ACT1) {
 		if(hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
-			return Game.Game_State.LOSE;
+			if(guard.getSprite() != 'g') {
+				return Game.Game_State.LOSE;
+			}
 		}
 		if(hero.get_y() == (guard.get_y()-1) && hero.get_x() == (guard.get_x())) {
-			return Game.Game_State.LOSE;
+			if(guard.getSprite() != 'g') {
+				return Game.Game_State.LOSE;
+			}
 		}
 		if(hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x()-1)) {
-			return Game.Game_State.LOSE;
+			if(guard.getSprite() != 'g') {
+				return Game.Game_State.LOSE;
+			}
 		}
 		if(hero.get_y() == (guard.get_y()+1) && hero.get_x() == (guard.get_x())) {
-			return Game.Game_State.LOSE;
+			if(guard.getSprite() != 'g') {
+				return Game.Game_State.LOSE;
+			}	
 		}
 		if(hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x()+1)) {
-			return Game.Game_State.LOSE;
+			if(guard.getSprite() != 'g') {
+				return Game.Game_State.LOSE;
+			}
 		}
 		}
-		
 		if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED || this.state == Game.Game_State.KEY_PICKED) {
 		if(hero.get_y() == (ogre.get_y()) && hero.get_x() == (ogre.get_x())) {
 			return Game.Game_State.LOSE;
