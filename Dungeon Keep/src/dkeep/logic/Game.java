@@ -1,12 +1,13 @@
 package dkeep.logic;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 	private Map map = new Map();
 	private Hero hero = new Hero();
 	private Guard guard;
-	private Ogre ogre = new Ogre();
+	private ArrayList<Ogre> ogres;
 	public enum Game_State {LVL1, LVL2, LEVER_ACT1, KEY_PICKED, KEY_TURNED, WIN, LOSE};
 	public Game_State state = Game.Game_State.LVL1;
 	
@@ -26,143 +27,139 @@ public class Game {
 		default:
 			guard = new Rookie();
 		}
+		
+		ogres = ogre_generator();
+		
 	}
 	
 	public void drawScreen() {
-		for(int i = 0; i < 17; i++) {
+		for (int i = 0; i < 17; i++) {
 			System.out.println();
 		}
-		
-		if(this.state.equals(Game_State.KEY_PICKED)) {
+
+		if (this.state.equals(Game_State.KEY_PICKED)) {
 			hero.pick_key();
 		}
-		
-		if(this.state.equals(Game_State.LEVER_ACT1) || this.state.equals(Game_State.KEY_TURNED) || this.state.equals(Game_State.KEY_PICKED)) {
+
+		if (this.state.equals(Game_State.LEVER_ACT1) || this.state.equals(Game_State.KEY_TURNED)
+				|| this.state.equals(Game_State.KEY_PICKED)) {
 			this.state = map.leversUp(this.state);
 		}
-		
-		if(this.state == Game.Game_State.LVL1) {
-			for(int i = 0; i < map.getMap(this.state).length;i++) {
-				for(int j = 0; j < map.getMap(this.state)[0].length; j++) {
 
-					if(i == guard.get_y() && j == guard.get_x()) {
+		if (this.state == Game.Game_State.LVL1) {
+			for (int i = 0; i < map.getMap(this.state).length; i++) {
+				for (int j = 0; j < map.getMap(this.state)[0].length; j++) {
+
+					if (i == guard.get_y() && j == guard.get_x()) {
 						System.out.print(guard.getSprite());
-					}
-					else if(i == hero.get_y() && j == hero.get_x()) {
+					} else if (i == hero.get_y() && j == hero.get_x()) {
 						System.out.print('H');
-					}
-					else {
+					} else {
 						System.out.print(this.map.getMap(this.state)[i][j]);
 					}
 				}
 				System.out.println();
 			}
 		}
-		
-		else if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED || this.state == Game.Game_State.KEY_TURNED) {
-		
-			
-			for(int i = 0; i < map.getMap(this.state).length;i++) {
-				for(int j = 0; j < map.getMap(this.state)[0].length; j++) {
-					
-					if(i == ogre.get_y() && j == ogre.get_x()) {
-						if(ogre.get_x() == 7 && ogre.get_y() == 1) {
-						System.out.print('$');
-						}
-						else {
-						System.out.print('O');
-						}
-					}
-					else if(i == hero.get_y() && j == hero.get_x()) {
-						System.out.print(this.hero.getSprite());
-					}
-					else if(ogre.club_hit.x == j && ogre.club_hit.y == i){
-						if(ogre.club_hit.x == 7 && ogre.club_hit.y == 1) {
-						System.out.print('$');
-						}
-						else {
-						System.out.print('*');
-						}
-					}
-					else {
-						System.out.print(this.map.getMap(this.state)[i][j]);
-					}
-				}
-				System.out.println();
-			}
-		}
-		
 
+		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
+				|| this.state == Game.Game_State.KEY_TURNED) {
+
+			for (int i = 0; i < map.getMap(this.state).length; i++) {
+				for (int j = 0; j < map.getMap(this.state)[0].length; j++) {
+						if (this.getOgre(j, i) != null) {
+							if (this.getOgre(7, 1) != null && j == 7 && i == 1) {
+								System.out.print('$');
+							} else {
+								System.out.print(this.getOgre(7, 1).getSprite());
+							}
+						} else if (i == hero.get_y() && j == hero.get_x()) {
+							System.out.print(this.hero.getSprite());
+						} else if (this.isHit(j, i)) {
+							if (this.isHit(7, 1)) {
+								System.out.print('$');
+							} else {
+								System.out.print('*');
+							}
+						} else {
+							System.out.print(this.map.getMap(this.state)[i][j]);
+						}
+					}
+				System.out.println();
+			}
+		}
 	}
 	
-	public Game.Game_State collision(){
-		if(this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LEVER_ACT1) {
-		if(hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
-			if(guard.getSprite() != 'g') {
-				return Game.Game_State.LOSE;
+	public Game.Game_State collision() {
+		if (this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LEVER_ACT1) {
+			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
+				if (guard.getSprite() != 'g') {
+					return Game.Game_State.LOSE;
+				}
+			}
+			if (hero.get_y() == (guard.get_y() - 1) && hero.get_x() == (guard.get_x())) {
+				if (guard.getSprite() != 'g') {
+					return Game.Game_State.LOSE;
+				}
+			}
+			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x() - 1)) {
+				if (guard.getSprite() != 'g') {
+					return Game.Game_State.LOSE;
+				}
+			}
+			if (hero.get_y() == (guard.get_y() + 1) && hero.get_x() == (guard.get_x())) {
+				if (guard.getSprite() != 'g') {
+					return Game.Game_State.LOSE;
+				}
+			}
+			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x() + 1)) {
+				if (guard.getSprite() != 'g') {
+					return Game.Game_State.LOSE;
+				}
 			}
 		}
-		if(hero.get_y() == (guard.get_y()-1) && hero.get_x() == (guard.get_x())) {
-			if(guard.getSprite() != 'g') {
-				return Game.Game_State.LOSE;
-			}
-		}
-		if(hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x()-1)) {
-			if(guard.getSprite() != 'g') {
-				return Game.Game_State.LOSE;
-			}
-		}
-		if(hero.get_y() == (guard.get_y()+1) && hero.get_x() == (guard.get_x())) {
-			if(guard.getSprite() != 'g') {
-				return Game.Game_State.LOSE;
-			}	
-		}
-		if(hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x()+1)) {
-			if(guard.getSprite() != 'g') {
-				return Game.Game_State.LOSE;
-			}
-		}
-		}
-		if(this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED || this.state == Game.Game_State.KEY_PICKED) {
-		if(hero.get_y() == (ogre.get_y()) && hero.get_x() == (ogre.get_x())) {
-			return Game.Game_State.LOSE;
-		}
-		if(hero.get_y() == (ogre.get_y()-1) && hero.get_x() == (ogre.get_x())) {
-			return Game.Game_State.LOSE;
-		}
-		if(hero.get_y() == (ogre.get_y()) && hero.get_x() == (ogre.get_x()-1)) {
-			return Game.Game_State.LOSE;
-		}
-		if(hero.get_y() == (ogre.get_y()+1) && hero.get_x() == (ogre.get_x())) {
-			return Game.Game_State.LOSE;
-		}
-		if(hero.get_y() == (ogre.get_y()) && hero.get_x() == (ogre.get_x()+1)) {
-			return Game.Game_State.LOSE;
-		}
-		}
-		
-		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED || this.state == Game.Game_State.KEY_PICKED) {
+		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED
+				|| this.state == Game.Game_State.KEY_PICKED) {
 
-			int x_t = 0;
-			int y_t = 0;
-			if(ogre.get_dir() == 0) {
-				x_t = ogre.get_x();
-				y_t = ogre.get_y() - 1;
-			}
-			else if(ogre.get_dir() == 1) {
-				x_t = ogre.get_x() + 1;
-				y_t = ogre.get_y();
-			}
-			else if(ogre.get_dir() == 2) {
-				x_t = ogre.get_x();
-				y_t = ogre.get_y() + 1;
-			}
-			else if(ogre.get_dir() == 3) {
-				x_t = ogre.get_x() - 1;
-				y_t = ogre.get_y();
-			}
+			for (int k = 0; k < this.ogres.size(); k++) {
+				
+				if(hero.attack().x == ogres.get(k).get_x() && hero.attack().y == ogres.get(k).get_y()) {
+					ogres.get(k).stun();
+				}
+				
+				else if(ogres.get(k).isStunned()){
 
-		
+				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x())) {
+					return Game.Game_State.LOSE;
+				}
+
+				if (hero.get_y() == (ogres.get(k).get_y() - 1) && hero.get_x() == (ogres.get(k).get_x())) {
+					return Game.Game_State.LOSE;
+				}
+				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x() - 1)) {
+					return Game.Game_State.LOSE;
+				}
+				if (hero.get_y() == (ogres.get(k).get_y() + 1) && hero.get_x() == (ogres.get(k).get_x())) {
+					return Game.Game_State.LOSE;
+				}
+				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x() + 1)) {
+					return Game.Game_State.LOSE;
+				}
+				}
+			}
+		}
+
+		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED
+				|| this.state == Game.Game_State.KEY_PICKED) {
+
+			int x_t;
+			int y_t;
+
+			for (int k = 0; k < this.ogres.size(); k++) {
+				
+			x_t = this.ogres.get(k).club_hit.x;
+			y_t = this.ogres.get(k).club_hit.y;
+
 			if (hero.get_y() == (y_t) && hero.get_x() == (x_t)) {
 				return Game.Game_State.LOSE;
 			}
@@ -178,11 +175,11 @@ public class Game {
 			if (hero.get_y() == (y_t) && hero.get_x() == (x_t + 1)) {
 				return Game.Game_State.LOSE;
 			}
+			}
 		}
 
-		
 		return this.state;
-	}	
+	}
 	
 	
 	
@@ -201,6 +198,7 @@ public class Game {
 			if(g == Game.Game_State.LVL1) {
 				hero.set_x(1);
 				hero.set_y(7);
+				hero.setSprite('A');
 				return Game.Game_State.LVL2;
 			}
 
@@ -231,14 +229,48 @@ public class Game {
 			this.guard.move(this.map.getMap(this.state));
 		} else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
 				|| this.state == Game.Game_State.KEY_TURNED) {
-			this.ogre.move(this.map.getMap(this.state));
-			ogre.club_logic(map.getMap(this.state));
+			for(int k = 0;k < this.ogres.size();k++) {
+			this.ogres.get(k).move(this.map.getMap(this.state));
+			ogres.get(k).club_logic(map.getMap(this.state));
+			}
 		}
 	}
 
 		
 	
 	public void close() {
+		
+	}
+	
+	public ArrayList<Ogre> ogre_generator(){
+		int numOgres = ThreadLocalRandom.current().nextInt(2,5);
+		int x,y;
+		ArrayList<Ogre> ogres = new ArrayList<>();
+		for(int i = 0;i < numOgres;i++) {
+			x = ThreadLocalRandom.current().nextInt(3,8);
+			y = ThreadLocalRandom.current().nextInt(3,8);
+			ogres.add(new Ogre(x,y));
+		}
+		return ogres;
+	}
+	
+	
+	public Ogre getOgre(int x, int y) {
+		for(int k = 0;k < this.ogres.size();k++) {
+			if(this.ogres.get(k).get_x() == x && this.ogres.get(k).get_y() == y) {
+				return this.ogres.get(k);
+			}
+		}
+		return null;
+	}
+	
+	public boolean isHit(int x, int y) {
+		for(int k = 0;k < this.ogres.size();k++) {
+			if(this.ogres.get(k).club_hit.x == x && this.ogres.get(k).club_hit.y == y) {
+				return true;
+			}
+		}
+		return false;
 		
 	}
 }

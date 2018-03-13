@@ -4,10 +4,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ogre extends Character{
 	private int direction = 0;
-	Point club_hit = new Point();
+	public Point club_hit = new Point();
+	private int stun_count = 0;
+	private char sprite = 'O';
 	
-	public Ogre() {
-		super(4,1);
+	public Ogre(int x, int y) {
+		super(x,y);
 	}
 	
 	public int get_dir() {
@@ -18,6 +20,16 @@ public class Ogre extends Character{
 	}
 	
 	public void move(char[][] map) {
+		if(this.isStunned()) {
+			stun_count--;
+			return;
+		}
+		else if(this.sprite == '8') {
+			this.sprite = 'G';
+		}
+		
+		
+		
 		int direction = ThreadLocalRandom.current().nextInt(0,4);
 		char temp;
 		switch (direction) {
@@ -124,4 +136,21 @@ public class Ogre extends Character{
 		
 		
 	}
+	
+	public void stun() {
+		stun_count = 2;
+		this.sprite = '8';
+	}
+	
+	public char getSprite() {
+		return this.sprite;
+	}
+	
+	public boolean isStunned() {
+		if(stun_count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 }
