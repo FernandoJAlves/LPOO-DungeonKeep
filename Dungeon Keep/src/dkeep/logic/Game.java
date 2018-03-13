@@ -21,6 +21,7 @@ public class Game {
 			guard = new Drunken();
 			break;
 		case 2:
+			guard = new Suspicious();
 			break;
 		default:
 			guard = new Rookie();

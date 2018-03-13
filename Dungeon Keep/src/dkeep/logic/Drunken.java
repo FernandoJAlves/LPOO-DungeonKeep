@@ -7,6 +7,7 @@ public class Drunken extends Guard{
 	private int reRollSleep = 5;
 	private boolean sleepy = false;
 	private boolean inverted = false;
+	private boolean turning = false;
 	
 	public Drunken() {
 		super(8,1);
@@ -15,6 +16,7 @@ public class Drunken extends Guard{
 	public void updateIndex() {
 		int temp;
 		int inverse;
+		boolean previous_inverted = this.inverted;
 		
 		if(sleepCounter > 0) {
 			this.sleepCounter--;
@@ -54,13 +56,18 @@ public class Drunken extends Guard{
 					break;
 				}
 				
-				
+				if(this.inverted != previous_inverted) {
+					this.turning = true;
+				}
 				
 				return;
 			}
 		}
 		
-		
+		if(this.turning) {
+			this.turning = false;
+			return;
+		}
 
 		
 		if(inverted) {
