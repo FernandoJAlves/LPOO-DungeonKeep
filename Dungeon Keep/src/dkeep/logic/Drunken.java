@@ -6,6 +6,7 @@ public class Drunken extends Guard{
 	private int sleepCounter = 0;
 	private int reRollSleep = 0;
 	private boolean inverted = false;
+	public char moves_inv[] = {'d', 'w', 'w', 'w', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 's', 's', 's', 's', 's'};
 	
 	public Drunken() {
 		super(8,1);
@@ -19,15 +20,20 @@ public class Drunken extends Guard{
 		}
 		if(reRollSleep > 0) {
 			this.reRollSleep--;
-			return;
 		}
 		if(reRollSleep == 0) {
 			reRollSleep = 5;
 			temp = ThreadLocalRandom.current().nextInt(0,3);
 			if(temp == 0) {
 				sleepCounter = ThreadLocalRandom.current().nextInt(3,6);
+				this.setSprite('g');
 			}
 		}
+		
+		if(sleepCounter == 0) {
+			this.setSprite('G');
+		}
+		
 		int inverse = ThreadLocalRandom.current().nextInt(0,2);
 		
 		switch(inverse) {
@@ -59,7 +65,13 @@ public class Drunken extends Guard{
 		char c = 0;
 		updateIndex();
 		if(this.sleepCounter == 0) {
-			c = this.moves[this.index];
+			if(this.inverted) {
+				c = this.moves_inv[this.index];
+			}
+			else {
+				c = this.moves[this.index];
+			}
+			
 		}
 		
 		

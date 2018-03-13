@@ -11,8 +11,8 @@ public class Game {
 	public Game_State state = Game.Game_State.LVL1;
 	
 	public Game(){
-		//int guard_number = ThreadLocalRandom.current().nextInt(0,3);
-		int guard_number = 1;
+		int guard_number = ThreadLocalRandom.current().nextInt(0,3);
+		guard_number = 1;
 		switch(guard_number) {
 		case 0:
 			guard = new Rookie();
@@ -45,7 +45,7 @@ public class Game {
 				for(int j = 0; j < map.getMap(this.state)[0].length; j++) {
 
 					if(i == guard.get_y() && j == guard.get_x()) {
-						System.out.print('G');
+						System.out.print(guard.getSprite());
 					}
 					else if(i == hero.get_y() && j == hero.get_x()) {
 						System.out.print('H');
