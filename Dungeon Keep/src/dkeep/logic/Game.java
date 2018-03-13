@@ -71,7 +71,7 @@ public class Game {
 							if (this.getOgre(7, 1) != null && j == 7 && i == 1) {
 								System.out.print('$');
 							} else {
-								System.out.print(this.getOgre(7, 1).getSprite());
+								System.out.print(this.getOgre(j, i).getSprite());
 							}
 						} else if (i == hero.get_y() && j == hero.get_x()) {
 							System.out.print(this.hero.getSprite());
@@ -125,9 +125,11 @@ public class Game {
 				
 				if(hero.attack().x == ogres.get(k).get_x() && hero.attack().y == ogres.get(k).get_y()) {
 					ogres.get(k).stun();
+					continue;
 				}
 				
-				else if(ogres.get(k).isStunned()){
+				
+				else if(!ogres.get(k).isStunned()){
 
 				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x())) {
 					return Game.Game_State.LOSE;
@@ -159,6 +161,10 @@ public class Game {
 				
 			x_t = this.ogres.get(k).club_hit.x;
 			y_t = this.ogres.get(k).club_hit.y;
+			
+			if(this.ogres.get(k).isStunned()) {
+				return this.state;
+			}
 
 			if (hero.get_y() == (y_t) && hero.get_x() == (x_t)) {
 				return Game.Game_State.LOSE;

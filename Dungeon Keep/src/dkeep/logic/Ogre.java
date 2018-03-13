@@ -25,7 +25,7 @@ public class Ogre extends Character{
 			return;
 		}
 		else if(this.sprite == '8') {
-			this.sprite = 'G';
+			this.sprite = 'O';
 		}
 		
 		
@@ -82,9 +82,13 @@ public class Ogre extends Character{
 	}
 	
 	public void club_logic(char[][] map) {
-		int direction = ThreadLocalRandom.current().nextInt(0,4);
 		club_hit.x = this.get_x();
 		club_hit.y = this.get_y();
+		if(this.stun_count > 0) {
+			return;
+		}
+		int direction = ThreadLocalRandom.current().nextInt(0,4);
+
 		char temp;
 		this.set_dir(direction);
 		switch (direction) {
