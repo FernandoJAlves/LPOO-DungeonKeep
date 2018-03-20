@@ -2,10 +2,8 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-
-import dkeep.cli.DKInterface;
 import dkeep.logic.Game;
-/*
+
 public class TestDungeonGameLogic{
 		
 	@Test
@@ -39,4 +37,3 @@ public class TestDungeonGameLogic{
 	
 }
 
-*/

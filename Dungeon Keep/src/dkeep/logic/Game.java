@@ -1,14 +1,17 @@
 package dkeep.logic;
 
+
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import dkeep.test.CellPosition;
 
 public class Game {
 	private Map map = new Map();
 	private Hero hero = new Hero();
 	private Guard guard;
 	private ArrayList<Ogre> ogres;
-	public enum Game_State {LVL1, LVL2, LEVER_ACT1, KEY_PICKED, KEY_TURNED, WIN, LOSE};
+	public enum Game_State {LVL1, LVL2, LEVER_ACT1, KEY_PICKED, KEY_TURNED, WIN, LOSE, TEST};
 	public Game_State state = Game.Game_State.LVL1;
 	
 	public Game(){
@@ -91,7 +94,7 @@ public class Game {
 	}
 	
 	public Game.Game_State collision() {
-		if (this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LEVER_ACT1) {
+		if (this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LEVER_ACT1 || this.state == Game.Game_State.TEST) {
 			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
 				if (guard.getSprite() != 'g') {
 					return Game.Game_State.LOSE;
@@ -279,4 +282,38 @@ public class Game {
 		return false;
 		
 	}
+
+	public void setState(Game_State test) {
+		this.state = test;
+	}
+
+	public void setPosHero(int i, int j) {
+		this.hero.set_x(i);
+		this.hero.set_y(j);		
+	}
+
+	public CellPosition getHeroPosition() {
+		CellPosition c = new CellPosition(this.hero.get_x(),this.hero.get_y());
+		return c;
+	}
+
+	public void moveHero(char c) {
+		this.hero.set_direction(c);
+		this.hero.move(this.map.getMap(this.state));
+	}
+
+	public void setPosGuard(int i, int j) {
+		this.guard.set_x(i);
+		this.guard.set_y(j);		
+	}
+
+	public boolean isGameover() {
+		if(this.state == Game_State.LOSE) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 }
