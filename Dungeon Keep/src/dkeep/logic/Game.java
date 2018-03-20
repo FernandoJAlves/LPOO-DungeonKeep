@@ -36,6 +36,7 @@ public class Game {
 	}
 	
 	public void drawScreen() {
+		
 		for (int i = 0; i < 17; i++) {
 			System.out.println();
 		}
@@ -48,49 +49,39 @@ public class Game {
 				|| this.state.equals(Game_State.KEY_PICKED)) {
 			this.state = map.leversUp(this.state);
 		}
+		
+		char [][] aux = new char[this.map.getMap(this.state)[0].length][];
+		
+		for(int i = 0; i < this.map.getMap(this.state).length;i++) {
+			aux[i] = this.map.getMap(this.state)[i].clone();
+		}
 
+		
+		aux[hero.get_y()][hero.get_x()] = hero.getSprite();
+		
 		if (this.state == Game.Game_State.LVL1) {
-			for (int i = 0; i < map.getMap(this.state).length; i++) {
-				for (int j = 0; j < map.getMap(this.state)[0].length; j++) {
-
-					if (i == guard.get_y() && j == guard.get_x()) {
-						System.out.print(guard.getSprite());
-					} else if (i == hero.get_y() && j == hero.get_x()) {
-						System.out.print('H');
-					} else {
-						System.out.print(this.map.getMap(this.state)[i][j]);
-					}
-				}
-				System.out.println();
-			}
+			aux[guard.get_y()][guard.get_x()] = guard.getSprite();
 		}
 
 		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
 				|| this.state == Game.Game_State.KEY_TURNED) {
+			for (int i = 0; i < this.ogres.size(); i++) {
+				if (this.ogres.get(i).get_x() == 7 && this.ogres.get(i).get_y() == 1) {
+					aux[1][7] = '$';
+				} else {
+					aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
+				}
 
-			for (int i = 0; i < map.getMap(this.state).length; i++) {
-				for (int j = 0; j < map.getMap(this.state)[0].length; j++) {
-						if (this.getOgre(j, i) != null) {
-							if (this.getOgre(7, 1) != null && j == 7 && i == 1) {
-								System.out.print('$');
-							} else {
-								System.out.print(this.getOgre(j, i).getSprite());
-							}
-						} else if (i == hero.get_y() && j == hero.get_x()) {
-							System.out.print(this.hero.getSprite());
-						} else if (this.isHit(j, i)) {
-							if (this.isHit(7, 1)) {
-								System.out.print('$');
-							} else {
-								System.out.print('*');
-							}
-						} else {
-							System.out.print(this.map.getMap(this.state)[i][j]);
-						}
-					}
-				System.out.println();
+				if (this.ogres.get(i).club_hit.x == 7 && this.ogres.get(i).club_hit.y == 1) {
+					aux[1][7] = '$';
+				} else {
+					aux[this.ogres.get(i).club_hit.y][this.ogres.get(i).club_hit.x] = '*';
+				}
 			}
+
 		}
+		
+		printMap(aux);
 	}
 	
 	public Game.Game_State collision() {
@@ -244,12 +235,6 @@ public class Game {
 			}
 		}
 	}
-
-		
-	
-	public void close() {
-		
-	}
 	
 	public ArrayList<Ogre> ogre_generator(){
 		int numOgres = ThreadLocalRandom.current().nextInt(2,5);
@@ -263,24 +248,13 @@ public class Game {
 		return ogres;
 	}
 	
-	
-	public Ogre getOgre(int x, int y) {
-		for(int k = 0;k < this.ogres.size();k++) {
-			if(this.ogres.get(k).get_x() == x && this.ogres.get(k).get_y() == y) {
-				return this.ogres.get(k);
+	public void printMap(char[][] m) {
+		for(int i = 0; i < m.length;i++) {
+			for(int j = 0; j < m[0].length;j++) {
+				System.out.print(m[i][j]);
 			}
+			System.out.println();
 		}
-		return null;
-	}
-	
-	public boolean isHit(int x, int y) {
-		for(int k = 0;k < this.ogres.size();k++) {
-			if(this.ogres.get(k).club_hit.x == x && this.ogres.get(k).club_hit.y == y) {
-				return true;
-			}
-		}
-		return false;
-		
 	}
 
 	public void setState(Game_State test) {

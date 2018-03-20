@@ -5,28 +5,33 @@ import java.awt.EventQueue;
 import dkeep.logic.Game;
 
 public class DKInterface {
-	Game dk = new Game();
-	GraphicInterface window;
+	private Game dk = new Game();
+	private Input input = new Input();
+	private GraphicInterface window;
+	private boolean ready = false;
 	
 	public DKInterface() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					window = new GraphicInterface();
+					ready = true;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+
 	}
-	
 	public void game_loop() {
+		//while(!ready) {};
 		char c = 'j';
 		do {
 			this.dk.state = this.dk.collision();
-			this.dk.drawScreen();
+			
 			if(this.dk.state != Game.Game_State.LOSE) {
-				c = window.read();
+				this.dk.drawScreen();
+				c = input.read();
 			}
 			if(c == 'q') {
 				this.dk.state = Game.Game_State.LOSE;
