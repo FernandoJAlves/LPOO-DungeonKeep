@@ -1,5 +1,6 @@
 package dkeep.cli;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -121,6 +122,7 @@ public class GraphicInterface {
 		frmDungeonKeep.getContentPane().add(btnRight);
 		
 		screenText = new JTextArea();
+		screenText.setFont(new Font("monospaced", Font.PLAIN, 12));
 		screenText.setBounds(33, 54, 429, 240);
 		frmDungeonKeep.getContentPane().add(screenText);
 		
