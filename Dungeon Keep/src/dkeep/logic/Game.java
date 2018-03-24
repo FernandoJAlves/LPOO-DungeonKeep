@@ -35,12 +35,8 @@ public class Game {
 		
 	}
 	
-	public void drawScreen() {
+	public String drawScreen() {
 		
-		for (int i = 0; i < 17; i++) {
-			System.out.println();
-		}
-
 		if (this.state.equals(Game_State.KEY_PICKED)) {
 			hero.pick_key();
 		}
@@ -66,22 +62,23 @@ public class Game {
 		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
 				|| this.state == Game.Game_State.KEY_TURNED) {
 			for (int i = 0; i < this.ogres.size(); i++) {
-				if (this.ogres.get(i).get_x() == 7 && this.ogres.get(i).get_y() == 1) {
-					aux[1][7] = '$';
-				} else {
-					aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
-				}
 
 				if (this.ogres.get(i).club_hit.x == 7 && this.ogres.get(i).club_hit.y == 1) {
 					aux[1][7] = '$';
 				} else {
 					aux[this.ogres.get(i).club_hit.y][this.ogres.get(i).club_hit.x] = '*';
 				}
+				
+				if (this.ogres.get(i).get_x() == 7 && this.ogres.get(i).get_y() == 1) {
+					aux[1][7] = '$';
+				} else {
+					aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
+				}
 			}
 
 		}
 		
-		printMap(aux);
+		return printMap(aux);
 	}
 	
 	public Game.Game_State collision() {
@@ -248,13 +245,17 @@ public class Game {
 		return ogres;
 	}
 	
-	public void printMap(char[][] m) {
+	public String printMap(char[][] m) {
+		
+		String res = "";
+		
 		for(int i = 0; i < m.length;i++) {
 			for(int j = 0; j < m[0].length;j++) {
-				System.out.print(m[i][j]);
+				res += m[i][j];
 			}
-			System.out.println();
+			res += "\n";
 		}
+		return res;
 	}
 
 	public void setState(Game_State test) {

@@ -1,15 +1,12 @@
 package dkeep.cli;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerListener;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import dkeep.logic.Game;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,12 +16,15 @@ public class GraphicInterface {
 
 	private JFrame frmDungeonKeep;
 	private JTextField numOgres;
-	private char input = 't';
+	private JTextArea screenText;
+	private Game dk;
+	
 
 	/**
 	 * Create the application.
 	 */
-	public GraphicInterface() {
+	public GraphicInterface(Game dk) {
+		this.dk = dk;
 		initialize();
 		this.frmDungeonKeep.setVisible(true);
 	}
@@ -61,17 +61,30 @@ public class GraphicInterface {
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.setBounds(540, 60, 114, 25);
+		btnNewGame.addActionListener( new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 update('n');
+			 }
+			 }
+			); 
 		frmDungeonKeep.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(526, 279, 114, 25);
+		btnExit.addActionListener( new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 System.exit(0);
+			 }
+			 }
+			); 
 		frmDungeonKeep.getContentPane().add(btnExit);
 		
 		JButton btnUp = new JButton("Up");
 		btnUp.setBounds(524, 142, 78, 15);
 		btnUp.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 input = 'w';
+				 update('w');
+				 
 			 }
 			 }
 			); 
@@ -81,7 +94,7 @@ public class GraphicInterface {
 		btnDown.setBounds(526, 196, 78, 15);
 		btnDown.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 input = 's';
+				 update('s');
 			 }
 			 }
 			); 
@@ -91,7 +104,7 @@ public class GraphicInterface {
 		btnLeft.setBounds(474, 169, 78, 15);
 		btnLeft.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 input = 'a';
+				 update('a');
 			 }
 			 }
 			); 
@@ -101,22 +114,34 @@ public class GraphicInterface {
 		btnRight.setBounds(576, 169, 78, 15);
 		btnRight.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 input = 'd';
+				 update('d');
 			 }
 			 }
 			); 
 		frmDungeonKeep.getContentPane().add(btnRight);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(33, 54, 429, 240);
-		frmDungeonKeep.getContentPane().add(textArea);
+		screenText = new JTextArea();
+		screenText.setBounds(33, 54, 429, 240);
+		frmDungeonKeep.getContentPane().add(screenText);
 		
 		JLabel lblYouCanStart = new JLabel("You can start a new game");
 		lblYouCanStart.setBounds(33, 302, 434, 15);
 		frmDungeonKeep.getContentPane().add(lblYouCanStart);
 	}
 	
-	public char read() {
-		return this.input;
+	
+	public void update(char c) {		
+
+		if(c != 'n') {
+		
+		dk.state = dk.collision();
+		
+		dk.updateGame(c);
+		}
+		
+		if(dk.state != Game.Game_State.LOSE) {
+			this.screenText.setText(this.dk.drawScreen());
+
+		}
 	}
 }
