@@ -36,5 +36,19 @@ public class Level2 extends Map{
 		return Game.Game_State.LVL2_KEY_TURNED;
 	}
 	
+	public Game.Game_State updateState(Game.Game_State state, char pos){
+		
+		if(pos == 'k') {
+			if(state == Game.Game_State.LVL2)
+				return Game.Game_State.LVL2_KEY_PICKED;
+		}
+		
+		else if(pos == 'S') {
+			return Game.Game_State.WIN;
+		}
+
+		return state;
+	}
+	
 	
 }

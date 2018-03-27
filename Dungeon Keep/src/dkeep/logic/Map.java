@@ -10,5 +10,7 @@ public abstract class Map {
 	public abstract Game.Game_State leversUp(Game.Game_State state);
 	
 	public abstract Game.Game_State turnKey(Game.Game_State state);
-		
+	
+	public abstract Game.Game_State updateState(Game.Game_State state, char pos);
+	
 }

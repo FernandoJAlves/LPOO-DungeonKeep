@@ -184,29 +184,26 @@ public class Game {
 	public Game.Game_State updateState() {
 		
 		char pos = map.getMap(this.state)[hero.get_y()][hero.get_x()];
-		Game.Game_State g = this.state;
+		Game.Game_State original_state = this.state;
+
 		
-		if(pos == 'k') {
-			if(g == Game.Game_State.LVL1)
-				return Game.Game_State.LVL1_LEVER_ACT;
-			else if(g == Game.Game_State.LVL2)
-				return Game.Game_State.LVL2_KEY_PICKED;
-		}
-		if(pos == 'S') {
-			if(g == Game.Game_State.LVL1) {
+		//atualiza o state de acordo com a logica do level
+		Game.Game_State new_state = this.map.updateState(original_state, pos);
+		
+		
+		//comparar os 2 states, se necessário fazer transição de levels
+		if(original_state != new_state) {
+			
+			if(new_state == Game.Game_State.LVL2) {
 				hero.set_x(1);
 				hero.set_y(7);
 				hero.setSprite('A');
-				return Game.Game_State.LVL2;
+				this.map = new Level2();
 			}
-
-			else if(g == Game.Game_State.LVL2)
-				return Game.Game_State.WIN;
-			return Game.Game_State.WIN;
+			
 		}
-
 		
-		return g;
+		return new_state;
 		
 	}
 		
