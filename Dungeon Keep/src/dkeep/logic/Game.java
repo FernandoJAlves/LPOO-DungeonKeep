@@ -3,18 +3,32 @@ package dkeep.logic;
 import dkeep.test.CellPosition;
 
 public class Game {
-	private Map map = new Level1();
+	private Map map;
 	private Hero hero = new Hero();
-	//private Guard guard;
-	//private ArrayList<Ogre> ogres;
-	public enum Game_State {LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED, WIN, LOSE, TEST};
-	public Game_State state = Game.Game_State.LVL1;
+	private int numOgres;
+	public enum Game_State {PREPARE,LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED, WIN, LOSE, TEST};
+	public Game_State state = Game.Game_State.PREPARE;
 	
 	public Game(){}
 	
+	public void initialize(int level,int numOgres, int guardPersonality){
+		this.numOgres = numOgres;
+		this.hero.set_pos();
+		switch(level) {
+		case 1:
+			this.map = new Level1(guardPersonality);
+			this.state = Game.Game_State.LVL1;
+			break;
+		case 2:
+			this.map = new Level2(numOgres);
+			this.state = Game.Game_State.LVL2;
+			break;
+		}
+	}
+	
 	public String drawScreen() {
 		
-		// Esta parte pode ser melhorada, não queria era criar mais funçoes senão fica uma confusão nos nomes, depois vemos
+		// Esta parte pode ser melhorada, nï¿½o queria era criar mais funï¿½oes senï¿½o fica uma confusï¿½o nos nomes, depois vemos
 		
 		if (this.state.equals(Game_State.LVL2_KEY_PICKED)) {
 			hero.pick_key();
@@ -25,7 +39,7 @@ public class Game {
 			this.state = map.leversUp(this.state);
 		}
 		
-		// Até aqui ^
+		// Atï¿½ aqui ^
 		
 		
 		char [][] aux = new char[this.map.getMap(this.state)[0].length][];
@@ -54,17 +68,17 @@ public class Game {
 		Game.Game_State new_state = this.map.updateState(original_state, pos);
 		
 		
-		//comparar os 2 states, se necessário fazer transição de levels
+		//comparar os 2 states, se necessï¿½rio fazer transiï¿½ï¿½o de levels
 		if(original_state != new_state) {
 			
 			if(new_state == Game.Game_State.LVL2) {
 				hero.set_x(1);
 				hero.set_y(7);
 				hero.setSprite('A');
-				this.map = new Level2();
+				this.map = new Level2(numOgres);
 			}
 			
-			//se adicionarmos mais levels, a sua transição será colocada aqui
+			//se adicionarmos mais levels, a sua transiï¿½ï¿½o serï¿½ colocada aqui
 		}
 		
 		return new_state;
@@ -76,8 +90,6 @@ public class Game {
 		update.value = false;
 		
 		this.state = this.map.map_Logic(this.state, this.hero, c, update);
-		
-		System.out.println(update.value);
 		
 		if(update.value == true) {
 			update.value = false;

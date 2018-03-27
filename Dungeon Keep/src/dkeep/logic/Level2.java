@@ -7,7 +7,7 @@ public class Level2 extends Map{
 
 	private ArrayList<Ogre> ogres;
 	
-	public Level2(){
+	public Level2(int numOgres){
 		super();
 		char[][] temp = {
 				{'X','X','X','X','X','X','X','X','X'},
@@ -23,7 +23,7 @@ public class Level2 extends Map{
 		this.char_map = temp;
 		
 		//gerar os ogres
-		ogres = ogre_generator();
+		ogres = ogre_generator(numOgres);
 		
 	}
 	
@@ -162,8 +162,7 @@ public class Level2 extends Map{
 	
 	
 	
-	public ArrayList<Ogre> ogre_generator(){
-		int numOgres = ThreadLocalRandom.current().nextInt(2,5);
+	public ArrayList<Ogre> ogre_generator(int numOgres){
 		int x,y;
 		ArrayList<Ogre> ogres = new ArrayList<>();
 		for(int i = 0;i < numOgres;i++) {

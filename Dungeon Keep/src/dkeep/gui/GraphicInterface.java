@@ -1,4 +1,4 @@
-package dkeep.cli;
+package dkeep.gui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,6 +18,8 @@ public class GraphicInterface {
 	private JFrame frmDungeonKeep;
 	private JTextField numOgres;
 	private JTextArea screenText;
+	private JComboBox<String> comboBox;
+	private JLabel lblYouCanStart;
 	private Game dk;
 	
 
@@ -53,9 +55,9 @@ public class GraphicInterface {
 		lblGuardPersonality.setBounds(33, 27, 146, 15);
 		frmDungeonKeep.getContentPane().add(lblGuardPersonality);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setToolTipText("");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(179, 22, 120, 24);
 		frmDungeonKeep.getContentPane().add(comboBox);
@@ -64,6 +66,17 @@ public class GraphicInterface {
 		btnNewGame.setBounds(540, 60, 114, 25);
 		btnNewGame.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 int num = 0;
+				 try {
+					    num = Integer.parseInt(numOgres.getText());
+					} catch (NumberFormatException ex) {
+					    return;
+					}
+				 if(num < 0 || num > 5) {
+					 return;
+				 }
+				 lblYouCanStart.setText("You can play now.");
+				 dk.initialize(1, num, comboBox.getSelectedIndex());
 				 update('n');
 			 }
 			 }
@@ -126,24 +139,40 @@ public class GraphicInterface {
 		screenText.setBounds(33, 54, 429, 240);
 		frmDungeonKeep.getContentPane().add(screenText);
 		
-		JLabel lblYouCanStart = new JLabel("You can start a new game");
+		lblYouCanStart = new JLabel("You can start a new game");
 		lblYouCanStart.setBounds(33, 302, 434, 15);
 		frmDungeonKeep.getContentPane().add(lblYouCanStart);
 	}
 	
 	
-	public void update(char c) {		
-
-		if(c != 'n') {
+	public void update(char c) {	
 		
+		if(dk.state == Game.Game_State.PREPARE) {
+			return;
+		}
+		
+
+		
+		
+		
+		if(c != 'n') {
+			dk.updateGame(c);
 		dk.state = dk.collision();
 		
-		dk.updateGame(c);
+		
 		}
 		
-		if(dk.state != Game.Game_State.LOSE) {
-			this.screenText.setText(this.dk.drawScreen());
-
+		this.screenText.setText(this.dk.drawScreen());
+		if(dk.state == Game.Game_State.LOSE) {
+			lblYouCanStart.setText("Game Over! Try again!");
+			dk.state = Game.Game_State.PREPARE;
+			return;
 		}
+		else if(dk.state == Game.Game_State.WIN) {
+			lblYouCanStart.setText("Congratulations! You Won!");
+			dk.state = Game.Game_State.PREPARE;
+			return;
+		}
+
 	}
 }

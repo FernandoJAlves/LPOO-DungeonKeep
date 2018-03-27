@@ -9,6 +9,11 @@ public class Hero extends Character{
 	public Hero() {
 		super(1,1);
 	}
+	
+	public void set_pos() {
+		this.set_x(1);
+		this.set_y(1);
+	}
 
 	public void set_direction(char c) {
 		this.direction = c;

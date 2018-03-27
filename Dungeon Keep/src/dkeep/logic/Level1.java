@@ -1,14 +1,12 @@
 package dkeep.logic;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import dkeep.logic.Game.Game_State;
 
 public class Level1 extends Map{
 
 	private Guard guard;
 	
-	public Level1(){
+	public Level1(int guard_number){
 		super();
 		char[][] temp = {
 				{'X','X','X','X','X','X','X','X','X','X'},
@@ -25,8 +23,6 @@ public class Level1 extends Map{
 		this.char_map = temp;
 		
 		//Gerar o guard
-		int guard_number = ThreadLocalRandom.current().nextInt(0,3);
-		guard_number = 1; // TODO apenas para testes, remover antes de submeter
 		switch(guard_number) {
 		case 0:
 			guard = new Rookie();
