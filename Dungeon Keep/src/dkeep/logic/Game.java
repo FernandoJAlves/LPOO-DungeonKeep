@@ -7,11 +7,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import dkeep.test.CellPosition;
 
 public class Game {
-	private Map map = new Map();
+	private Map map = new Level1();
 	private Hero hero = new Hero();
 	private Guard guard;
 	private ArrayList<Ogre> ogres;
-	public enum Game_State {LVL1, LVL2, LEVER_ACT1, KEY_PICKED, KEY_TURNED, WIN, LOSE, TEST};
+	public enum Game_State {LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED, WIN, LOSE, TEST};
 	public Game_State state = Game.Game_State.LVL1;
 	
 	public Game(){
@@ -37,12 +37,12 @@ public class Game {
 	
 	public String drawScreen() {
 		
-		if (this.state.equals(Game_State.KEY_PICKED)) {
+		if (this.state.equals(Game_State.LVL2_KEY_PICKED)) {
 			hero.pick_key();
 		}
 
-		if (this.state.equals(Game_State.LEVER_ACT1) || this.state.equals(Game_State.KEY_TURNED)
-				|| this.state.equals(Game_State.KEY_PICKED)) {
+		if (this.state.equals(Game_State.LVL1_LEVER_ACT) || this.state.equals(Game_State.LVL2_KEY_TURNED)
+				|| this.state.equals(Game_State.LVL2_KEY_PICKED)) {
 			this.state = map.leversUp(this.state);
 		}
 		
@@ -59,8 +59,8 @@ public class Game {
 			aux[guard.get_y()][guard.get_x()] = guard.getSprite();
 		}
 
-		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
-				|| this.state == Game.Game_State.KEY_TURNED) {
+		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_PICKED
+				|| this.state == Game.Game_State.LVL2_KEY_TURNED) {
 			for (int i = 0; i < this.ogres.size(); i++) {
 
 				if (this.ogres.get(i).club_hit.x == 7 && this.ogres.get(i).club_hit.y == 1) {
@@ -82,7 +82,8 @@ public class Game {
 	}
 	
 	public Game.Game_State collision() {
-		if (this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LEVER_ACT1 || this.state == Game.Game_State.TEST) {
+		
+		if (this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LVL1_LEVER_ACT || this.state == Game.Game_State.TEST) {
 			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
 				if (guard.getSprite() != 'g') {
 					return Game.Game_State.LOSE;
@@ -109,8 +110,8 @@ public class Game {
 				}
 			}
 		}
-		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED
-				|| this.state == Game.Game_State.KEY_PICKED) {
+		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_TURNED
+				|| this.state == Game.Game_State.LVL2_KEY_PICKED) {
 
 			for (int k = 0; k < this.ogres.size(); k++) {
 				
@@ -142,8 +143,8 @@ public class Game {
 			}
 		}
 
-		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_TURNED
-				|| this.state == Game.Game_State.KEY_PICKED) {
+		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_TURNED
+				|| this.state == Game.Game_State.LVL2_KEY_PICKED) {
 
 			int x_t;
 			int y_t;
@@ -187,9 +188,9 @@ public class Game {
 		
 		if(pos == 'k') {
 			if(g == Game.Game_State.LVL1)
-				return Game.Game_State.LEVER_ACT1;
+				return Game.Game_State.LVL1_LEVER_ACT;
 			else if(g == Game.Game_State.LVL2)
-				return Game.Game_State.KEY_PICKED;
+				return Game.Game_State.LVL2_KEY_PICKED;
 		}
 		if(pos == 'S') {
 			if(g == Game.Game_State.LVL1) {
@@ -211,7 +212,7 @@ public class Game {
 		
 	public void updateGame(char c) {
 
-		if(this.state == Game.Game_State.KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
+		if(this.state == Game.Game_State.LVL2_KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
 			this.state = map.turnKey(this.state);
 		}
 		else {
@@ -224,8 +225,8 @@ public class Game {
 		
 		if (this.state == Game.Game_State.LVL1) {
 			this.guard.move(this.map.getMap(this.state));
-		} else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.KEY_PICKED
-				|| this.state == Game.Game_State.KEY_TURNED) {
+		} else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_PICKED
+				|| this.state == Game.Game_State.LVL2_KEY_TURNED) {
 			for(int k = 0;k < this.ogres.size();k++) {
 			this.ogres.get(k).move(this.map.getMap(this.state));
 			ogres.get(k).club_logic(map.getMap(this.state));
