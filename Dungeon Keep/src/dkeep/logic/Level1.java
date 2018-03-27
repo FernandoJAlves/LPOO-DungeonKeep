@@ -106,13 +106,18 @@ public class Level1 extends Map{
 	}
 	
 	
-	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c){
+	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update){
+		update.value = true;
 		return state;
 	}
 
 	
 	public void move_npc() {
 		this.guard.move(this.char_map);
+	}
+
+	public void draw_characters(char[][] aux) {
+		aux[this.guard.get_y()][this.guard.get_x()] = this.guard.getSprite();	
 	}
 
 

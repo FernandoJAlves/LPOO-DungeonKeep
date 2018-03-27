@@ -123,12 +123,13 @@ public class Level2 extends Map{
 	}
 	
 	
-	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c){
+	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update){
 		
-		if(state == Game.Game_State.LVL2_KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1 && c == 'a') {
+		if(state == Game.Game_State.LVL2_KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
 			return this.turnKey(state);
 		}
 		
+		update.value = true;
 		return state;
 	}
 	
@@ -139,6 +140,24 @@ public class Level2 extends Map{
 			ogres.get(k).club_logic(this.char_map);
 		}
 	}
+	
+	public void draw_characters(char[][] aux) {
+		for (int i = 0; i < this.ogres.size(); i++) {
+
+			if (this.ogres.get(i).club_hit.x == 7 && this.ogres.get(i).club_hit.y == 1) {
+				aux[1][7] = '$';
+			} else {
+				aux[this.ogres.get(i).club_hit.y][this.ogres.get(i).club_hit.x] = '*';
+			}
+			
+			if (this.ogres.get(i).get_x() == 7 && this.ogres.get(i).get_y() == 1) {
+				aux[1][7] = '$';
+			} else {
+				aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
+			}
+		}	
+	}
+	
 	
 	
 	

@@ -1,9 +1,5 @@
 package dkeep.logic;
 
-
-import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
-
 import dkeep.test.CellPosition;
 
 public class Game {
@@ -18,6 +14,8 @@ public class Game {
 	
 	public String drawScreen() {
 		
+		// Esta parte pode ser melhorada, não queria era criar mais funçoes senão fica uma confusão nos nomes, depois vemos
+		
 		if (this.state.equals(Game_State.LVL2_KEY_PICKED)) {
 			hero.pick_key();
 		}
@@ -27,39 +25,19 @@ public class Game {
 			this.state = map.leversUp(this.state);
 		}
 		
+		// Até aqui ^
+		
+		
 		char [][] aux = new char[this.map.getMap(this.state)[0].length][];
 		
 		for(int i = 0; i < this.map.getMap(this.state).length;i++) {
 			aux[i] = this.map.getMap(this.state)[i].clone();
 		}
 
-		
 		aux[hero.get_y()][hero.get_x()] = hero.getSprite();
 		
+		this.map.draw_characters(aux);
 		
-		if (this.state == Game.Game_State.LVL1) {
-			aux[((Level1)this.map).getGuard().get_y()][((Level1)this.map).getGuard().get_x()] = ((Level1)this.map).getGuard().getSprite();
-		}
-/*
-		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_PICKED
-				|| this.state == Game.Game_State.LVL2_KEY_TURNED) {
-			for (int i = 0; i < this.ogres.size(); i++) {
-
-				if (this.ogres.get(i).club_hit.x == 7 && this.ogres.get(i).club_hit.y == 1) {
-					aux[1][7] = '$';
-				} else {
-					aux[this.ogres.get(i).club_hit.y][this.ogres.get(i).club_hit.x] = '*';
-				}
-				
-				if (this.ogres.get(i).get_x() == 7 && this.ogres.get(i).get_y() == 1) {
-					aux[1][7] = '$';
-				} else {
-					aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
-				}
-			}
-
-		}
-		*/
 		return printMap(aux);
 	}
 	
@@ -67,13 +45,10 @@ public class Game {
 		return this.map.character_collision(this.state, this.hero);
 	}
 	
-	
-	
 	public Game.Game_State updateState() {
 		
 		char pos = map.getMap(this.state)[hero.get_y()][hero.get_x()];
 		Game.Game_State original_state = this.state;
-
 		
 		//atualiza o state de acordo com a logica do level
 		Game.Game_State new_state = this.map.updateState(original_state, pos);
@@ -90,37 +65,31 @@ public class Game {
 			}
 			
 			//se adicionarmos mais levels, a sua transição será colocada aqui
-			
 		}
 		
 		return new_state;
-		
 	}
 		
 	public void updateGame(char c) {
 
-		this.state = this.map.map_Logic(this.state, this.hero, c);
+		BooleanHolder update = new BooleanHolder();
+		update.value = false;
 		
-		this.hero.set_direction(c);
-		this.hero.move(this.map.getMap(this.state));
-		this.state = this.updateState();
+		this.state = this.map.map_Logic(this.state, this.hero, c, update);
 		
-		/*
-		if(this.state == Game.Game_State.LVL2_KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
-			this.state = map.turnKey(this.state);
+		System.out.println(update.value);
+		
+		if(update.value == true) {
+			update.value = false;
+			hero.set_direction(c);
+			hero.move(this.map.getMap(this.state));
+			state = this.updateState();
 		}
-		else {
-
-		}
-		*/
-		
 		
 		//moving the npc's
 		this.map.move_npc();
 
 	}
-	
-
 	
 	public String printMap(char[][] m) {
 		

@@ -1,7 +1,5 @@
 package dkeep.logic;
 
-import dkeep.logic.Game.Game_State;
-
 public abstract class Map {
 	protected char[][] char_map;
 	
@@ -17,9 +15,11 @@ public abstract class Map {
 	
 	public abstract Game.Game_State character_collision(Game.Game_State state, Hero hero);
 	
-	public abstract Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c);
+	public abstract Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update);
 	
 	public abstract void move_npc();
+	
+	public abstract void draw_characters(char[][] aux);
 
 	
 }
