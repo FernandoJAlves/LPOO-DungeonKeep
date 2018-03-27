@@ -9,31 +9,12 @@ import dkeep.test.CellPosition;
 public class Game {
 	private Map map = new Level1();
 	private Hero hero = new Hero();
-	private Guard guard;
-	private ArrayList<Ogre> ogres;
+	//private Guard guard;
+	//private ArrayList<Ogre> ogres;
 	public enum Game_State {LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED, WIN, LOSE, TEST};
 	public Game_State state = Game.Game_State.LVL1;
 	
-	public Game(){
-		int guard_number = ThreadLocalRandom.current().nextInt(0,3);
-		guard_number = 1;
-		switch(guard_number) {
-		case 0:
-			guard = new Rookie();
-			break;
-		case 1:
-			guard = new Drunken();
-			break;
-		case 2:
-			guard = new Suspicious();
-			break;
-		default:
-			guard = new Rookie();
-		}
-		
-		ogres = ogre_generator();
-		
-	}
+	public Game(){}
 	
 	public String drawScreen() {
 		
@@ -55,10 +36,11 @@ public class Game {
 		
 		aux[hero.get_y()][hero.get_x()] = hero.getSprite();
 		
+		
 		if (this.state == Game.Game_State.LVL1) {
-			aux[guard.get_y()][guard.get_x()] = guard.getSprite();
+			aux[((Level1)this.map).getGuard().get_y()][((Level1)this.map).getGuard().get_x()] = ((Level1)this.map).getGuard().getSprite();
 		}
-
+/*
 		else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_PICKED
 				|| this.state == Game.Game_State.LVL2_KEY_TURNED) {
 			for (int i = 0; i < this.ogres.size(); i++) {
@@ -77,106 +59,12 @@ public class Game {
 			}
 
 		}
-		
+		*/
 		return printMap(aux);
 	}
 	
 	public Game.Game_State collision() {
-		
-		if (this.state == Game.Game_State.LVL1 || this.state == Game.Game_State.LVL1_LEVER_ACT || this.state == Game.Game_State.TEST) {
-			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
-				if (guard.getSprite() != 'g') {
-					return Game.Game_State.LOSE;
-				}
-			}
-			if (hero.get_y() == (guard.get_y() - 1) && hero.get_x() == (guard.get_x())) {
-				if (guard.getSprite() != 'g') {
-					return Game.Game_State.LOSE;
-				}
-			}
-			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x() - 1)) {
-				if (guard.getSprite() != 'g') {
-					return Game.Game_State.LOSE;
-				}
-			}
-			if (hero.get_y() == (guard.get_y() + 1) && hero.get_x() == (guard.get_x())) {
-				if (guard.getSprite() != 'g') {
-					return Game.Game_State.LOSE;
-				}
-			}
-			if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x() + 1)) {
-				if (guard.getSprite() != 'g') {
-					return Game.Game_State.LOSE;
-				}
-			}
-		}
-		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_TURNED
-				|| this.state == Game.Game_State.LVL2_KEY_PICKED) {
-
-			for (int k = 0; k < this.ogres.size(); k++) {
-				
-				if(hero.attack().x == ogres.get(k).get_x() && hero.attack().y == ogres.get(k).get_y()) {
-					ogres.get(k).stun();
-					continue;
-				}
-				
-				
-				else if(!ogres.get(k).isStunned()){
-
-				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x())) {
-					return Game.Game_State.LOSE;
-				}
-
-				if (hero.get_y() == (ogres.get(k).get_y() - 1) && hero.get_x() == (ogres.get(k).get_x())) {
-					return Game.Game_State.LOSE;
-				}
-				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x() - 1)) {
-					return Game.Game_State.LOSE;
-				}
-				if (hero.get_y() == (ogres.get(k).get_y() + 1) && hero.get_x() == (ogres.get(k).get_x())) {
-					return Game.Game_State.LOSE;
-				}
-				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x() + 1)) {
-					return Game.Game_State.LOSE;
-				}
-				}
-			}
-		}
-
-		if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_TURNED
-				|| this.state == Game.Game_State.LVL2_KEY_PICKED) {
-
-			int x_t;
-			int y_t;
-
-			for (int k = 0; k < this.ogres.size(); k++) {
-				
-			x_t = this.ogres.get(k).club_hit.x;
-			y_t = this.ogres.get(k).club_hit.y;
-			
-			if(this.ogres.get(k).isStunned()) {
-				return this.state;
-			}
-
-			if (hero.get_y() == (y_t) && hero.get_x() == (x_t)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t - 1) && hero.get_x() == (x_t)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t) && hero.get_x() == (x_t - 1)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t + 1) && hero.get_x() == (x_t)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t) && hero.get_x() == (x_t + 1)) {
-				return Game.Game_State.LOSE;
-			}
-			}
-		}
-
-		return this.state;
+		return this.map.character_collision(this.state, this.hero);
 	}
 	
 	
@@ -201,6 +89,8 @@ public class Game {
 				this.map = new Level2();
 			}
 			
+			//se adicionarmos mais levels, a sua transição será colocada aqui
+			
 		}
 		
 		return new_state;
@@ -209,39 +99,28 @@ public class Game {
 		
 	public void updateGame(char c) {
 
+		this.state = this.map.map_Logic(this.state, this.hero, c);
+		
+		this.hero.set_direction(c);
+		this.hero.move(this.map.getMap(this.state));
+		this.state = this.updateState();
+		
+		/*
 		if(this.state == Game.Game_State.LVL2_KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
 			this.state = map.turnKey(this.state);
 		}
 		else {
-			this.hero.set_direction(c);
-			this.hero.move(this.map.getMap(this.state));
-			this.state = this.updateState();
-		}
-		
 
-		
-		if (this.state == Game.Game_State.LVL1) {
-			this.guard.move(this.map.getMap(this.state));
-		} else if (this.state == Game.Game_State.LVL2 || this.state == Game.Game_State.LVL2_KEY_PICKED
-				|| this.state == Game.Game_State.LVL2_KEY_TURNED) {
-			for(int k = 0;k < this.ogres.size();k++) {
-			this.ogres.get(k).move(this.map.getMap(this.state));
-			ogres.get(k).club_logic(map.getMap(this.state));
-			}
 		}
+		*/
+		
+		
+		//moving the npc's
+		this.map.move_npc();
+
 	}
 	
-	public ArrayList<Ogre> ogre_generator(){
-		int numOgres = ThreadLocalRandom.current().nextInt(2,5);
-		int x,y;
-		ArrayList<Ogre> ogres = new ArrayList<>();
-		for(int i = 0;i < numOgres;i++) {
-			x = ThreadLocalRandom.current().nextInt(3,8);
-			y = ThreadLocalRandom.current().nextInt(3,8);
-			ogres.add(new Ogre(x,y));
-		}
-		return ogres;
-	}
+
 	
 	public String printMap(char[][] m) {
 		
@@ -275,9 +154,10 @@ public class Game {
 		this.hero.move(this.map.getMap(this.state));
 	}
 
-	public void setPosGuard(int i, int j) {
-		this.guard.set_x(i);
-		this.guard.set_y(j);		
+	public void setPosGuard(int i, int j) { 
+		// TODO
+		//this.map.guard.set_x(i);
+		//this.map.guard.set_y(j);		
 	}
 
 	public boolean isGameover() {
