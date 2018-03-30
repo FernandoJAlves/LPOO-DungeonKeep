@@ -24,7 +24,7 @@ public class GameScreen extends JPanel {
 	private ImageIcon ogre;
 	private ImageIcon door;
 	private ImageIcon club;
-	private ImageIcon ogreStunned;
+	//private ImageIcon ogreStunned;
 	private ImageIcon guardSleeping;
 	private ImageIcon floor;
 
