@@ -26,7 +26,7 @@ public class Game {
 		}
 	}
 	
-	public String drawScreen() {
+	public char[][] drawScreen() {
 		
 		// Esta parte pode ser melhorada, n�o queria era criar mais fun�oes sen�o fica uma confus�o nos nomes, depois vemos
 		
@@ -52,7 +52,7 @@ public class Game {
 		
 		this.map.draw_characters(aux);
 		
-		return printMap(aux);
+		return aux;
 	}
 	
 	public Game.Game_State collision() {

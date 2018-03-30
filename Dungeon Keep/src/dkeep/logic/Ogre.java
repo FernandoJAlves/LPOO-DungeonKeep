@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ogre extends Character{
 	private int direction = 0;
-	public Point club_hit = new Point();
+	public Point club_hit = new Point(this.get_x(),this.get_y());
 	private int stun_count = 0;
 	private char sprite = 'O';
 	

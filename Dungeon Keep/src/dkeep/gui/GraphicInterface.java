@@ -1,6 +1,5 @@
 package dkeep.gui;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -11,15 +10,14 @@ import dkeep.logic.Game;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 
 public class GraphicInterface {
 
 	private JFrame frmDungeonKeep;
 	private JTextField numOgres;
-	private JTextArea screenText;
 	private JComboBox<String> comboBox;
 	private JLabel lblYouCanStart;
+	private GameScreen gs = new GameScreen();
 	private Game dk;
 	
 
@@ -30,6 +28,7 @@ public class GraphicInterface {
 		this.dk = dk;
 		initialize();
 		this.frmDungeonKeep.setVisible(true);
+		
 	}
 
 	/**
@@ -38,7 +37,7 @@ public class GraphicInterface {
 	private void initialize() {
 		frmDungeonKeep = new JFrame();
 		frmDungeonKeep.setTitle("Dungeon Keep");
-		frmDungeonKeep.setBounds(100, 100, 666, 357);
+		frmDungeonKeep.setBounds(100, 100, 700, 600);
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeep.getContentPane().setLayout(null);
 		
@@ -84,7 +83,7 @@ public class GraphicInterface {
 		frmDungeonKeep.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(526, 279, 114, 25);
+		btnExit.setBounds(540, 485, 114, 25);
 		btnExit.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 System.exit(0);
@@ -94,7 +93,7 @@ public class GraphicInterface {
 		frmDungeonKeep.getContentPane().add(btnExit);
 		
 		JButton btnUp = new JButton("Up");
-		btnUp.setBounds(524, 142, 78, 15);
+		btnUp.setBounds(568, 220, 78, 15);
 		btnUp.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('w');
@@ -105,7 +104,7 @@ public class GraphicInterface {
 		frmDungeonKeep.getContentPane().add(btnUp);
 		
 		JButton btnDown = new JButton("Down");
-		btnDown.setBounds(526, 196, 78, 15);
+		btnDown.setBounds(568, 302, 78, 15);
 		btnDown.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('s');
@@ -115,7 +114,7 @@ public class GraphicInterface {
 		frmDungeonKeep.getContentPane().add(btnDown);
 		
 		JButton btnLeft = new JButton("Left");
-		btnLeft.setBounds(474, 169, 78, 15);
+		btnLeft.setBounds(525, 262, 78, 15);
 		btnLeft.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('a');
@@ -125,7 +124,7 @@ public class GraphicInterface {
 		frmDungeonKeep.getContentPane().add(btnLeft);
 		
 		JButton btnRight = new JButton("Right");
-		btnRight.setBounds(576, 169, 78, 15);
+		btnRight.setBounds(615, 262, 78, 15);
 		btnRight.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('d');
@@ -134,13 +133,12 @@ public class GraphicInterface {
 			); 
 		frmDungeonKeep.getContentPane().add(btnRight);
 		
-		screenText = new JTextArea();
-		screenText.setFont(new Font("monospaced", Font.PLAIN, 12));
-		screenText.setBounds(33, 54, 429, 240);
-		frmDungeonKeep.getContentPane().add(screenText);
+		gs.setBounds(33, 54, 480, 480);
+		gs.loadResources();
+		frmDungeonKeep.getContentPane().add(gs);
 		
 		lblYouCanStart = new JLabel("You can start a new game");
-		lblYouCanStart.setBounds(33, 302, 434, 15);
+		lblYouCanStart.setBounds(33, 540, 434, 15);
 		frmDungeonKeep.getContentPane().add(lblYouCanStart);
 	}
 	
@@ -157,12 +155,13 @@ public class GraphicInterface {
 		
 		if(c != 'n') {
 			dk.updateGame(c);
-		dk.state = dk.collision();
+			dk.state = dk.collision();
 		
 		
 		}
 		
-		this.screenText.setText(this.dk.drawScreen());
+		//this.screenText.setText(this.dk.drawScreen());
+		gs.draw(this.dk.drawScreen());
 		if(dk.state == Game.Game_State.LOSE) {
 			lblYouCanStart.setText("Game Over! Try again!");
 			dk.state = Game.Game_State.PREPARE;

@@ -13,8 +13,9 @@ public class Rookie extends Guard{
 	
 	public void move(char[][] map) {
 		char c = 0;
-		updateIndex();
 		c = this.moves[this.index];
+		updateIndex();
+		
 		
 		if(c == 'w'){
 			if(this.get_y() == 0) {

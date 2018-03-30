@@ -60,8 +60,10 @@ public class Level1 extends Map{
 	public Game.Game_State updateState(Game.Game_State state, char pos){
 		
 		if(pos == 'k') {
-			if(state == Game.Game_State.LVL1)
+			if(state == Game.Game_State.LVL1) {
+				char_map[8][7] = ' ';
 				return Game.Game_State.LVL1_LEVER_ACT;
+			}
 		}
 		else if(pos == 'S') {
 			return Game.Game_State.LVL2;
