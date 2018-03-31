@@ -10,9 +10,9 @@ public class Hero extends Character{
 		super(1,1);
 	}
 	
-	public void set_pos() {
-		this.set_x(1);
-		this.set_y(1);
+	public void set_pos(int x, int y) {
+		this.set_x(x);
+		this.set_y(y);
 	}
 
 	public void set_direction(char c) {

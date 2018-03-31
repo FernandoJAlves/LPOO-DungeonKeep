@@ -14,61 +14,64 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
-public class GraphicInterface extends JFrame {
+public class GraphicInterface {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private JFrame frmDK;
 	private JTextField numOgres;
 	private JComboBox<String> comboBox;
 	private JLabel lblYouCanStart;
 	private GameScreen gs = new GameScreen();
 	private Game dk;
+	private LevelEditor editor;
 	
 
 	/**
 	 * Create the application.
 	 */
 	public GraphicInterface(Game dk) {
-		super();
+		this.frmDK = new JFrame();
+		this.editor = new LevelEditor();
 		this.dk = dk;
 		initialize();
-		setVisible(true);
+		frmDK.setVisible(true);
 
+	}
+	
+	public JFrame getFrame() {
+		return this.frmDK;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.setTitle("Dungeon Keep");
-		this.setBounds(100, 100, 700, 600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(null);
+		frmDK.setTitle("Dungeon Keep");
+		frmDK.setBounds(100, 100, 700, 600);
+		frmDK.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDK.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Number of Ogres ");
 		lblNewLabel.setBounds(33, 0, 120, 15);
-		this.getContentPane().add(lblNewLabel);
+		frmDK.getContentPane().add(lblNewLabel);
 		
 		numOgres = new JTextField();
 		numOgres.setBounds(182, -2, 29, 19);
-		this.getContentPane().add(numOgres);
+		frmDK.getContentPane().add(numOgres);
 		numOgres.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
 		lblGuardPersonality.setBounds(33, 27, 146, 15);
-		this.getContentPane().add(lblGuardPersonality);
+		frmDK.getContentPane().add(lblGuardPersonality);
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setToolTipText("");
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(179, 22, 120, 24);
-		this.getContentPane().add(comboBox);
+		frmDK.getContentPane().add(comboBox);
 		
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(540, 60, 114, 25);
+		btnNewGame.setBounds(540, 60, 140, 25);
 		btnNewGame.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 int num = 0;
@@ -81,14 +84,26 @@ public class GraphicInterface extends JFrame {
 					 return;
 				 }
 				 lblYouCanStart.setText("You can play now.");
-				 dk.initialize(1, num, comboBox.getSelectedIndex());
+				 dk.initialize(1, num, comboBox.getSelectedIndex(),null);
 				 update('n');
-				 
+				 gs.setVisible(true);
 				 setKeyEvent();
 			 }
 			 }
 			); 
-		this.getContentPane().add(btnNewGame);
+		frmDK.getContentPane().add(btnNewGame);
+		
+		JButton btnCustomGame = new JButton("Custom Game");
+		btnCustomGame.setBounds(540, 109, 140, 25);
+		btnCustomGame.addActionListener( new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 frmDK.setVisible(false);
+				 editor.setEditor();
+				 
+			 }
+			 }
+			); 
+		frmDK.getContentPane().add(btnCustomGame);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(540, 485, 114, 25);
@@ -98,7 +113,7 @@ public class GraphicInterface extends JFrame {
 			 }
 			 }
 			); 
-		this.getContentPane().add(btnExit);
+		frmDK.getContentPane().add(btnExit);
 		
 		JButton btnUp = new JButton("Up");
 		btnUp.setBounds(568, 220, 78, 15);
@@ -109,7 +124,7 @@ public class GraphicInterface extends JFrame {
 			 }
 			 }
 			); 
-		this.getContentPane().add(btnUp);
+		frmDK.getContentPane().add(btnUp);
 		
 		JButton btnDown = new JButton("Down");
 		btnDown.setBounds(568, 302, 78, 15);
@@ -119,7 +134,7 @@ public class GraphicInterface extends JFrame {
 			 }
 			 }
 			); 
-		this.getContentPane().add(btnDown);
+		frmDK.getContentPane().add(btnDown);
 		
 		JButton btnLeft = new JButton("Left");
 		btnLeft.setBounds(525, 262, 78, 15);
@@ -129,7 +144,7 @@ public class GraphicInterface extends JFrame {
 			 }
 			 }
 			); 
-		this.getContentPane().add(btnLeft);
+		frmDK.getContentPane().add(btnLeft);
 		
 		JButton btnRight = new JButton("Right");
 		btnRight.setBounds(615, 262, 78, 15);
@@ -139,7 +154,7 @@ public class GraphicInterface extends JFrame {
 			 }
 			 }
 			); 
-		this.getContentPane().add(btnRight);
+		frmDK.getContentPane().add(btnRight);
 		
 		gs.setBounds(33, 54, 480, 480);
 		gs.loadResources();
@@ -179,11 +194,13 @@ public class GraphicInterface extends JFrame {
 			
 		}
 		);
-		this.getContentPane().add(gs);
+		frmDK.getContentPane().add(gs);
 		
 		lblYouCanStart = new JLabel("You can start a new game");
 		lblYouCanStart.setBounds(33, 540, 434, 15);
-		this.getContentPane().add(lblYouCanStart);
+		frmDK.getContentPane().add(lblYouCanStart);
+		
+
 	}
 	
 	
@@ -204,7 +221,6 @@ public class GraphicInterface extends JFrame {
 		
 		}
 		
-		//this.screenText.setText(this.dk.drawScreen());
 		gs.draw(this.dk.drawScreen());
 		if(dk.state == Game.Game_State.LOSE) {
 			lblYouCanStart.setText("Game Over! Try again!");
@@ -220,11 +236,9 @@ public class GraphicInterface extends JFrame {
 	}	
 	
 	void setKeyEvent() {
-		 this.setFocusable(false);
+		 frmDK.setFocusable(false);
 		 gs.setFocusable(true);
 		 gs.requestFocusInWindow();
 		
 	}
-		
-
 }

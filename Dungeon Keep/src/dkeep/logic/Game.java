@@ -6,14 +6,14 @@ public class Game {
 	private Map map;
 	private Hero hero = new Hero();
 	private int numOgres;
-	public enum Game_State {PREPARE,LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED, WIN, LOSE, TEST};
+	public enum Game_State {PREPARE,LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED,CLVL,CLVL_KEY, WIN, LOSE, TEST};
 	public Game_State state = Game.Game_State.PREPARE;
 	
 	public Game(){}
 	
-	public void initialize(int level,int numOgres, int guardPersonality){
+	public void initialize(int level,int numOgres, int guardPersonality, char[][] char_map){
 		this.numOgres = numOgres;
-		this.hero.set_pos();
+		this.hero.set_pos(1,1);
 		switch(level) {
 		case 1:
 			this.map = new Level1(guardPersonality);
@@ -22,6 +22,11 @@ public class Game {
 		case 2:
 			this.map = new Level2(numOgres);
 			this.state = Game.Game_State.LVL2;
+			break;
+		case 0:
+			this.map = new CustomLevel(char_map);
+			this.state = Game.Game_State.CLVL;
+			this.hero.set_pos(((CustomLevel)this.map).getHeroX(),((CustomLevel)this.map).getHeroY());
 			break;
 		}
 	}

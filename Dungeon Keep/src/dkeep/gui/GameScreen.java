@@ -10,10 +10,11 @@ import javax.swing.JPanel;
 
 
 public class GameScreen extends JPanel {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8823305271206367068L;
 	private int size = 0;
 	private char[][] map = new char[0][0];
 	private ImageIcon wall;
@@ -31,6 +32,7 @@ public class GameScreen extends JPanel {
 	
 	public GameScreen() {
 		super();
+		this.setVisible(false);
 
 	}
 	
