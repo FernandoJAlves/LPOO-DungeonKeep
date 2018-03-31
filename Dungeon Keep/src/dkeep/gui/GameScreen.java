@@ -24,7 +24,7 @@ public class GameScreen extends JPanel {
 	private ImageIcon ogre;
 	private ImageIcon door;
 	private ImageIcon club;
-	//private ImageIcon ogreStunned;
+	private ImageIcon ogreStunned;
 	private ImageIcon guardSleeping;
 	private ImageIcon floor;
 
@@ -45,6 +45,7 @@ public class GameScreen extends JPanel {
 		guardSleeping = new ImageIcon(this.getClass().getResource("res/Guard_sleep.png"));
 		key = new ImageIcon(this.getClass().getResource("res/Key.png"));
 		ogre = new ImageIcon(this.getClass().getResource("res/Ogre.png"));
+		ogreStunned = new ImageIcon(this.getClass().getResource("res/Ogre_stunned.png"));
 		
 		wall = this.scaleImage(wall);
 		hero = this.scaleImage(hero);
@@ -56,6 +57,7 @@ public class GameScreen extends JPanel {
 		guardSleeping = this.scaleImage(guardSleeping);
 		key = this.scaleImage(key);
 		ogre = this.scaleImage(ogre);
+		ogreStunned = this.scaleImage(ogreStunned);
 	}
 	
 	public ImageIcon scaleImage(ImageIcon im) {
@@ -127,11 +129,9 @@ public class GameScreen extends JPanel {
 				case 'K':
 					this.add(new JLabel(hero));
 					break;
-					/*
 				case '8':
 					this.add(new JLabel(ogreStunned));
 					break;
-					*/
 				case 'g':
 					this.add(new JLabel(guardSleeping));
 					break;
