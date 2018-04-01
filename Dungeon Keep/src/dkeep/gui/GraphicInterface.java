@@ -85,9 +85,7 @@ public class GraphicInterface {
 				 }
 				 lblYouCanStart.setText("You can play now.");
 				 dk.initialize(1, num, comboBox.getSelectedIndex(),null);
-				 update('n');
-				 gs.setVisible(true);
-				 setKeyEvent();
+				 begin();
 			 }
 			 }
 			); 
@@ -203,6 +201,12 @@ public class GraphicInterface {
 
 	}
 	
+	public void begin() {
+		 update('n');
+		 gs.setVisible(true);
+		 setKeyEvent();
+	}
+	
 	
 	public void update(char c) {	
 		
@@ -235,10 +239,14 @@ public class GraphicInterface {
 
 	}	
 	
-	void setKeyEvent() {
+	public void setKeyEvent() {
 		 frmDK.setFocusable(false);
 		 gs.setFocusable(true);
 		 gs.requestFocusInWindow();
 		
+	}
+	
+	public Game getGame() {
+		return this.dk;
 	}
 }

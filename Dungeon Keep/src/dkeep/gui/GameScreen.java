@@ -63,7 +63,7 @@ public class GameScreen extends JPanel {
 	}
 	
 	public ImageIcon scaleImage(ImageIcon im) {
-
+		
 		Image img = im.getImage();
 		Image newimg = img.getScaledInstance(this.getWidth() / 10, this.getHeight() / 10, Image.SCALE_FAST);
 
