@@ -40,7 +40,7 @@ public class Game {
 		}
 
 		if (this.state.equals(Game_State.LVL1_LEVER_ACT) || this.state.equals(Game_State.LVL2_KEY_TURNED)
-				|| this.state.equals(Game_State.LVL2_KEY_PICKED)) {
+				|| this.state.equals(Game_State.LVL2_KEY_PICKED) || this.state.equals(Game_State.CLVL_KEY)) {
 			this.state = map.leversUp(this.state);
 		}
 		
