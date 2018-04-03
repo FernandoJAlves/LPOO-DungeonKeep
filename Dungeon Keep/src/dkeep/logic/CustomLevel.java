@@ -27,6 +27,9 @@ public class CustomLevel extends Map {
 					break;
 				case 'O':
 					this.ogres.add(new Ogre(j,i));
+					//System.out.println("Club-> x:" + this.ogres.get(0).club_hit.x + "\ty:" + this.ogres.get(0).club_hit.y);
+					//System.out.println("Ogre-> x:" + this.ogres.get(0).get_x() + "\ty:" + this.ogres.get(0).get_y());
+					//System.out.println("-------//-------");
 					char_map[i][j] = ' ';
 					break;
 				case 'k':
