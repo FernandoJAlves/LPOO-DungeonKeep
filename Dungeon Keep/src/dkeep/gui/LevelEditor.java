@@ -14,8 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import dkeep.logic.Game;
-
 public class LevelEditor extends JFrame implements MouseListener{
 	
 	
@@ -126,7 +124,7 @@ public class LevelEditor extends JFrame implements MouseListener{
 		btnOgre.setIcon(this.loadIcon("res/Ogre.png"));
 		btnOgre.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 icon = 'O';
+				 icon = 'G';
 			 }
 			 }
 		);
