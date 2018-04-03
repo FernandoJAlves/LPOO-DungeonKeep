@@ -52,7 +52,7 @@ public class CustomLevel extends Map {
 
 	@Override
 	public Game_State leversUp(Game_State state) {
-		this.char_map[key_x][key_y] = ' ';
+		this.char_map[key_y][key_x] = ' ';
 		for(int i = 0; i < this.char_map.length; i++) {
 			for(int j = 0; j < this.char_map[0].length;j++) {
 				if(char_map[i][j] == 'I') {
