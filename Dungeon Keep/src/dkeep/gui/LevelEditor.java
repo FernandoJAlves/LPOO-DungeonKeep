@@ -153,6 +153,7 @@ public class LevelEditor extends JFrame implements MouseListener{
 					DungeonKeep.getWindow().getGame().initialize(0, 0, 0, char_map);
 					exit();
 					DungeonKeep.getWindow().begin();
+					DungeonKeep.getWindow().setLabelText("You can play now.");
 				}
 				else {
 					editorLbl.setText("You can't start until you have the required elements");
@@ -196,7 +197,6 @@ public class LevelEditor extends JFrame implements MouseListener{
 	}
 	
 	public void resize(int size) {
-		System.out.println(size);
 		this.char_map = new char[size][size];
 		//gs.setLayout(new GridLayout(size, size));
 		//gs.setBounds(33, 54, size*48, size*48);

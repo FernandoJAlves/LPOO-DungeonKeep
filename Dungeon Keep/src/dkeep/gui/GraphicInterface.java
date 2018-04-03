@@ -96,6 +96,7 @@ public class GraphicInterface {
 			 public void actionPerformed(ActionEvent e) {
 				 frmDK.setVisible(false);
 				 editor.setEditor();
+				 gs.setVisible(false);
 				 
 			 }
 			 }
@@ -247,5 +248,9 @@ public class GraphicInterface {
 	
 	public Game getGame() {
 		return this.dk;
+	}
+	
+	public void setLabelText(String text) {
+		this.lblYouCanStart.setText(text);
 	}
 }
