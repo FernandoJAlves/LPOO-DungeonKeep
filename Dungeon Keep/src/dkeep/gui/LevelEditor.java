@@ -124,7 +124,7 @@ public class LevelEditor extends JFrame implements MouseListener{
 		btnOgre.setIcon(this.loadIcon("res/Ogre.png"));
 		btnOgre.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 icon = 'G';
+				 icon = 'O';
 			 }
 			 }
 		);
