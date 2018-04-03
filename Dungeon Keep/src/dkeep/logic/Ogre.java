@@ -18,6 +18,9 @@ public class Ogre extends Character{
 	public void set_dir(int i) {
 		this.direction = i;
 	}
+	public int get_stun_count() {
+		return this.stun_count;
+	}
 	
 	public void move(char[][] map) {
 		if(this.isStunned()) {

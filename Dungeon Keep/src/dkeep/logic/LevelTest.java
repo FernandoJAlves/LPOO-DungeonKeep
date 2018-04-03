@@ -7,7 +7,7 @@ import dkeep.logic.Game.Game_State;
 public class LevelTest extends Map{
 
 	public Guard guard;
-	public ArrayList<Ogre> ogres;
+	public ArrayList<Ogre> ogres = new ArrayList<>();
 	
 	public LevelTest(){
 		super();
@@ -25,8 +25,11 @@ public class LevelTest extends Map{
 	
 	@Override
 	public Game_State leversUp(Game_State state) {
-		// TODO Auto-generated method stub
-		return null;
+		if(state == Game.Game_State.TEST_KEYPICKED) {
+			this.char_map[3][1] = ' ';
+		}
+		return state;
+
 	}
 
 	@Override
@@ -37,8 +40,15 @@ public class LevelTest extends Map{
 
 	@Override
 	public Game_State updateState(Game_State state, char pos) {
-		// TODO Auto-generated method stub
-		return null;
+		if(pos == 'k') {
+			return Game.Game_State.TEST_KEYPICKED;
+		}
+		
+		else if(pos == 'S') {
+			return Game.Game_State.WIN;
+		}
+
+		return state;
 	}
 
 	@Override
@@ -139,8 +149,8 @@ public class LevelTest extends Map{
 
 	@Override
 	public Game_State map_Logic(Game_State state, Hero hero, char c, BooleanHolder update) {
-		// TODO Auto-generated method stub
-		return null;
+		update.value = true;
+		return state;
 	}
 
 	@Override

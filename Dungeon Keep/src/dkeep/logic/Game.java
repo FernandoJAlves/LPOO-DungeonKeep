@@ -5,7 +5,7 @@ public class Game {
 	private Map map;
 	private Hero hero = new Hero();
 	private int numOgres;
-	public enum Game_State {PREPARE,LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED,CLVL,CLVL_KEY, WIN, LOSE, TEST};
+	public enum Game_State {PREPARE,LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED,CLVL,CLVL_KEY, WIN, LOSE, TEST, TEST_KEYPICKED};
 	public Game_State state = Game.Game_State.PREPARE;
 	
 	public Game(){}
@@ -126,11 +126,17 @@ public class Game {
 		return this.map;
 	}
 	
-	public void setState(Game_State test) {
+	public void setStateTest() {
+		this.map = new LevelTest();
+		this.state = Game.Game_State.TEST;
+	}
+	
+	public void setState(Game.Game_State test) {
 		this.state = test;
 	}
 	
 	
+/*	
 	public void setTestGuard(Game_State test, int x, int y) {
 		if(Game.Game_State.TEST == test) {
 			this.map = new LevelTest();
@@ -147,7 +153,7 @@ public class Game {
 		}
 		((LevelTest)this.map).ogres.add(new Ogre(x,y));
 	}
-	
+	*/
 	
 	public void setPosHero(int i, int j) {
 		this.hero.set_x(i);
@@ -170,7 +176,6 @@ public class Game {
 		}
 		return false;
 	}
-	
 	
 	
 }
