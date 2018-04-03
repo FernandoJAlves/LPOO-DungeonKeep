@@ -1,7 +1,6 @@
 package dkeep.gui;
 
 
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,14 +37,20 @@ public class LevelEditor extends JFrame implements MouseListener{
 	}
 	
 	public void setEditor() {
-
+		this.initGraph();
 		this.setVisible(true);
-		//this.displayMap();
+		
+		/*
+		this.fillLevel();
+		gs.draw(this.char_map);
+		*/
+		
 		
 		
 	}
 	
 	public void initialize() {
+		this.setResizable(false);
 		this.setTitle("Level Editor");
 		this.setBounds(100, 100, 700, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,9 +183,7 @@ public class LevelEditor extends JFrame implements MouseListener{
 		editorLbl = new JLabel("Choose a size for your keep and fill it with at least one of each");
 		editorLbl.setBounds(33, 540, 434, 15);
 		this.getContentPane().add(editorLbl);
-		gs.setVisible(true);
-		this.fillLevel();
-		gs.draw(this.char_map);
+		this.initGraph();
 
 		
 	}
@@ -195,8 +198,8 @@ public class LevelEditor extends JFrame implements MouseListener{
 	public void resize(int size) {
 		System.out.println(size);
 		this.char_map = new char[size][size];
-		gs.setLayout(new GridLayout(size, size));
-		gs.setBounds(33, 54, size*48, size*48);
+		//gs.setLayout(new GridLayout(size, size));
+		//gs.setBounds(33, 54, size*48, size*48);
 		this.fillLevel();
 	}
 	
@@ -258,9 +261,16 @@ public class LevelEditor extends JFrame implements MouseListener{
 		}
 	}
 	
+	public void initGraph() {
+		gs.setVisible(true);
+		this.fillLevel();
+		gs.draw(this.char_map);
+	}
+	
 	public void exit() {
 		this.icon = 0;
 		 setVisible(false);
+		 gs.setVisible(false);
 		 DungeonKeep.getWindow().getFrame().setVisible(true);
 		 comboBox.setSelectedIndex(0);
 	}
