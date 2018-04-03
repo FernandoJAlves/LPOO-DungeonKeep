@@ -103,8 +103,39 @@ public class GraphicInterface {
 			); 
 		frmDK.getContentPane().add(btnCustomGame);
 		
+		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(540, 158, 140, 25);
+		btnSave.addActionListener( new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if(dk.getMap() != null) {
+					 DungeonKeep.getDS().save(dk);
+					 update('n');
+				 }
+				 setKeyEvent();
+				 
+			 }
+			 }
+			); 
+		frmDK.getContentPane().add(btnSave);
+		
+		JButton btnLoad = new JButton("Load");
+		btnLoad.setBounds(540, 207, 140, 25);
+		btnLoad.addActionListener( new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 Game g = DungeonKeep.getDS().load();
+				 if(g != null) {
+					 dk = g;
+					 lblYouCanStart.setText("You can play now.");
+				 }
+				 setKeyEvent();
+				 update('n');
+			 }
+			 }
+			); 
+		frmDK.getContentPane().add(btnLoad);
+		
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(540, 485, 114, 25);
+		btnExit.setBounds(553, 485, 114, 25);
 		btnExit.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 System.exit(0);
@@ -114,10 +145,11 @@ public class GraphicInterface {
 		frmDK.getContentPane().add(btnExit);
 		
 		JButton btnUp = new JButton("Up");
-		btnUp.setBounds(568, 220, 78, 15);
+		btnUp.setBounds(568, 318, 78, 15);
 		btnUp.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('w');
+				 setKeyEvent();
 				 
 			 }
 			 }
@@ -125,30 +157,33 @@ public class GraphicInterface {
 		frmDK.getContentPane().add(btnUp);
 		
 		JButton btnDown = new JButton("Down");
-		btnDown.setBounds(568, 302, 78, 15);
+		btnDown.setBounds(568, 395, 78, 15);
 		btnDown.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('s');
+				 setKeyEvent();
 			 }
 			 }
 			); 
 		frmDK.getContentPane().add(btnDown);
 		
 		JButton btnLeft = new JButton("Left");
-		btnLeft.setBounds(525, 262, 78, 15);
+		btnLeft.setBounds(525, 359, 78, 15);
 		btnLeft.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('a');
+				 setKeyEvent();
 			 }
 			 }
 			); 
 		frmDK.getContentPane().add(btnLeft);
 		
 		JButton btnRight = new JButton("Right");
-		btnRight.setBounds(615, 262, 78, 15);
+		btnRight.setBounds(615, 359, 78, 15);
 		btnRight.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 update('d');
+				 setKeyEvent();
 			 }
 			 }
 			); 
@@ -202,9 +237,10 @@ public class GraphicInterface {
 	}
 	
 	public void begin() {
-		 update('n');
-		 gs.setVisible(true);
-		 setKeyEvent();
+		update('n');
+		gs.setVisible(true);
+		setKeyEvent();
+		 
 	}
 	
 	

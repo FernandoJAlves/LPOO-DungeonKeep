@@ -1,7 +1,12 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 
-public class Game {
+public class Game implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9058252653605357285L;
 	private Map map;
 	private Hero hero = new Hero();
 	private int numOgres;
