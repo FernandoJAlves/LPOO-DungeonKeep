@@ -1,12 +1,12 @@
 package dkeep.gui;
 
+
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,12 +25,10 @@ public class LevelEditor extends JFrame implements MouseListener{
 	private GameScreen gs = new GameScreen();
 	char icon = 0;
 	
-	boolean o = false;
 	boolean k = false;
 	boolean h = false;
-	boolean d = false;
 	
-	JLabel lblYouCanStart;
+	JLabel editorLbl;
 	JComboBox<String> comboBox;
 
 	public LevelEditor() {
@@ -42,8 +40,8 @@ public class LevelEditor extends JFrame implements MouseListener{
 	public void setEditor() {
 
 		this.setVisible(true);
-		this.displayMap();
-		gs.setVisible(true);
+		//this.displayMap();
+		
 		
 	}
 	
@@ -144,15 +142,20 @@ public class LevelEditor extends JFrame implements MouseListener{
 		
 		JButton btnDone = new JButton("Done");
 		btnDone.setBounds(540, 435, 140, 25);
-		btnDone.addActionListener( new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-				 DungeonKeep.getWindow().getGame().initialize(0,0,0,char_map);
-				 exit();
-				 DungeonKeep.getWindow().begin();
-					
-			 }
-			 }
-			); 
+		btnDone.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (allElems()) {
+					DungeonKeep.getWindow().getGame().initialize(0, 0, 0, char_map);
+					exit();
+					DungeonKeep.getWindow().begin();
+				}
+				else {
+					editorLbl.setText("You can't start until you have the required elements");
+					gs.draw(char_map);
+				}
+
+			}
+		});
 		this.getContentPane().add(btnDone);
 		
 		JButton btnExit = new JButton("Back to Menu");
@@ -167,13 +170,18 @@ public class LevelEditor extends JFrame implements MouseListener{
 
 		
 		gs.setBounds(33, 54, 480, 480);
+		
 		gs.loadResources();
-		this.displayMap();
+		
 		this.getContentPane().add(gs);
 		
-		lblYouCanStart = new JLabel("You can start a new game");
-		lblYouCanStart.setBounds(33, 540, 434, 15);
-		this.getContentPane().add(lblYouCanStart);
+		editorLbl = new JLabel("Choose a size for your keep and fill it with at least one of each");
+		editorLbl.setBounds(33, 540, 434, 15);
+		this.getContentPane().add(editorLbl);
+		gs.setVisible(true);
+		this.fillLevel();
+		gs.draw(this.char_map);
+
 		
 	}
 	
@@ -185,6 +193,7 @@ public class LevelEditor extends JFrame implements MouseListener{
 	}
 	
 	public void resize(int size) {
+		System.out.println(size);
 		this.char_map = new char[size][size];
 		gs.setLayout(new GridLayout(size, size));
 		gs.setBounds(33, 54, size*48, size*48);
@@ -209,9 +218,28 @@ public class LevelEditor extends JFrame implements MouseListener{
 	}
 	
 	public boolean allElems() {
-
-		return o && k && h && d;
-		
+		boolean w = false;
+		boolean f = false;
+		boolean o = false;
+		boolean d = false;
+		for(int i = 0;i < this.char_map.length;i++) {
+			for(int j = 0; j < this.char_map[0].length;j++) {
+				switch(this.char_map[i][j]) {
+				case 'X':
+					w = true;
+					break;
+				case ' ':
+					f = true;
+					break;
+				case 'O':
+					o = true;
+					break;
+				case 'I':
+					d = true;
+				}
+			}
+		}
+		return this.h && this.k && w && f && o && d;
 	}
 	
 	public void displayMap() {
@@ -220,11 +248,26 @@ public class LevelEditor extends JFrame implements MouseListener{
 		 gs.draw(char_map);
 	}
 	
+	public void cleanPreviousIcon(char c) {
+		for(int i = 0;i < this.char_map.length;i++) {
+			for(int j = 0; j < this.char_map[0].length;j++) {
+				if(c == this.char_map[i][j]) {
+					this.char_map[i][j] = ' ';
+				}
+			}
+		}
+	}
+	
 	public void exit() {
 		this.icon = 0;
 		 setVisible(false);
 		 DungeonKeep.getWindow().getFrame().setVisible(true);
 		 comboBox.setSelectedIndex(0);
+	}
+	
+	public void updateScreen(int x, int y) {
+		this.char_map[y][x] = this.icon;
+		gs.draw(this.char_map);
 	}
 
 	@Override
@@ -248,30 +291,35 @@ public class LevelEditor extends JFrame implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		int size = this.char_map.length;
-		int x = (int) Math.floor((arg0.getX()-33)/48);
-		int y = (int) Math.floor((arg0.getY()-54)/48) -1;
-		
-	
-		
-		if(x >=1 && y>=1 && x<size-1 && y <size-1){
+		int x = (int) Math.floor((arg0.getX() - 33) / 48);
+		int y = (int) Math.floor((arg0.getY() - 54) / 48) - 1;
+
+		if (x >= 0 && y >= 0 && x < size && y < size) {
+			if (this.icon == 'I' || this.icon == 'X') {
+				this.updateScreen(x, y);
+			}
+		}
+
+		if (x >= 1 && y >= 1 && x < size - 1 && y < size - 1) {
 			switch (this.icon) {
-			case 'O':
-				o = true;
-				break;
 			case 'k':
-				k = true;
+				if (k) {
+					this.cleanPreviousIcon(this.icon);
+				} else {
+					k = true;
+				}
 				break;
 			case 'H':
-				h = true;
-				break;
-			case 'I':
-				d = true;
+				if (h) {
+					this.cleanPreviousIcon(this.icon);
+				} else {
+					h = true;
+				}
 				break;
 			}
-			this.char_map[y][x] = this.icon;
-			gs.draw(this.char_map);
+			this.updateScreen(x, y);
 		}
-		
+
 	}
 
 	@Override
