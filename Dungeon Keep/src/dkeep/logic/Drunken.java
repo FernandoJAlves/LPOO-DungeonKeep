@@ -3,6 +3,10 @@ package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Drunken extends Guard{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4977216385053088310L;
 	private int sleepCounter = 0;
 	private int reRollSleep = 5;
 	private boolean sleepy = false;

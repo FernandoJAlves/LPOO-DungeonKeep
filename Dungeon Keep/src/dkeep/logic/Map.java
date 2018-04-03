@@ -1,6 +1,13 @@
 package dkeep.logic;
 
-public abstract class Map {
+import java.io.Serializable;
+
+public abstract class Map implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3133907343984778555L;
 	protected char[][] char_map;
 	
 	public char[][] getMap(Game.Game_State state) {

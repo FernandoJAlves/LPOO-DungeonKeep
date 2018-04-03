@@ -1,6 +1,12 @@
 package dkeep.logic;
 
-public abstract class Character {
+import java.io.Serializable;
+
+public abstract class Character implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7636713237774526526L;
 	private int x;
 	private int y;
 	

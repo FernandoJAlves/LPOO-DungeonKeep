@@ -3,6 +3,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Ogre extends Character{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6517053137579825828L;
 	private int direction = 0;
 	public Point club_hit = new Point(this.get_x(),this.get_y());
 	private int stun_count = 0;

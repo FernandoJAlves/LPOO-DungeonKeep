@@ -3,6 +3,10 @@ package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Suspicious extends Guard{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5731692041940503404L;
 	private boolean inverted = false;
 	
 	public Suspicious() {

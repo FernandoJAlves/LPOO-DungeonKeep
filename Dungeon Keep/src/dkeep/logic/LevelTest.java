@@ -6,6 +6,10 @@ import dkeep.logic.Game.Game_State;
 
 public class LevelTest extends Map{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7018383172333769248L;
 	public Guard guard;
 	public ArrayList<Ogre> ogres = new ArrayList<>();
 	

@@ -4,6 +4,10 @@ import dkeep.logic.Game.Game_State;
 
 public class Level1 extends Map{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Guard guard;
 	
 	public Level1(int guard_number){

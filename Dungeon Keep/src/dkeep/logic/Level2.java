@@ -5,6 +5,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Level2 extends Map{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 696215245238900987L;
 	private ArrayList<Ogre> ogres;
 	
 	public Level2(int numOgres){

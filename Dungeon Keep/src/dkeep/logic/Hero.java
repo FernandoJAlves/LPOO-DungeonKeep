@@ -3,6 +3,10 @@ package dkeep.logic;
 public class Hero extends Character{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 88889832444331961L;
 	private char direction = 0;
 	char sprite = 'H';
 	

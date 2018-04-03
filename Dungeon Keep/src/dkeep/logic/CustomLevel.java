@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import dkeep.logic.Game.Game_State;
 
 public class CustomLevel extends Map {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1962158929520915113L;
 	private ArrayList<Ogre> ogres = new ArrayList<>();
 	private int hero_x;
 	private int hero_y;

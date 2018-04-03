@@ -127,7 +127,7 @@ public class GraphicInterface {
 					 dk = g;
 					 lblYouCanStart.setText("You can play now.");
 				 }
-				 setKeyEvent();
+				 begin();
 				 update('n');
 			 }
 			 }

@@ -1,15 +1,12 @@
 package dkeep.storage;
 
 import java.io.EOFException;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.NoSuchElementException;
-
-import javax.swing.JFileChooser;
 
 import dkeep.gui.DungeonKeep;
 import dkeep.logic.Game;
@@ -18,7 +15,7 @@ public class DataStorage {
 	private String path;
 	
 	public DataStorage() {
-			path = "bin/dkeep/storage/reg/savefile.dat";
+		path = "savefile.ser";
 
 	}
 	public void save(Game g) {
@@ -59,6 +56,7 @@ public class DataStorage {
 	      } catch (IOException ioException) {
 	    	  DungeonKeep.getWindow().setLabelText("Error opening file.");
 	    	  System.out.println(path);
+	    	  ioException.printStackTrace();
 	    	  return null;
 	      } finally {
 	         try {

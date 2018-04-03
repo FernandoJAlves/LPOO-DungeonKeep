@@ -2,6 +2,10 @@ package dkeep.logic;
 
 public abstract class Guard extends Character{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6431670539463691776L;
 	protected char sprite = 'G';
 	protected int index = 0;
 	protected char moves[] =     {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
