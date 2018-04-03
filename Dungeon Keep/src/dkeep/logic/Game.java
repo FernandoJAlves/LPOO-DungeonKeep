@@ -1,6 +1,5 @@
 package dkeep.logic;
 
-import dkeep.test.CellPosition;
 
 public class Game {
 	private Map map;
@@ -121,29 +120,48 @@ public class Game {
 		return res;
 	}
 
+	//Testing methods
+	
+	public Map getMap() {
+		return this.map;
+	}
+	
 	public void setState(Game_State test) {
 		this.state = test;
 	}
-
+	
+	
+	public void setTestGuard(Game_State test, int x, int y) {
+		if(Game.Game_State.TEST == test) {
+			this.map = new LevelTest();
+		}
+		
+		((LevelTest)this.map).guard.set_x(x);
+		((LevelTest)this.map).guard.set_y(y);
+		
+	}
+	
+	public void setTestOgre(Game_State test, int x, int y) {
+		if(Game.Game_State.TEST == test) {
+			this.map = new LevelTest();
+		}
+		((LevelTest)this.map).ogres.add(new Ogre(x,y));
+	}
+	
+	
 	public void setPosHero(int i, int j) {
 		this.hero.set_x(i);
 		this.hero.set_y(j);		
 	}
 
-	public CellPosition getHeroPosition() {
-		CellPosition c = new CellPosition(this.hero.get_x(),this.hero.get_y());
+	public Point getHeroPosition() {
+		Point c = new Point(this.hero.get_x(),this.hero.get_y());
 		return c;
 	}
 
 	public void moveHero(char c) {
 		this.hero.set_direction(c);
 		this.hero.move(this.map.getMap(this.state));
-	}
-
-	public void setPosGuard(int i, int j) { 
-		// TODO
-		//this.map.guard.set_x(i);
-		//this.map.guard.set_y(j);		
 	}
 
 	public boolean isGameover() {
