@@ -1,7 +1,12 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 
-public class Point {
+public class Point implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1286240019727748897L;
 	public int x = 0;
 	public int y = 0;
 	public Point(int x, int y) {
