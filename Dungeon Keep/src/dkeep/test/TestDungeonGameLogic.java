@@ -354,13 +354,32 @@ public class TestDungeonGameLogic{
 		Game game = new Game();
 		char[][] temp = {
 				{'X','X','X','X','X','X','X'},
-				{'X','H',' ',' ',' ',' ','I'},
+				{'X','H','k',' ',' ',' ','I'},
 				{'X',' ',' ',' ','O',' ','X'},
 				{'X',' ',' ',' ',' ',' ','X'},
 				{'X','X','X','X','X','X','X'}
 		};
 		game.initialize(0, 0, 0, temp);
-		//char[][] temp2 = game.drawScreen();
+		char[][] temp2 = game.drawScreen();
+		
+		assertEquals('H', temp2[1][1]);
+		assertEquals('O', temp2[2][4]);
+		assertEquals(1, ((CustomLevel)game.getMap()).getHeroX());
+		assertEquals(1, ((CustomLevel)game.getMap()).getHeroY());
+		game.updateGame('d');
+		temp2 = game.drawScreen();
+		assertEquals(Game.Game_State.CLVL_KEY, game.state);
+		assertEquals('S', temp2[1][6]);
+		game.moveHero('d'); // move hero to the right.
+		game.moveHero('d'); // move hero to the right.
+		game.moveHero('d'); // move hero to the right.
+		game.updateGame('d');
+		temp2 = game.drawScreen();
+		assertEquals(Game.Game_State.WIN, game.state);
+		
+		
+		
+		
 	}
 	
 	
