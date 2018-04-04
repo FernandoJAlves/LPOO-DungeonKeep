@@ -273,7 +273,7 @@ public class TestDungeonGameLogic{
 	}
 	
 	@Test
-	public void testHeroIsCapturedByGuardLvl1() {
+	public void testHeroIsCapturedByGuardLvl1_Left() {
 		
 		Game game = new Game();
 		game.initialize(1, 0, 0, null);
@@ -285,6 +285,49 @@ public class TestDungeonGameLogic{
 		game.setState(game.collision());
 		assertTrue(game.isGameover());
 	}
+	
+	@Test
+	public void testHeroIsCapturedByGuardLvl1_Down() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 0, null);
+		((Level1)game.getMap()).getGuard().set_x(3);
+		((Level1)game.getMap()).getGuard().set_y(1);
+		game.setPosHero(3, 3);
+		assertFalse(game.isGameover());
+		game.moveHero('w'); // move hero to the right.
+		game.setState(game.collision());
+		assertTrue(game.isGameover());
+	}
+	
+	@Test
+	public void testHeroIsCapturedByGuardLvl1_Up() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 0, null);
+		((Level1)game.getMap()).getGuard().set_x(3);
+		((Level1)game.getMap()).getGuard().set_y(3);
+		game.setPosHero(3, 1);
+		assertFalse(game.isGameover());
+		game.moveHero('s'); // move hero to the right.
+		game.setState(game.collision());
+		assertTrue(game.isGameover());
+	}
+	
+	@Test
+	public void testHeroIsCapturedByGuardLvl1_Right() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 0, null);
+		game.setPosHero(3, 1);
+		((Level1)game.getMap()).getGuard().set_x(1);
+		((Level1)game.getMap()).getGuard().set_y(1);
+		assertFalse(game.isGameover());
+		game.moveHero('a'); // move hero to the right.
+		game.setState(game.collision());
+		assertTrue(game.isGameover());
+	}
+	
 	/*
 	@Test
 	public void testHeroStunsOgreLvl2() {
@@ -295,14 +338,13 @@ public class TestDungeonGameLogic{
 		((Level2)game.getMap()).getOgres().add(new Ogre(3,1));
 		game.setPosHero(1, 1);
 		assertFalse(game.isGameover());
-		game.moveHero('d'); // move hero to the right.
+		game.updateGame('d');
 		game.setState(game.collision());
 		assertFalse(game.isGameover());
 		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
 		assertEquals(2, ((Level2)game.getMap()).getOgres().get(0).get_stun_count());
 		
 	}
-	
 	*/
 	
 	@Test
@@ -376,10 +418,40 @@ public class TestDungeonGameLogic{
 		game.updateGame('d');
 		temp2 = game.drawScreen();
 		assertEquals(Game.Game_State.WIN, game.state);
+	}
+	
+	
+	@Test
+	public void testDrawLevel1() {
 		
+		Game game = new Game();
+		game.initialize(1, 0, 0, null);
+		char[][] temp = game.drawScreen();
+		assertEquals('H', temp[1][1]);
+		assertEquals('G', temp[1][8]);
+		game.setPosHero(8, 8);
+		game.updateGame('a');
+		temp = game.drawScreen();
+		assertEquals('S', ((Level1)game.getMap()).getMap(game.state)[5][0]);
+		assertEquals('S', ((Level1)game.getMap()).getMap(game.state)[6][0]);
+		assertEquals(Game.Game_State.LVL1, game.state);
+		game.setPosHero(1, 6);
+		game.updateGame('a');
+		temp = game.drawScreen();
+		assertEquals(Game.Game_State.LVL2, game.state);	
+	}
+	
+	@Test
+	public void testDrawLevel2() {
 		
-		
-		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		char[][] temp = game.drawScreen();
+		assertEquals(Game.Game_State.LVL2, game.state);
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_x() >= 3);
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_x() <= 8);
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_y() >= 3);
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_y() <= 8);
 	}
 	
 	
