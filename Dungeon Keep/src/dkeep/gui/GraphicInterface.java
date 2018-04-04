@@ -175,6 +175,12 @@ public class GraphicInterface {
 	public void setLoadButton() {
 		btnLoad = new JButton("Load");
 		btnLoad.setBounds(540, 207, 140, 25);
+		this.setLoadButtonListener();
+		frmDK.getContentPane().add(btnLoad);
+		
+	}
+	
+	public void setLoadButtonListener() {
 		btnLoad.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 Game g = DungeonKeep.getDS().load();
@@ -184,11 +190,7 @@ public class GraphicInterface {
 				 }
 				 begin();
 				 update('n');
-			 }
-			 }
-			); 
-		frmDK.getContentPane().add(btnLoad);
-		
+			 }}); 
 	}
 	
 	public void setExitButton() {

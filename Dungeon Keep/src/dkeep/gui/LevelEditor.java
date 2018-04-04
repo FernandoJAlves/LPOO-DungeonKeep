@@ -207,10 +207,7 @@ public class LevelEditor extends JFrame implements MouseListener{
 				else {
 					editorLbl.setText("You can't start until you have the required elements");
 					gs.draw(char_map);
-				}
-
-			}
-		});
+				}}});
 	}
 	
 	public void setExitButton() {
