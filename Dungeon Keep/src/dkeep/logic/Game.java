@@ -2,6 +2,9 @@ package dkeep.logic;
 
 import java.io.Serializable;
 
+/**
+ * Class for game.
+ */
 public class Game implements Serializable{
 	/**
 	 * 
@@ -12,9 +15,18 @@ public class Game implements Serializable{
 	private int numOgres;
 	public enum Game_State {PREPARE,LVL1, LVL2, LVL1_LEVER_ACT, LVL2_KEY_PICKED, LVL2_KEY_TURNED,CLVL,CLVL_KEY, WIN, LOSE, TEST, TEST_KEYPICKED};
 	public Game_State state = Game.Game_State.PREPARE;
-	
+	/**
+	 * Constructs the object.
+	 */
 	public Game(){}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      level             The level
+	 * @param      numOgres          The number ogres
+	 * @param      guardPersonality  The guard personality
+	 * @param      char_map          The character map
+	 */
 	public void initialize(int level,int numOgres, int guardPersonality, char[][] char_map){
 		this.numOgres = numOgres;
 		this.hero.set_pos(1,1);
@@ -34,7 +46,11 @@ public class Game implements Serializable{
 			break;
 		}
 	}
-	
+	/**
+	 * Draws a screen.
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public char[][] drawScreen() {
 		
 		// Esta parte pode ser melhorada, n�o queria era criar mais fun�oes sen�o fica uma confus�o nos nomes, depois vemos
@@ -63,11 +79,19 @@ public class Game implements Serializable{
 		
 		return aux;
 	}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State collision() {
 		return this.map.character_collision(this.state, this.hero);
 	}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State updateState() {
 		
 		char pos = map.getMap(this.state)[hero.get_y()][hero.get_x()];
@@ -92,7 +116,11 @@ public class Game implements Serializable{
 		
 		return new_state;
 	}
-		
+	/**
+	 * { function_description }
+	 *
+	 * @param      c     { parameter_description }
+	 */
 	public void updateGame(char c) {
 
 		BooleanHolder update = new BooleanHolder();
@@ -111,7 +139,13 @@ public class Game implements Serializable{
 		this.map.move_npc();
 
 	}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      m     { parameter_description }
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public String printMap(char[][] m) {
 		
 		String res = "";
@@ -127,54 +161,67 @@ public class Game implements Serializable{
 
 	//Testing methods
 	
+	/**
+	 * Gets the map.
+	 *
+	 * @return     The map.
+	 */
 	public Map getMap() {
 		return this.map;
 	}
 	
+	/**
+	 * Sets the state test.
+	 */
 	public void setStateTest() {
 		this.map = new LevelTest();
 		this.state = Game.Game_State.TEST;
 	}
-	
+
+	/**
+	 * Sets the state.
+	 *
+	 * @param      test  The test
+	 */
 	public void setState(Game.Game_State test) {
 		this.state = test;
 	}
-	
-	
-/*	
-	public void setTestGuard(Game_State test, int x, int y) {
-		if(Game.Game_State.TEST == test) {
-			this.map = new LevelTest();
-		}
-		
-		((LevelTest)this.map).guard.set_x(x);
-		((LevelTest)this.map).guard.set_y(y);
-		
-	}
-	
-	public void setTestOgre(Game_State test, int x, int y) {
-		if(Game.Game_State.TEST == test) {
-			this.map = new LevelTest();
-		}
-		((LevelTest)this.map).ogres.add(new Ogre(x,y));
-	}
-	*/
-	
+	/**
+	 * Sets the position hero.
+	 *
+	 * @param      i     { parameter_description }
+	 * @param      j     { parameter_description }
+	 */
 	public void setPosHero(int i, int j) {
 		this.hero.set_x(i);
 		this.hero.set_y(j);		
 	}
 
+	/**
+	 * Gets the hero position.
+	 *
+	 * @return     The hero position.
+	 */
 	public Point getHeroPosition() {
 		Point c = new Point(this.hero.get_x(),this.hero.get_y());
 		return c;
 	}
 
+	/**
+	 * { function_description }
+	 *
+	 * @param      c     { parameter_description }
+	 */
 	public void moveHero(char c) {
 		this.hero.set_direction(c);
 		this.hero.move(this.map.getMap(this.state));
 	}
 
+	/**
+	 * Determines if gameover.
+	 *
+	 * @return     True if gameover, False otherwise.
+	 */
 	public boolean isGameover() {
 		if(this.state == Game_State.LOSE) {
 			return true;

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import dkeep.logic.Game.Game_State;
 
+/**
+ * Class for level test.
+ */
 public class LevelTest extends Map{
 
 	/**
@@ -13,6 +16,9 @@ public class LevelTest extends Map{
 	public Guard guard;
 	public ArrayList<Ogre> ogres = new ArrayList<>();
 	
+	/**
+	 * Constructs the object.
+	 */
 	public LevelTest(){
 		super();
 		char[][] temp = {
@@ -27,6 +33,11 @@ public class LevelTest extends Map{
 		guard = new Rookie();
 	}
 	
+	/**
+	 * Sets the test map.
+	 *
+	 * @param      newmap  The newmap
+	 */
 	public void setTestMap(char[][] newmap) {
 		this.char_map = newmap;
 	}

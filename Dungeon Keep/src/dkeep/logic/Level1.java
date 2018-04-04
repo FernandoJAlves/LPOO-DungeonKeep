@@ -1,7 +1,9 @@
 package dkeep.logic;
 
 import dkeep.logic.Game.Game_State;
-
+/**
+ * Class for level 1.
+ */
 public class Level1 extends Map{
 
 	/**
@@ -10,6 +12,11 @@ public class Level1 extends Map{
 	private static final long serialVersionUID = 1L;
 	private Guard guard;
 	
+	/**
+	 * Constructs the object.
+	 *
+	 * @param      guard_number  The guard number
+	 */
 	public Level1(int guard_number){
 		super();
 		char[][] temp = {
@@ -25,7 +32,6 @@ public class Level1 extends Map{
 				{'X','X','X','X','X','X','X','X','X','X'}
 		};
 		this.char_map = temp;
-		
 		//Gerar o guard
 		switch(guard_number) {
 		case 0:
@@ -43,15 +49,33 @@ public class Level1 extends Map{
 		
 	}
 	
+	/**
+	 * Gets the guard.
+	 *
+	 * @return     The guard.
+	 */
 	public Guard getGuard() {
 		return this.guard;
 	}
 	
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game_State turnKey(Game_State state) {
 		return state;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State leversUp(Game.Game_State state) {
 		if(state == Game.Game_State.LVL1_LEVER_ACT) {
 			this.char_map[5][0] = 'S';
@@ -61,6 +85,14 @@ public class Level1 extends Map{
 		return state;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 * @param      pos    The position
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State updateState(Game.Game_State state, char pos){
 		
 		if(pos == 'k') {
@@ -76,6 +108,14 @@ public class Level1 extends Map{
 		return state;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 * @param      hero   The hero
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State character_collision(Game.Game_State state, Hero hero){
 		
 		if (hero.get_y() == (guard.get_y()) && hero.get_x() == (guard.get_x())) {
@@ -107,17 +147,33 @@ public class Level1 extends Map{
 		return state;
 	}
 	
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state   The state
+	 * @param      hero    The hero
+	 * @param      c       { parameter_description }
+	 * @param      update  The update
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update){
 		update.value = true;
 		return state;
 	}
 
-	
+	/**
+	 * { function_description }
+	 */
 	public void move_npc() {
 		this.guard.move(this.char_map);
 	}
 
+	/**
+	 * Draws characters.
+	 *
+	 * @param      aux   The auxiliary
+	 */
 	public void draw_characters(char[][] aux) {
 		aux[this.guard.get_y()][this.guard.get_x()] = this.guard.getSprite();	
 	}

@@ -2,6 +2,9 @@ package dkeep.logic;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Class for drunken.
+ */
 public class Drunken extends Guard{
 	/**
 	 * 
@@ -12,19 +15,31 @@ public class Drunken extends Guard{
 	private boolean sleepy = false;
 	private boolean inverted = false;
 	private boolean turning = false;
-	
+	/**
+	 * Constructs the object.
+	 */
 	public Drunken() {
 		super(8,1);
 	}
-	
+	/**
+	 * Gets the sleepy.
+	 *
+	 * @return     The sleepy.
+	 */
 	public boolean getSleepy() {
 		return this.sleepy;
 	}
-	
+	/**
+	 * Gets the inverted.
+	 *
+	 * @return     The inverted.
+	 */
 	public boolean getInverted() {
 		return this.inverted;
 	}
-	
+	/**
+	 * { function_description }
+	 */
 	public void drunkenLogic() {
 		
 		if(this.sleepController()) return;
@@ -32,7 +47,11 @@ public class Drunken extends Guard{
 
 		this.updateIndex();
 	}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public boolean reRollController() {
 		boolean previous_inverted = this.inverted;
 		if(reRollSleep > 0)this.reRollSleep--;
@@ -46,7 +65,11 @@ public class Drunken extends Guard{
 		}
 		return false;
 	}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public boolean sleepController() {
 		
 		if(sleepCounter > 0) {
@@ -59,7 +82,9 @@ public class Drunken extends Guard{
 		}
 		return false;
 	}
-	
+	/**
+	 * Calculates the sleep.
+	 */
 	public void calculateSleep() {
 		int inverse = ThreadLocalRandom.current().nextInt(0,2);
 		sleepCounter = ThreadLocalRandom.current().nextInt(3,6);
@@ -74,7 +99,9 @@ public class Drunken extends Guard{
 			break;
 		}
 	}
-	
+	/**
+	 * { function_description }
+	 */
 	public void updateIndex() {
 		if(this.turning) {
 			this.turning = false;
@@ -87,14 +114,22 @@ public class Drunken extends Guard{
 			this.index = (this.index + 1) % this.moves.length;
 		}
 	}
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move(char[][] map) {
 		char c = this.getDirection();
 		this.drunkenLogic();
 		this.moveGuard(c);
 		}
 
-
+	/**
+	 * Gets the direction.
+	 *
+	 * @return     The direction.
+	 */
 	public char getDirection() {
 	if(!this.sleepy) {
 		if(this.inverted) {

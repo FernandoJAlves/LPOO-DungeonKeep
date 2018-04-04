@@ -3,6 +3,9 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Class for level 2.
+ */
 public class Level2 extends Map{
 
 	/**
@@ -11,6 +14,11 @@ public class Level2 extends Map{
 	private static final long serialVersionUID = 696215245238900987L;
 	private ArrayList<Ogre> ogres;
 	
+	/**
+	 * Constructs the object.
+	 *
+	 * @param      numOgres  The number ogres
+	 */
 	public Level2(int numOgres){
 		super();
 		char[][] temp = {
@@ -31,10 +39,22 @@ public class Level2 extends Map{
 		
 	}
 	
+	/**
+	 * Gets the ogres.
+	 *
+	 * @return     The ogres.
+	 */
 	public ArrayList<Ogre> getOgres(){
 		return this.ogres;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State leversUp(Game.Game_State state) {
 
 		if(state == Game.Game_State.LVL2_KEY_PICKED) {
@@ -48,11 +68,26 @@ public class Level2 extends Map{
 
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State turnKey(Game.Game_State state) {
 		this.char_map[1][0] = 'S';
 		return Game.Game_State.LVL2_KEY_TURNED;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 * @param      pos    The position
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State updateState(Game.Game_State state, char pos){
 		
 		if(pos == 'k') {
@@ -67,11 +102,28 @@ public class Level2 extends Map{
 		return state;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state  The state
+	 * @param      hero   The hero
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State character_collision(Game.Game_State state, Hero hero){
 		return super.ogreCollision(state, hero, this.ogres);
 	}
 	
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      state   The state
+	 * @param      hero    The hero
+	 * @param      c       { parameter_description }
+	 * @param      update  The update
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update){
 		
 		if(state == Game.Game_State.LVL2_KEY_PICKED && hero.get_x() == 1 && hero.get_y() == 1) {
@@ -82,7 +134,9 @@ public class Level2 extends Map{
 		return state;
 	}
 	
-	
+	/**
+	 * { function_description }
+	 */
 	public void move_npc() {
 		for (int k = 0; k < this.ogres.size(); k++) {
 			this.ogres.get(k).move(this.char_map);
@@ -90,6 +144,11 @@ public class Level2 extends Map{
 		}
 	}
 	
+	/**
+	 * Draws characters.
+	 *
+	 * @param      aux   The auxiliary map
+	 */
 	public void draw_characters(char[][] aux) {
 		for (int i = 0; i < this.ogres.size(); i++) {
 
@@ -110,7 +169,13 @@ public class Level2 extends Map{
 	
 	
 	
-	
+	/**
+	 * { function_description }
+	 *
+	 * @param      numOgres  The number ogres
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public ArrayList<Ogre> ogre_generator(int numOgres){
 		int x,y;
 		ArrayList<Ogre> ogres = new ArrayList<>();
