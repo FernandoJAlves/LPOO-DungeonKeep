@@ -93,31 +93,7 @@ public class LevelTest extends Map{
 		//Ogres
 		
 		for (int k = 0; k < this.ogres.size(); k++) {
-
-			if (hero.attack().x == ogres.get(k).get_x() && hero.attack().y == ogres.get(k).get_y()) {
-				ogres.get(k).stun();
-				continue;
-			}
-
-			else if (!ogres.get(k).isStunned()) {
-
-				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x())) {
-					return Game.Game_State.LOSE;
-				}
-
-				if (hero.get_y() == (ogres.get(k).get_y() - 1) && hero.get_x() == (ogres.get(k).get_x())) {
-					return Game.Game_State.LOSE;
-				}
-				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x() - 1)) {
-					return Game.Game_State.LOSE;
-				}
-				if (hero.get_y() == (ogres.get(k).get_y() + 1) && hero.get_x() == (ogres.get(k).get_x())) {
-					return Game.Game_State.LOSE;
-				}
-				if (hero.get_y() == (ogres.get(k).get_y()) && hero.get_x() == (ogres.get(k).get_x() + 1)) {
-					return Game.Game_State.LOSE;
-				}
-			}
+			hero.attack(this.ogres.get(k));
 		}
 		
 		

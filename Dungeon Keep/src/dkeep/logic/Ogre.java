@@ -27,126 +27,158 @@ public class Ogre extends Character{
 	}
 	
 	public void move(char[][] map) {
+		if(!this.stunLogic()) {
+			this.move_aux(map);
+		}
+	
+	}
+	
+	public void move_aux(char[][] map) {
+		switch (ThreadLocalRandom.current().nextInt(0,4)) {
+		case 0:
+			this.move_up(map);
+			break;
+			
+		case 1:
+			this.move_right(map);
+			break;
+		case 2:
+			this.move_down(map);
+			break;
+		case 3:
+			this.move_left(map);
+			break;
+			
+			
+		}
+	}
+	
+	public boolean stunLogic() {
 		if(this.isStunned()) {
 			stun_count--;
-			return;
+			return true;
 		}
 		else if(this.sprite == '8') {
 			this.sprite = 'O';
 		}
-		
-		
-		
-		int direction = ThreadLocalRandom.current().nextInt(0,4);
-		char temp;
-		switch (direction) {
-		case 0:
-			if(this.get_y() == 0) {
-				return;
-			}
-			temp = map[this.get_y()-1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_y(this.get_y() - 1);
-			break;
-			
-		case 1:
-			if(this.get_x() == map[0].length-1) {
-				return;
-			}
-			temp = map[this.get_y()][this.get_x() + 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_x(this.get_x() + 1);
-			break;
-		case 2:
-			if(this.get_y() == map.length-1) {
-				return;
-			}
-			temp = map[this.get_y()+1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_y(this.get_y() + 1);
-			break;
-		case 3:
-			if(this.get_x() == 0) {
-				return;
-			}
-			temp = map[this.get_y()][this.get_x() - 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_x(this.get_x() - 1);
-			break;
-			
-			
-		default:
-		}
+		return false;
+	}
 	
+	public void move_up(char[][] map) {
+		if(this.get_y() == 0) {
+			return;
+		}
+		char temp = map[this.get_y()-1][this.get_x()];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		this.set_y(this.get_y() - 1);
+	}
+	
+	public void move_down(char[][] map) {
+		if(this.get_y() == map.length-1) {
+			return;
+		}
+		char temp = map[this.get_y()+1][this.get_x()];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		this.set_y(this.get_y() + 1);
+	}
+	public void move_left(char[][] map) {
+		if(this.get_x() == 0) {
+			return;
+		}
+		char temp = map[this.get_y()][this.get_x() - 1];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		this.set_x(this.get_x() - 1);
+	}
+	public void move_right(char[][] map) {
+		if(this.get_x() == map[0].length-1) {
+			return;
+		}
+		char temp = map[this.get_y()][this.get_x() + 1];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		this.set_x(this.get_x() + 1);
 	}
 	
 	public void club_logic(char[][] map) {
 		club_hit.x = this.get_x();
 		club_hit.y = this.get_y();
-		if(this.stun_count > 0) {
-			return;
-		}
-		int direction = ThreadLocalRandom.current().nextInt(0,4);
-
-		char temp;
+		if(this.stun_count > 0) return;
 		this.set_dir(direction);
-		switch (direction) {
-		case 0:
-			if(this.get_y() == 0) {
-				return;
-			}
-			temp = map[this.get_y()-1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			club_hit.y = this.get_y() - 1;
-			break;
-			
-		case 1:
-			if(this.get_x() == map[0].length-1) {
-				return;
-			}
-			temp = map[this.get_y()][this.get_x() + 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			club_hit.x = this.get_x() + 1;
-			break;
-		case 2:
-			if(this.get_y() == map.length-1) {
-				return;
-			}
-			temp = map[this.get_y()+1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			club_hit.y = this.get_y() + 1;
-			break;
-		case 3:
-			if(this.get_x() == 0) {
-				return;
-			}
-			temp = map[this.get_y()][this.get_x() - 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			club_hit.x = this.get_x() - 1;
-			break;
-			
-			
-		default:
-		}
-		
+		this.attack(map);
+
 		
 	}
+	
+	public void attack(char[][] map) {
+		switch (ThreadLocalRandom.current().nextInt(0,4)) {
+		case 0:
+			this.attack_up(map);
+			break;
+		case 1:
+			this.attack_right(map);
+			break;
+		case 2:
+			this.attack_down(map);
+			break;
+		case 3:
+			this.attack_left(map);
+			break;
+		}
+		
+	}
+	
+	void attack_up(char[][] map) {
+		if(this.get_y() == 0) {
+			return;
+		}
+		char temp = map[this.get_y()-1][this.get_x()];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		club_hit.y = this.get_y() - 1;
+		
+	}
+	
+	void attack_right(char[][] map){
+		if(this.get_x() == map[0].length-1) {
+			return;
+		}
+		char temp = map[this.get_y()][this.get_x() + 1];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		club_hit.x = this.get_x() + 1;
+	}
+	
+	void attack_down(char[][] map){
+		if(this.get_y() == map.length-1) {
+			return;
+		}
+		char temp = map[this.get_y()+1][this.get_x()];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		club_hit.y = this.get_y() + 1;
+	}
+	
+	void attack_left(char[][] map){
+		if(this.get_x() == 0) {
+			return;
+		}
+		char temp = map[this.get_y()][this.get_x() - 1];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		club_hit.x = this.get_x() - 1;
+	}
+	
 	
 	public void stun() {
 		stun_count = 2;

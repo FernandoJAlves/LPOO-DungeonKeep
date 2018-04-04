@@ -91,25 +91,44 @@ public class Hero extends Character{
 		
 	}
 	
-	public Point attack() {
-		int x_temp = this.get_x();
-		int y_temp = this.get_y();
-		switch(this.direction) {
-		case 'a':
-			x_temp += -1;
-			break;
-		case 's':
-			y_temp += 1;
-			break;
-		case 'w':
-			y_temp += -1;
-			break;
-		case 'd':
-			x_temp += 1;
-			break;
-		}
-		return new Point(x_temp,y_temp);
-
+	public void attack(Ogre o) {
+		if(this.attack_up(o)) return;
+		if(this.attack_right(o)) return;
+		if(this.attack_down(o)) return;
+		if(this.attack_left(o)) return;
 	}
+	
+	public boolean attack_up(Ogre o) {
+		if((o.get_x() == this.get_x()) && (o.get_y() == this.get_y()-1)) {
+			o.stun();
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean attack_right(Ogre o) {
+		if(o.get_x() == this.get_x() + 1 && o.get_y() == this.get_y()) {
+			o.stun();
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean attack_down(Ogre o) {
+		if(o.get_x() == this.get_x()  && o.get_y() == this.get_y()+1) {
+			o.stun();
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean attack_left(Ogre o) {
+		if(o.get_x() == this.get_x() - 1 && o.get_y() == this.get_y()) {
+			o.stun();
+			return true;
+		}
+		else return false;
+	}
+	
 	
 }
