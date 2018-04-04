@@ -17,6 +17,14 @@ public class Drunken extends Guard{
 		super(8,1);
 	}
 	
+	public boolean getSleepy() {
+		return this.sleepy;
+	}
+	
+	public boolean getInverted() {
+		return this.inverted;
+	}
+	
 	public void updateIndex() {
 		int temp;
 		int inverse;

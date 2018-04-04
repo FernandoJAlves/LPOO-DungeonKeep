@@ -169,10 +169,37 @@ public class TestDungeonGameLogic{
 		assertEquals(new Point(7,1), ((Level1)game.getMap()).getGuard().getPoint());
 		((Level1)game.getMap()).move_npc(); //move the guard once
 		assertEquals(new Point(7,2), ((Level1)game.getMap()).getGuard().getPoint());
-		
 	}
 	
-	
+	@Test(timeout=1000)
+	public void testDrunkenSleepMovement() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 1, null);
+		assertEquals(new Point(8,1), ((Level1)game.getMap()).getGuard().getPoint());
+		boolean asleep = false;
+		while(!asleep) {
+			((Level1)game.getMap()).move_npc();
+			if(((Drunken)(((Level1)game.getMap()).getGuard())).getSleepy()) {
+				asleep = true;
+			}
+		}
+	}
+
+	@Test(timeout=1000)
+	public void testDrunkenInvertedMovement() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 1, null);
+		assertEquals(new Point(8,1), ((Level1)game.getMap()).getGuard().getPoint());
+		boolean inverted = false;
+		while(!inverted) {
+			((Level1)game.getMap()).move_npc();
+			if(((Drunken)(((Level1)game.getMap()).getGuard())).getInverted()) {
+				inverted = true;
+			}
+		}
+	}
 	
 	
 	
