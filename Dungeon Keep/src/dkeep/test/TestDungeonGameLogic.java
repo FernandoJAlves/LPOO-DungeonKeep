@@ -123,6 +123,56 @@ public class TestDungeonGameLogic{
 		assertEquals(' ', game.getMap().getMap(game.state)[3][1]);
 	}
 	
+	@Test
+	public void testMoveAgainstWall() {
+		
+		Game game = new Game();
+		game.setStateTest();
+		game.setPosHero(1, 1);
+		game.moveHero('a'); // move hero left.
+		assertEquals(new Point(1,1), game.getHeroPosition());
+		game.moveHero('d'); // move hero right.
+		assertEquals(new Point(2,1), game.getHeroPosition());
+	}
+	
+	@Test
+	public void testMoveAgainstDoors() {
+		
+		Game game = new Game();
+		game.setStateTest();
+		char[][] temp = {
+				{'X','X','X','X','X'},
+				{'X',' ',' ',' ','I'},
+				{'X',' ',' ',' ','X'},
+				{'X',' ',' ',' ','S'},
+				{'X','X','X','X','X'}
+		};
+		
+		((LevelTest)game.getMap()).setTestMap(temp);
+		game.setPosHero(3, 1);
+		game.moveHero('d'); // move hero right.
+		assertEquals(new Point(3,1), game.getHeroPosition());
+		game.setPosHero(3, 3);
+		game.moveHero('d'); // move hero right.
+		assertEquals(new Point(4,3), game.getHeroPosition());
+		game.setState(game.updateState());
+		assertEquals(Game.Game_State.WIN, game.state);
+	}
+	
+	@Test
+	public void testRookieMovement() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 0, null);
+		assertEquals(new Point(8,1), ((Level1)game.getMap()).getGuard().getPoint());
+		((Level1)game.getMap()).move_npc(); //move the guard once
+		assertEquals(new Point(7,1), ((Level1)game.getMap()).getGuard().getPoint());
+		((Level1)game.getMap()).move_npc(); //move the guard once
+		assertEquals(new Point(7,2), ((Level1)game.getMap()).getGuard().getPoint());
+		
+	}
+	
+	
 	
 	
 	

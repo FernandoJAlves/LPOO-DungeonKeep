@@ -27,6 +27,11 @@ public class LevelTest extends Map{
 		guard = new Rookie();
 	}
 	
+	public void setTestMap(char[][] newmap) {
+		this.char_map = newmap;
+	}
+	
+	
 	@Override
 	public Game_State leversUp(Game_State state) {
 		if(state == Game.Game_State.TEST_KEYPICKED) {

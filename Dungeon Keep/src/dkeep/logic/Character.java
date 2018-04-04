@@ -26,6 +26,10 @@ public abstract class Character implements Serializable{
 	public void set_y(int y_t) {
 		this.y = y_t;
 	}
+	public Point getPoint() {
+		return new Point(this.x, this.y);
+	}
+	
 	
 	public abstract void move(char[][] map);
 	
