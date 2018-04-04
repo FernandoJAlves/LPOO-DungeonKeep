@@ -21,14 +21,25 @@ public class LevelEditor extends JFrame implements MouseListener{
 	 */
 	private static final long serialVersionUID = 1138281883081414944L;
 	private char[][] char_map = new char[5][5];
+	
 	private GameScreen gs = new GameScreen();
 	char icon = 0;
 	
 	boolean k = false;
 	boolean h = false;
 	
+	JLabel lblGuardPersonality;
 	JLabel editorLbl;
 	JComboBox<String> comboBox;
+	JButton btnCustomGame;
+	JButton btnHero;
+	JButton btnFloor;
+	JButton btnWall;
+	JButton btnKey;
+	JButton btnOgre;
+	JButton btnDoor;
+	JButton btnDone;
+	JButton btnExit;
 
 	public LevelEditor() {
 		super();
@@ -38,37 +49,47 @@ public class LevelEditor extends JFrame implements MouseListener{
 	
 	public void setEditor() {
 		this.initGraph();
-		this.setVisible(true);
-		
-		/*
-		this.fillLevel();
-		gs.draw(this.char_map);
-		*/
-		
-		
-		
+		this.setVisible(true);		
 	}
 	
 	public void initialize() {
+		this.setEditorFrame();
+		this.setGuardPersonalityLabel();
+		this.setComboBox();
+		this.setCustomGame();
+		this.setElementsButtons();
+		this.setDoneButton();
+		this.setExitButton();
+		this.setGameScreen();
+		this.setEditorLabel();
+		this.initGraph();
+	}
+	
+	public void setEditorFrame() {
 		this.setResizable(false);
 		this.setTitle("Level Editor");
 		this.setBounds(100, 100, 700, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
-		
-		JLabel lblGuardPersonality = new JLabel("Keep Size");
+	}
+	
+	public void setGuardPersonalityLabel() {
+		lblGuardPersonality = new JLabel("Keep Size");
 		lblGuardPersonality.setBounds(33, 27, 146, 15);
 		this.getContentPane().add(lblGuardPersonality);
-		
+	}
+	
+	public void setComboBox() {
 		comboBox = new JComboBox<String>();
 		comboBox.setToolTipText("");
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"5", "6", "7", "8", "9", "10"}));
 		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(179, 22, 120, 24);
 		this.getContentPane().add(comboBox);
-		
-		
-		JButton btnCustomGame = new JButton("New Level");
+	}
+	
+	public void setCustomGame() {
+		btnCustomGame = new JButton("New Level");
 		btnCustomGame.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 displayMap();
@@ -78,8 +99,19 @@ public class LevelEditor extends JFrame implements MouseListener{
 		);
 		btnCustomGame.setBounds(540, 109, 140, 25);
 		this.getContentPane().add(btnCustomGame);
-		
-		JButton btnHero = new JButton("");
+	}
+	
+	public void setElementsButtons() {
+		this.setHeroButton();
+		this.setFloorButton();
+		this.setWallButton();
+		this.setKeyButton();
+		this.setOgreButton();
+		this.setDoorButton();
+	}
+	
+	public void setHeroButton() {
+		btnHero = new JButton("");
 		btnHero.setIcon(this.loadIcon("res/Hero.png"));
 		btnHero.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -89,8 +121,10 @@ public class LevelEditor extends JFrame implements MouseListener{
 		);
 		btnHero.setBounds(540, 159, 50, 50);
 		this.getContentPane().add(btnHero);
-		
-		JButton btnFloor = new JButton("");
+	}
+	
+	public void setFloorButton() {
+		btnFloor = new JButton("");
 		btnFloor.setIcon(this.loadIcon("res/Floor_prison.png"));
 		btnFloor.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -100,8 +134,10 @@ public class LevelEditor extends JFrame implements MouseListener{
 		);
 		btnFloor.setBounds(600, 159, 50, 50);
 		this.getContentPane().add(btnFloor);
-		
-		JButton btnWall = new JButton("");
+	}
+	
+	public void setWallButton() {
+		btnWall = new JButton("");
 		btnWall.setIcon(this.loadIcon("res/Wall_prison.png"));
 		btnWall.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -111,8 +147,10 @@ public class LevelEditor extends JFrame implements MouseListener{
 		);
 		btnWall.setBounds(540, 219, 50, 50);
 		this.getContentPane().add(btnWall);
-		
-		JButton btnKey = new JButton("");
+	}
+	
+	public void setKeyButton() {
+		btnKey = new JButton("");
 		btnKey.setIcon(this.loadIcon("res/Key.png"));
 		btnKey.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -122,8 +160,10 @@ public class LevelEditor extends JFrame implements MouseListener{
 		);
 		btnKey.setBounds(600, 219, 50, 50);
 		this.getContentPane().add(btnKey);
-		
-		JButton btnOgre = new JButton("");
+	}
+	
+	public void setOgreButton() {
+		btnOgre = new JButton("");
 		btnOgre.setIcon(this.loadIcon("res/Ogre.png"));
 		btnOgre.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -132,9 +172,11 @@ public class LevelEditor extends JFrame implements MouseListener{
 			 }
 		);
 		btnOgre.setBounds(540, 279, 50, 50);
-		this.getContentPane().add(btnOgre);
-		
-		JButton btnDoor = new JButton("");
+		this.getContentPane().add(btnOgre);	
+	}
+	
+	public void setDoorButton() {
+		btnDoor = new JButton("");
 		btnDoor.setIcon(this.loadIcon("res/Door_closed.png"));
 		btnDoor.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -144,9 +186,16 @@ public class LevelEditor extends JFrame implements MouseListener{
 		);
 		btnDoor.setBounds(600, 279, 50, 50);
 		this.getContentPane().add(btnDoor);
-		
-		JButton btnDone = new JButton("Done");
+	}
+	
+	public void setDoneButton() {
+		btnDone = new JButton("Done");
 		btnDone.setBounds(540, 435, 140, 25);
+		this.setDoneListener();
+		this.getContentPane().add(btnDone);
+	}
+	
+	public void setDoneListener() {
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (allElems()) {
@@ -162,9 +211,10 @@ public class LevelEditor extends JFrame implements MouseListener{
 
 			}
 		});
-		this.getContentPane().add(btnDone);
-		
-		JButton btnExit = new JButton("Back to Menu");
+	}
+	
+	public void setExitButton() {
+		btnExit = new JButton("Back to Menu");
 		btnExit.setBounds(540, 485, 140, 25);
 		btnExit.addActionListener( new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -173,20 +223,18 @@ public class LevelEditor extends JFrame implements MouseListener{
 			 }
 			); 
 		this.getContentPane().add(btnExit);
-
-		
+	}
+	
+	public void setGameScreen() {
 		gs.setBounds(33, 54, 480, 480);
-		
 		gs.loadResources();
-		
 		this.getContentPane().add(gs);
-		
+	}
+	
+	public void setEditorLabel() {
 		editorLbl = new JLabel("Choose a size for your keep and fill it with at least one of each");
 		editorLbl.setBounds(33, 540, 434, 15);
 		this.getContentPane().add(editorLbl);
-		this.initGraph();
-
-		
 	}
 	
 	public ImageIcon loadIcon(String path) {
@@ -198,8 +246,6 @@ public class LevelEditor extends JFrame implements MouseListener{
 	
 	public void resize(int size) {
 		this.char_map = new char[size][size];
-		//gs.setLayout(new GridLayout(size, size));
-		//gs.setBounds(33, 54, size*48, size*48);
 		this.fillLevel();
 	}
 	
