@@ -26,6 +26,22 @@ public abstract class Guard extends Character{
 	public abstract void updateIndex();
 	
 	public abstract void move(char[][] map);
+	
+	
+	public void moveGuard(char c) {
+		if(c == 'w'){
+			this.set_y(this.get_y() - 1);
+		}
+		else if(c == 'd') {
+			this.set_x(this.get_x() + 1);
+		}
+		else if(c == 's') {
+			this.set_y(this.get_y() + 1);
+		}
+		else if(c == 'a') {
+			this.set_x(this.get_x() - 1);
+			}
+	}
 
 
 

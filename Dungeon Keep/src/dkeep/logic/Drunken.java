@@ -89,22 +89,13 @@ public class Drunken extends Guard{
 	}
 	
 	public void move(char[][] map) {
-		char c = this.getDirection(map);
+		char c = this.getDirection();
 		this.drunkenLogic();
-		if(c == 'w'){
-			this.set_y(this.get_y() - 1);
+		this.moveGuard(c);
 		}
-		else if(c == 'd') {
-			this.set_x(this.get_x() + 1);
-		}
-		else if(c == 's') {
-			this.set_y(this.get_y() + 1);
-		}
-		else if(c == 'a') {
-			this.set_x(this.get_x() - 1);
-		}}
 
-	public char getDirection(char[][] map) {
+
+	public char getDirection() {
 	if(!this.sleepy) {
 		if(this.inverted) {
 			return this.moves_inv[this.index];

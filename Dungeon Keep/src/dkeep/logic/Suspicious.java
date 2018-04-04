@@ -18,63 +18,9 @@ public class Suspicious extends Guard{
 	}
 	
 	public void move(char[][] map) {
-		char c = 0;
-			
-		
-		if(this.inverted) {
-			c = this.moves_inv[this.index];
-		}
-		else {
-			c = this.moves[this.index];
-		}
-			
+		char c = this.getDirection();
 		this.updateIndex();
-		
-		
-		if(c == 'w'){
-			if(this.get_y() == 0) {
-				return;
-			}
-			char temp = map[this.get_y()-1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_y(this.get_y() - 1);
-			
-		}
-		else if(c == 'd') {
-			if(this.get_x() == map[0].length-1) {
-				return;
-			}
-			char temp = map[this.get_y()][this.get_x() + 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_x(this.get_x() + 1);
-			
-		}
-		else if(c == 's') {
-			if(this.get_y() == map.length-1) {
-				return;
-			}
-			char temp = map[this.get_y()+1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_y(this.get_y() + 1);
-			
-		}
-		else if(c == 'a') {
-			if(this.get_x() == 0) {
-				return;
-			}
-			char temp = map[this.get_y()][this.get_x() - 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_x(this.get_x() - 1);
-			
-		}
+		this.moveGuard(c);
 	}
 
 
@@ -117,5 +63,14 @@ public class Suspicious extends Guard{
 			this.index = (this.index + 1) % this.moves.length;
 		}
 		
+	}
+	
+	public char getDirection() {
+		if(this.inverted) {
+			return this.moves_inv[this.index];
+		}
+		else {
+			return this.moves[this.index];
+		}
 	}
 }
