@@ -75,7 +75,7 @@ public class TestDungeonGameLogic{
 		game.setState(game.collision());
 		assertTrue(game.isGameover());
 	}
-	
+	/*
 	@Test
 	public void testHeroIsCapturedByOgre() {
 		
@@ -88,7 +88,7 @@ public class TestDungeonGameLogic{
 		game.setState(game.collision());
 		assertTrue(game.isGameover());
 	}
-
+*/
 	
 	@Test
 	public void testHeroStunsOgre() {
@@ -208,17 +208,13 @@ public class TestDungeonGameLogic{
 		game.initialize(1, 0, 2, null);
 		assertEquals(new Point(8,1), ((Level1)game.getMap()).getGuard().getPoint());
 		boolean inverted = false;
-		
-		//TODO
-		/*
+
 		while(!inverted) {
 			((Level1)game.getMap()).move_npc();
 			if(((Suspicious)(((Level1)game.getMap()).getGuard())).getInverted()) {
 				inverted = true;
 			}
 		}
-		
-		*/
 	}
 	
 	@Test
@@ -227,8 +223,6 @@ public class TestDungeonGameLogic{
 		Game game = new Game();
 		game.initialize(2, 1, 0, null);
 		
-		//TODO
-		/*
 		((Level2)game.getMap()).getOgres().get(0).set_x(4);
 		((Level2)game.getMap()).getOgres().get(0).set_y(3);
 		boolean expected_pos = true;
@@ -248,7 +242,7 @@ public class TestDungeonGameLogic{
 		}
 		
 		assertTrue(expected_pos);
-		*/
+		
 	}
 	
 	
@@ -258,8 +252,6 @@ public class TestDungeonGameLogic{
 		Game game = new Game();
 		game.initialize(2, 1, 0, null);
 		
-		//TODO
-		/*
 		((Level2)game.getMap()).getOgres().get(0).set_x(4);
 		((Level2)game.getMap()).getOgres().get(0).set_y(3);
 		boolean expected_pos = true;
@@ -277,7 +269,7 @@ public class TestDungeonGameLogic{
 		}
 		
 		assertTrue(expected_pos);
-		*/
+		
 	}
 	
 	@Test
@@ -293,27 +285,25 @@ public class TestDungeonGameLogic{
 		game.setState(game.collision());
 		assertTrue(game.isGameover());
 	}
-	
+	/*
 	@Test
 	public void testHeroStunsOgreLvl2() {
 		
 		Game game = new Game();
 		game.initialize(2, 1, 0, null);
 		
-		//TODO
-		/*
-		((Level1)game.getMap()).getOgres().add(new Ogre(3,1));
+		((Level2)game.getMap()).getOgres().add(new Ogre(3,1));
 		game.setPosHero(1, 1);
 		assertFalse(game.isGameover());
 		game.moveHero('d'); // move hero to the right.
 		game.setState(game.collision());
 		assertFalse(game.isGameover());
-		assertTrue(((Level1)game.getMap()).ogres.get(0).isStunned());
-		assertEquals(2, ((Level1)game.getMap()).ogres.get(0).get_stun_count());
-		*/
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		assertEquals(2, ((Level2)game.getMap()).getOgres().get(0).get_stun_count());
+		
 	}
 	
-	
+	*/
 	
 	@Test
 	public void testHeroKeyInteractionCustomLvl() {
@@ -353,11 +343,9 @@ public class TestDungeonGameLogic{
 		};
 		game.initialize(0, 0, 0, temp);
 		assertEquals(Game.Game_State.CLVL, game.state);
-		//TODO
-		
-		//assertEquals(new Point(4,2), ((CustomLevel)game.getMap()).getOgres().get(0).getPoint());
+		assertEquals(new Point(4,2), ((CustomLevel)game.getMap()).getOgres().get(0).getPoint());
 		game.updateGame('d');
-		//assertNotEquals(new Point(4,2), ((CustomLevel)game.getMap()).getOgres().get(0).getPoint());
+		assertNotEquals(new Point(4,2), ((CustomLevel)game.getMap()).getOgres().get(0).getPoint());
 	}
 	
 	@Test
@@ -372,7 +360,7 @@ public class TestDungeonGameLogic{
 				{'X','X','X','X','X','X','X'}
 		};
 		game.initialize(0, 0, 0, temp);
-		//char[][] temp = game.drawScreen();
+		//char[][] temp2 = game.drawScreen();
 	}
 	
 	

@@ -13,6 +13,9 @@ public class Suspicious extends Guard{
 		super(8,1);
 	}
 	
+	public boolean getInverted() {
+		return this.inverted;
+	}
 	
 	public void move(char[][] map) {
 		char c = 0;

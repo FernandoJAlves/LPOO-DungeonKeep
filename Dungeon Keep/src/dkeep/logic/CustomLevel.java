@@ -50,6 +50,10 @@ public class CustomLevel extends Map {
 	public int getHeroY() {
 		return this.hero_y;
 	}
+	
+	public ArrayList<Ogre> getOgres(){
+		return this.ogres;
+	}
 
 	@Override
 	public Game_State leversUp(Game_State state) {

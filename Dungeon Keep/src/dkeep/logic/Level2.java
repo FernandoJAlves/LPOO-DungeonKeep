@@ -31,6 +31,10 @@ public class Level2 extends Map{
 		
 	}
 	
+	public ArrayList<Ogre> getOgres(){
+		return this.ogres;
+	}
+	
 	public Game.Game_State leversUp(Game.Game_State state) {
 
 		if(state == Game.Game_State.LVL2_KEY_PICKED) {
