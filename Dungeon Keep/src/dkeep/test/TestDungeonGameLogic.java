@@ -272,6 +272,53 @@ public class TestDungeonGameLogic{
 		
 	}
 	
+	
+	@Test
+	public void testMoveNPCLevel2() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+
+		boolean expected = true;
+		int counter = 0;
+		int ogre_x, ogre_y, club_x, club_y;
+		
+		while(counter < 200) {
+			counter++;
+			((Level2)game.getMap()).getOgres().get(0).set_x(4);
+			((Level2)game.getMap()).getOgres().get(0).set_y(4);
+			((Level2)game.getMap()).move_npc();
+			ogre_x = ((Level2)game.getMap()).getOgres().get(0).get_x();
+			ogre_y = ((Level2)game.getMap()).getOgres().get(0).get_y();
+			club_x = ((Level2)game.getMap()).getOgres().get(0).club_hit.x;
+			club_y = ((Level2)game.getMap()).getOgres().get(0).club_hit.y;
+			
+			if(ogre_x == 4 && ogre_y == 3) {
+				if(club_x == 4 && club_y == 2 || club_x == 4 && club_y == 4 || club_x == 3 && club_y == 3 || club_x == 5 && club_y == 3) {
+					continue;
+				}
+			}
+			if(ogre_x == 4 && ogre_y == 5) {
+				if(club_x == 4 && club_y == 6 || club_x == 4 && club_y == 4 || club_x == 3 && club_y == 5 || club_x == 5 && club_y == 5) {
+					continue;
+				}
+			}
+			if(ogre_x == 3 && ogre_y == 4) {
+				if(club_x == 3 && club_y == 5 || club_x == 3 && club_y == 3 || club_x == 2 && club_y == 4 || club_x == 4 && club_y == 4) {
+					continue;
+				}
+			}
+			if(ogre_x == 5 && ogre_y == 4) {
+				if(club_x == 5 && club_y == 5 || club_x == 5 && club_y == 3 || club_x == 4 && club_y == 4 || club_x == 6 && club_y == 4) {
+					continue;
+				}
+			}
+			expected = false;
+		}
+		assertTrue(expected);
+	}
+	
+	
 	@Test
 	public void testHeroIsCapturedByGuardLvl1_Left() {
 		
@@ -328,24 +375,71 @@ public class TestDungeonGameLogic{
 		assertTrue(game.isGameover());
 	}
 	
-	/*
+	
 	@Test
-	public void testHeroStunsOgreLvl2() {
+	public void testHeroStunsOgreLvl2_Left() {
 		
 		Game game = new Game();
 		game.initialize(2, 1, 0, null);
-		
-		((Level2)game.getMap()).getOgres().add(new Ogre(3,1));
 		game.setPosHero(1, 1);
 		assertFalse(game.isGameover());
 		game.updateGame('d');
+		((Level2)game.getMap()).getOgres().get(0).set_x(3);
+		((Level2)game.getMap()).getOgres().get(0).set_y(1);
 		game.setState(game.collision());
 		assertFalse(game.isGameover());
 		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
 		assertEquals(2, ((Level2)game.getMap()).getOgres().get(0).get_stun_count());
-		
 	}
-	*/
+	
+	@Test
+	public void testHeroStunsOgreLvl2_Right() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		game.setPosHero(3, 1);
+		assertFalse(game.isGameover());
+		game.updateGame('a');
+		((Level2)game.getMap()).getOgres().get(0).set_x(1);
+		((Level2)game.getMap()).getOgres().get(0).set_y(1);
+		game.setState(game.collision());
+		assertFalse(game.isGameover());
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		assertEquals(2, ((Level2)game.getMap()).getOgres().get(0).get_stun_count());
+	}
+	
+	@Test
+	public void testHeroStunsOgreLvl2_Up() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		game.setPosHero(1, 1);
+		assertFalse(game.isGameover());
+		game.updateGame('s');
+		((Level2)game.getMap()).getOgres().get(0).set_x(1);
+		((Level2)game.getMap()).getOgres().get(0).set_y(3);
+		game.setState(game.collision());
+		assertFalse(game.isGameover());
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		assertEquals(2, ((Level2)game.getMap()).getOgres().get(0).get_stun_count());
+	}
+	
+	@Test
+	public void testHeroStunsOgreLvl2_Down() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		game.setPosHero(1, 3);
+		assertFalse(game.isGameover());
+		game.updateGame('w');
+		((Level2)game.getMap()).getOgres().get(0).set_x(1);
+		((Level2)game.getMap()).getOgres().get(0).set_y(1);
+		game.setState(game.collision());
+		assertFalse(game.isGameover());
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		assertEquals(2, ((Level2)game.getMap()).getOgres().get(0).get_stun_count());
+	}
+	
 	
 	@Test
 	public void testHeroKeyInteractionCustomLvl() {
@@ -452,9 +546,30 @@ public class TestDungeonGameLogic{
 		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_x() <= 8);
 		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_y() >= 3);
 		assertTrue(((Level2)game.getMap()).getOgres().get(0).get_y() <= 8);
+		assertEquals('O', temp[((Level2)game.getMap()).getOgres().get(0).get_y()][((Level2)game.getMap()).getOgres().get(0).get_x()]);
+		((Level2)game.getMap()).getOgres().get(0).set_x(7);
+		((Level2)game.getMap()).getOgres().get(0).set_y(1);
+		temp = game.drawScreen();
+		assertEquals('$',temp[1][7]);
+		((Level2)game.getMap()).getOgres().get(0).set_x(6);
+		((Level2)game.getMap()).getOgres().get(0).set_y(1);
+		((Level2)game.getMap()).getOgres().get(0).club_hit.x = 7;
+		((Level2)game.getMap()).getOgres().get(0).club_hit.y = 1;
+		temp = game.drawScreen();
+		assertEquals('$',temp[1][7]);
 	}
 	
 	
+	@Test
+	public void testNumberOgresLevel2() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		assertEquals(1, ((Level2)game.getMap()).getOgres().size());
+	}
+	
+	
+
 	
 	
 }
