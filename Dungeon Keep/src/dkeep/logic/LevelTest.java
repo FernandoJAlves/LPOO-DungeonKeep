@@ -101,46 +101,7 @@ public class LevelTest extends Map{
 			}
 		}
 		
-		//Ogres
-		
-		for (int k = 0; k < this.ogres.size(); k++) {
-			hero.attack(this.ogres.get(k));
-		}
-		
-		
-		
-		int x_t;
-		int y_t;
-
-		for (int k = 0; k < this.ogres.size(); k++) {
-
-			x_t = this.ogres.get(k).club_hit.x;
-			y_t = this.ogres.get(k).club_hit.y;
-
-			if (this.ogres.get(k).isStunned()) {
-				return state;
-			}
-
-			if (hero.get_y() == (y_t) && hero.get_x() == (x_t)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t - 1) && hero.get_x() == (x_t)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t) && hero.get_x() == (x_t - 1)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t + 1) && hero.get_x() == (x_t)) {
-				return Game.Game_State.LOSE;
-			}
-			if (hero.get_y() == (y_t) && hero.get_x() == (x_t + 1)) {
-				return Game.Game_State.LOSE;
-			}
-		}
-		
-		return state;
-		
-		//Next
+		return super.ogreCollision(state, hero, this.ogres);
 	}
 
 	@Override
