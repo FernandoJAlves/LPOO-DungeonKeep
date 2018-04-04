@@ -3,7 +3,9 @@ package dkeep.logic;
 import java.util.ArrayList;
 
 import dkeep.logic.Game.Game_State;
-
+/**
+ * Class for custom level.
+ */
 public class CustomLevel extends Map {
 	/**
 	 * 
@@ -14,12 +16,18 @@ public class CustomLevel extends Map {
 	private int hero_y;
 	private int key_x;
 	private int key_y;
-	
+	/**
+	 * Constructs the object.
+	 *
+	 * @param      map   The map
+	 */
 	public CustomLevel(char[][] map) {
 		this.char_map = map;
 		this.initialize();
 	}
-	
+	/**
+	 * { function_description }
+	 */
 	public void initialize() {
 		for(int i  = 0; i < this.char_map.length;i++) {
 			for(int j = 0; j < this.char_map[0].length;j++) {
@@ -42,11 +50,19 @@ public class CustomLevel extends Map {
 		}
 		
 	}
-	
+	/**
+	 * Gets the hero x.
+	 *
+	 * @return     The hero x.
+	 */
 	public int getHeroX() {
 		return this.hero_x;
 	}
-	
+	/**
+	 * Gets the hero y.
+	 *
+	 * @return     The hero y.
+	 */
 	public int getHeroY() {
 		return this.hero_y;
 	}

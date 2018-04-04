@@ -1,5 +1,8 @@
 package dkeep.logic;
 
+/**
+ * Class for hero.
+ */
 public class Hero extends Character{
 
 
@@ -10,35 +13,72 @@ public class Hero extends Character{
 	private char direction = 0;
 	char sprite = 'H';
 	
+	/**
+	 * Constructs the object.
+	 */
 	public Hero() {
 		super(1,1);
 	}
 	
+	/**
+	 * Sets the position.
+	 *
+	 * @param      x     { parameter_description }
+	 * @param      y     { parameter_description }
+	 */
 	public void set_pos(int x, int y) {
 		this.set_x(x);
 		this.set_y(y);
 	}
 
+	/**
+	 * Sets the direction.
+	 *
+	 * @param      c     { parameter_description }
+	 */
 	public void set_direction(char c) {
 		this.direction = c;
 	}
 	
+	/**
+	 * Gets the direction.
+	 *
+	 * @return     The direction.
+	 */
 	public char get_direction() {
 		return this.direction;
 	}
 	
+	/**
+	 * Gets the sprite.
+	 *
+	 * @return     The sprite.
+	 */
 	public char getSprite() {
 		return this.sprite;
 	}
 	
+	/**
+	 * Sets the sprite.
+	 *
+	 * @param      c     { parameter_description }
+	 */
 	public void setSprite(char c) {
 		this.sprite = c;
 	}
 	
+	/**
+	 * { function_description }
+	 */
 	public void pick_key() {
 		this.sprite = 'K';
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move(char[][] map) {
 		switch(this.direction) {
 		case 'w':

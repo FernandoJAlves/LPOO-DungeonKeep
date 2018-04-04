@@ -1,7 +1,9 @@
 package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+/**
+ * Class for ogre.
+ */
 public class Ogre extends Character{
 	/**
 	 * 
@@ -11,21 +13,47 @@ public class Ogre extends Character{
 	public Point club_hit = new Point(this.get_x(),this.get_y());
 	private int stun_count = 0;
 	private char sprite = 'O';
-	
+	/**
+	 * Constructs the object.
+	 *
+	 * @param      x     { parameter_description }
+	 * @param      y     { parameter_description }
+	 */
 	public Ogre(int x, int y) {
 		super(x,y);
 	}
-	
+	/**
+	 * Gets the dir.
+	 *
+	 * @return     The dir.
+	 */
 	public int get_dir() {
 		return this.direction;
 	}
+
+	/**
+	 * Sets the dir.
+	 *
+	 * @param      i     { parameter_description }
+	 */
 	public void set_dir(int i) {
 		this.direction = i;
 	}
+
+	/**
+	 * Gets the stun count.
+	 *
+	 * @return     The stun count.
+	 */
 	public int get_stun_count() {
 		return this.stun_count;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move(char[][] map) {
 		if(!this.stunLogic()) {
 			this.move_aux(map);
@@ -33,6 +61,11 @@ public class Ogre extends Character{
 	
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move_aux(char[][] map) {
 		switch (ThreadLocalRandom.current().nextInt(0,4)) {
 		case 0:
@@ -53,6 +86,11 @@ public class Ogre extends Character{
 		}
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @return     { description_of_the_return_value }
+	 */
 	public boolean stunLogic() {
 		if(this.isStunned()) {
 			stun_count--;
@@ -64,6 +102,11 @@ public class Ogre extends Character{
 		return false;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move_up(char[][] map) {
 		if(this.get_y() == 0) {
 			return;
@@ -75,6 +118,11 @@ public class Ogre extends Character{
 		this.set_y(this.get_y() - 1);
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move_down(char[][] map) {
 		if(this.get_y() == map.length-1) {
 			return;
@@ -85,6 +133,18 @@ public class Ogre extends Character{
 		}
 		this.set_y(this.get_y() + 1);
 	}
+
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
+	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move_left(char[][] map) {
 		if(this.get_x() == 0) {
 			return;
@@ -95,6 +155,12 @@ public class Ogre extends Character{
 		}
 		this.set_x(this.get_x() - 1);
 	}
+
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void move_right(char[][] map) {
 		if(this.get_x() == map[0].length-1) {
 			return;
@@ -106,6 +172,11 @@ public class Ogre extends Character{
 		this.set_x(this.get_x() + 1);
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void club_logic(char[][] map) {
 		club_hit.x = this.get_x();
 		club_hit.y = this.get_y();
@@ -116,6 +187,11 @@ public class Ogre extends Character{
 		
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	public void attack(char[][] map) {
 		switch (ThreadLocalRandom.current().nextInt(0,4)) {
 		case 0:
@@ -134,6 +210,11 @@ public class Ogre extends Character{
 		
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	void attack_up(char[][] map) {
 		if(this.get_y() == 0) {
 			return;
@@ -146,6 +227,11 @@ public class Ogre extends Character{
 		
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	void attack_right(char[][] map){
 		if(this.get_x() == map[0].length-1) {
 			return;
@@ -157,6 +243,11 @@ public class Ogre extends Character{
 		club_hit.x = this.get_x() + 1;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	void attack_down(char[][] map){
 		if(this.get_y() == map.length-1) {
 			return;
@@ -168,6 +259,11 @@ public class Ogre extends Character{
 		club_hit.y = this.get_y() + 1;
 	}
 	
+	/**
+	 * { function_description }
+	 *
+	 * @param      map   The map
+	 */
 	void attack_left(char[][] map){
 		if(this.get_x() == 0) {
 			return;
@@ -179,16 +275,28 @@ public class Ogre extends Character{
 		club_hit.x = this.get_x() - 1;
 	}
 	
-	
+	/**
+	 * { function_description }
+	 */
 	public void stun() {
 		stun_count = 2;
 		this.sprite = '8';
 	}
 	
+	/**
+	 * Gets the sprite.
+	 *
+	 * @return     The sprite.
+	 */
 	public char getSprite() {
 		return this.sprite;
 	}
 	
+	/**
+	 * Determines if stunned.
+	 *
+	 * @return     True if stunned, False otherwise.
+	 */
 	public boolean isStunned() {
 		if(stun_count > 0) {
 			return true;

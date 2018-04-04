@@ -2,6 +2,9 @@ package dkeep.logic;
 
 import java.io.Serializable;
 
+/**
+ * Class for point.
+ */
 public class Point implements Serializable{
 	/**
 	 * 
@@ -13,7 +16,9 @@ public class Point implements Serializable{
 		this.x = x;
 		this.y = y;
 	}
-	
+	/**
+	 * Constructs the object.
+	 */
 	public Point() {};
 	
 	@Override
