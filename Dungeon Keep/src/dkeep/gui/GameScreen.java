@@ -91,57 +91,59 @@ public class GameScreen extends JPanel {
 		}
 	}
 	
+	public void chooseComponent(char c) {
+		switch (c) {
+		case 'X':
+			this.add(new JLabel(wall));
+			break;
+		case 'I':
+			this.add(new JLabel(closedDoor));
+			break;
+		case 'G':
+			this.add(new JLabel(guard));
+			break;
+		case 'H':
+			this.add(new JLabel(hero));
+			break;
+		case 'k':
+			this.add(new JLabel(key));
+			break;
+		case 'S':
+			this.add(new JLabel(door));
+			break;
+		case 'O':
+			this.add(new JLabel(ogre));
+			break;
+		case '*':
+			this.add(new JLabel(club));
+			break;
+		case '$':
+			this.add(new JLabel(club));
+			break;
+		case 'A':
+			this.add(new JLabel(hero));
+			break;
+		case 'K':
+			this.add(new JLabel(hero));
+			break;
+		case '8':
+			this.add(new JLabel(ogreStunned));
+			break;
+		case 'g':
+			this.add(new JLabel(guardSleeping));
+			break;
+		default:
+			this.add(new JLabel(floor));
+			break;
+		}
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 
 		for (int i = 0; i < map.length; i++)
 			for (int j = 0; j < map[0].length; j++) {
-
-				switch (map[i][j]) {
-				case 'X':
-					this.add(new JLabel(wall));
-					break;
-				case 'I':
-					this.add(new JLabel(closedDoor));
-					break;
-				case 'G':
-					this.add(new JLabel(guard));
-					break;
-				case 'H':
-					this.add(new JLabel(hero));
-					break;
-				case 'k':
-					this.add(new JLabel(key));
-					break;
-				case 'S':
-					this.add(new JLabel(door));
-					break;
-				case 'O':
-					this.add(new JLabel(ogre));
-					break;
-				case '*':
-					this.add(new JLabel(club));
-					break;
-				case '$':
-					this.add(new JLabel(club));
-					break;
-				case 'A':
-					this.add(new JLabel(hero));
-					break;
-				case 'K':
-					this.add(new JLabel(hero));
-					break;
-				case '8':
-					this.add(new JLabel(ogreStunned));
-					break;
-				case 'g':
-					this.add(new JLabel(guardSleeping));
-					break;
-				default:
-					this.add(new JLabel(floor));
-					break;
-				}
-
+				this.chooseComponent(map[i][j]);
 			}
 		
 

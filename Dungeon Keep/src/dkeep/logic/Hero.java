@@ -40,55 +40,66 @@ public class Hero extends Character{
 	}
 	
 	public void move(char[][] map) {
-		char c = this.direction;
+		switch(this.direction) {
+		case 'w':
+			this.move_up(map);
+			break;
+		case 'd':
+			this.move_right(map);
+			break;
+		case 's':
+			this.move_down(map);
+			break;
+		case 'a':
+			this.move_left(map);
+			break;
+		}
+
 		
-		if(c == 'w'){
-			if(this.get_y() == 0) {
-				return;
-			}
-			char temp = map[this.get_y()-1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_y(this.get_y() - 1);
-			
+	}
+	
+	public void move_up(char[][]map) {
+		if(this.get_y() == 0) {
+			return;
 		}
-		else if(c == 'd') {
-			
-			if(this.get_x() == map[0].length-1) {
-				return;
-			}
-			char temp = map[this.get_y()][this.get_x() + 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_x(this.get_x() + 1);
-			
+		char temp = map[this.get_y()-1][this.get_x()];
+		if(temp == 'X' || temp == 'I') {
+			return;
 		}
-		else if(c == 's') {
-			if(this.get_y() == map.length-1) {
-				return;
-			}
-			char temp = map[this.get_y()+1][this.get_x()];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_y(this.get_y() + 1);
-			
+		this.set_y(this.get_y() - 1);
+	}
+	
+	public void move_right(char[][]map) {
+		if(this.get_x() == map[0].length-1) {
+			return;
 		}
-		else if(c == 'a') {
-			
-			if(this.get_x() == 0) {
-				return;
-			}
-			char temp = map[this.get_y()][this.get_x() - 1];
-			if(temp == 'X' || temp == 'I') {
-				return;
-			}
-			this.set_x(this.get_x() - 1);
-			
+		char temp = map[this.get_y()][this.get_x() + 1];
+		if(temp == 'X' || temp == 'I') {
+			return;
 		}
-		
+		this.set_x(this.get_x() + 1);
+	}
+	
+	public void move_down(char[][]map) {
+		if(this.get_y() == map.length-1) {
+			return;
+		}
+		char temp = map[this.get_y()+1][this.get_x()];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		this.set_y(this.get_y() + 1);
+	}
+	
+	public void move_left(char[][]map) {
+		if(this.get_x() == 0) {
+			return;
+		}
+		char temp = map[this.get_y()][this.get_x() - 1];
+		if(temp == 'X' || temp == 'I') {
+			return;
+		}
+		this.set_x(this.get_x() - 1);
 	}
 	
 	public void attack(Ogre o) {
