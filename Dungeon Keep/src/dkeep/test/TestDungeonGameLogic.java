@@ -3,6 +3,7 @@ package dkeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import dkeep.logic.*;
+import dkeep.logic.Game.Game_State;
 
 public class TestDungeonGameLogic{
 		
@@ -79,19 +80,6 @@ public class TestDungeonGameLogic{
 
 	
 	@Test
-	public void testHeroIsCapturedByOgre() {
-		
-		Game game = new Game();
-		game.setStateTest();
-		((LevelTest)game.getMap()).ogres.add(new Ogre(2,1));
-		game.setPosHero(1, 1);
-		assertFalse(game.isGameover());
-		//game.moveHero('d'); // simulate that the ogre moved to the side of the hero without him attacking
-		game.setState(game.collision());
-		assertTrue(game.isGameover());
-	}
-	
-	@Test
 	public void testHeroStunsOgre() {
 		
 		Game game = new Game();
@@ -105,11 +93,6 @@ public class TestDungeonGameLogic{
 		assertTrue(((LevelTest)game.getMap()).ogres.get(0).isStunned());
 		assertEquals(2, ((LevelTest)game.getMap()).ogres.get(0).get_stun_count());
 	}
-
-
-	
-
-	
 
 	*/
 	
@@ -196,7 +179,6 @@ public class TestDungeonGameLogic{
 		}
 		
 		assertTrue(expected_pos);
-		
 	}
 	
 	
@@ -522,7 +504,131 @@ public class TestDungeonGameLogic{
 		assertEquals(1, ((Level2)game.getMap()).getOgres().size());
 	}
 	
+	@Test
+	public void testHeroStunsOgre() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		
+		((Level2)game.getMap()).getOgres().get(0).set_x(4);
+		((Level2)game.getMap()).getOgres().get(0).set_y(3);
+		game.setPosHero(3, 3);
+		assertFalse(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		assertEquals(Game.Game_State.LVL2, game.state);
+	}
 	
+	
+	@Test(timeout = 1000)
+	public void testClubHitsHero_Left() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		
+		boolean kills_hero = false;
+
+		//Left
+		while (!kills_hero) {
+			game.state = Game.Game_State.LVL2;
+			((Level2)game.getMap()).getOgres().get(0).set_x(4);
+			((Level2)game.getMap()).getOgres().get(0).set_y(3);
+			game.setPosHero(2, 3);
+			(((Level2)game.getMap()).getOgres().get(0)).club_logic(((Level2)game.getMap()).getMap(game.state));
+			
+			game.state = ((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
+			if(game.state == Game.Game_State.LOSE) {
+				kills_hero = true;
+			}
+		}
+	}
+	
+	@Test(timeout = 1000)
+	public void testClubHitsHero_Right() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		
+		boolean kills_hero = false;
+
+		//Right
+		while (!kills_hero) {
+			game.state = Game.Game_State.LVL2;
+			((Level2)game.getMap()).getOgres().get(0).set_x(4);
+			((Level2)game.getMap()).getOgres().get(0).set_y(3);
+			game.setPosHero(6, 3);
+			(((Level2)game.getMap()).getOgres().get(0)).club_logic(((Level2)game.getMap()).getMap(game.state));
+			
+			game.state = ((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
+			if(game.state == Game.Game_State.LOSE) {
+				kills_hero = true;
+			}
+		}
+	}
+	
+	@Test(timeout = 1000)
+	public void testClubHitsHero_Up() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		
+		boolean kills_hero = false;
+
+		//Up
+		while (!kills_hero) {
+			game.state = Game.Game_State.LVL2;
+			((Level2)game.getMap()).getOgres().get(0).set_x(4);
+			((Level2)game.getMap()).getOgres().get(0).set_y(3);
+			game.setPosHero(4, 1);
+			(((Level2)game.getMap()).getOgres().get(0)).club_logic(((Level2)game.getMap()).getMap(game.state));
+			
+			game.state = ((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
+			if(game.state == Game.Game_State.LOSE) {
+				kills_hero = true;
+			}
+		}
+	}
+	
+	@Test(timeout = 1000)
+	public void testClubHitsHero_Down() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		
+		boolean kills_hero = false;
+
+		//Down
+		while (!kills_hero) {
+			game.state = Game.Game_State.LVL2;
+			((Level2)game.getMap()).getOgres().get(0).set_x(4);
+			((Level2)game.getMap()).getOgres().get(0).set_y(3);
+			game.setPosHero(4, 5);
+			(((Level2)game.getMap()).getOgres().get(0)).club_logic(((Level2)game.getMap()).getMap(game.state));
+			
+			game.state = ((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
+			if(game.state == Game.Game_State.LOSE) {
+				kills_hero = true;
+			}
+		}
+	}
+	
+	/*
+	@Test
+	public void testStateRemainsEqualIfNoCollision_Level2() {
+		
+		Game game = new Game();
+		game.initialize(2, 1, 0, null);
+		
+		((Level2)game.getMap()).getOgres().get(0).set_x(4);
+		((Level2)game.getMap()).getOgres().get(0).set_y(3);
+		game.setPosHero(1, 1);
+		assertEquals(Game.Game_State.LVL2, game.state);
+		assertFalse(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
+		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
+		assertEquals(Game.Game_State.LVL2, game.state);
+	}
+	*/
 
 	
 	
