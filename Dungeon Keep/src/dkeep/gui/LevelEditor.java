@@ -344,8 +344,8 @@ public class LevelEditor extends JFrame implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		int size = this.char_map.length;
-		int x = (int) Math.floor((arg0.getX() - 33) / 48);
-		int y = (int) Math.floor((arg0.getY() - 54) / 48) - 1;
+		int x = (int) Math.floor((arg0.getX() - gs.getX()) / 48);
+		int y = (int) Math.floor((arg0.getY() - gs.getY()) / 48) - 1;
 
 		if (x >= 0 && y >= 0 && x < size && y < size) {
 			if (this.icon == 'I' || this.icon == 'X') {

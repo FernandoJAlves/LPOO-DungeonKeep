@@ -17,7 +17,7 @@ public class CustomLevel extends Map {
 	private int key_x;
 	private int key_y;
 	/**
-	 * Constructs the object.
+	 * Constructs the Custom Level object.
 	 *
 	 * @param      map   The map
 	 */
@@ -26,7 +26,7 @@ public class CustomLevel extends Map {
 		this.initialize();
 	}
 	/**
-	 * { function_description }
+	 * Initializes the attributes of the Custom Level.
 	 */
 	public void initialize() {
 		for(int i  = 0; i < this.char_map.length;i++) {
@@ -51,15 +51,15 @@ public class CustomLevel extends Map {
 		
 	}
 	/**
-	 * Gets the hero x.
+	 * Gets the x coord of the Hero.
 	 *
-	 * @return     The hero x.
+	 * @return     The hero x coord.
 	 */
 	public int getHeroX() {
 		return this.hero_x;
 	}
 	/**
-	 * Gets the hero y.
+	 * Gets the y coord of the hero.
 	 *
 	 * @return     The hero y.
 	 */
@@ -67,6 +67,11 @@ public class CustomLevel extends Map {
 		return this.hero_y;
 	}
 	
+	/**
+	 * Gets the ogres.
+	 *
+	 * @return     The ogres.
+	 */
 	public ArrayList<Ogre> getOgres(){
 		return this.ogres;
 	}

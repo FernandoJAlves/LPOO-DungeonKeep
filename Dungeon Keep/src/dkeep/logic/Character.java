@@ -12,7 +12,7 @@ public abstract class Character implements Serializable{
 	private int x;
 	private int y;
 	/**
-	 * Constructs the object.
+	 * Constructs the Character object.
 	 *
 	 * @param      x     the x coord
 	 * @param      y     the y coord
@@ -22,39 +22,39 @@ public abstract class Character implements Serializable{
 		this.y = y;
 	}
 	/**
-	 * Gets the x.
+	 * Gets the x coord.
 	 *
-	 * @return     The x.
+	 * @return     The x coord.
 	 */
 	public int get_x() {
 		return this.x;
 	}
 	/**
-	 * Gets the y.
+	 * Gets the y coord.
 	 *
-	 * @return     The y.
+	 * @return     The y coord.
 	 */
 	public int get_y() {
 		return this.y;
 	}
 	/**
-	 * Sets the x.
+	 * Sets the x coord.
 	 *
-	 * @param      x_t   The x t
+	 * @param      x_t   The new x coord
 	 */
 	public void set_x(int x_t) {
 		this.x = x_t;
 	}
 	/**
-	 * Sets the y.
+	 * Sets the y coord.
 	 *
-	 * @param      y_t   The y t
+	 * @param      y_t   The new y coord
 	 */
 	public void set_y(int y_t) {
 		this.y = y_t;
 	}
 	/**
-	 * Gets the point.
+	 * Gets the point, an object that boxes the coordinates pair.
 	 *
 	 * @return     The point.
 	 */
@@ -63,7 +63,7 @@ public abstract class Character implements Serializable{
 	}
 	
 	/**
-	 * { function_description }
+	 * Moves a character in the given map
 	 *
 	 * @param      map   The map
 	 */
