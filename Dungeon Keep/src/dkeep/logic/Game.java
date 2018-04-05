@@ -171,14 +171,6 @@ public class Game implements Serializable{
 	}
 	
 	/**
-	 * Sets the state test.
-	 */
-	public void setStateTest() {
-		this.map = new LevelTest();
-		this.state = Game.Game_State.TEST;
-	}
-
-	/**
 	 * Sets the state.
 	 *
 	 * @param      test  The test
@@ -215,6 +207,15 @@ public class Game implements Serializable{
 	public void moveHero(char c) {
 		this.hero.set_direction(c);
 		this.hero.move(this.map.getMap(this.state));
+	}
+	
+	/**
+	 * Returns hero.
+	 *
+	 * @return     Hero.
+	 */
+	public Hero getHero() {
+		return this.hero;
 	}
 
 	/**
