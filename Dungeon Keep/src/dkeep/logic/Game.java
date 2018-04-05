@@ -20,12 +20,12 @@ public class Game implements Serializable{
 	 */
 	public Game(){}
 	/**
-	 * { function_description }
+	 * initializes the attributes of the Game Object.
 	 *
-	 * @param      level             The level
-	 * @param      numOgres          The number ogres
-	 * @param      guardPersonality  The guard personality
-	 * @param      char_map          The character map
+	 * @param      level             The number of the level
+	 * @param      numOgres          The number of ogres
+	 * @param      guardPersonality  The personality of the guard
+	 * @param      char_map          The map
 	 */
 	public void initialize(int level,int numOgres, int guardPersonality, char[][] char_map){
 		this.numOgres = numOgres;
@@ -47,7 +47,7 @@ public class Game implements Serializable{
 		}
 	}
 	/**
-	 * Draws a screen.
+	 * Draws the game state in a matrix of chars.
 	 *
 	 * @return     { description_of_the_return_value }
 	 */
@@ -80,17 +80,17 @@ public class Game implements Serializable{
 		return aux;
 	}
 	/**
-	 * { function_description }
+	 * Checks if there is collision in the actual game state and updates the same one
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     The updated game state.
 	 */
 	public Game.Game_State collision() {
 		return this.map.character_collision(this.state, this.hero);
 	}
 	/**
-	 * { function_description }
+	 * Updates the game state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated game state.
 	 */
 	public Game.Game_State updateState() {
 		
@@ -117,9 +117,9 @@ public class Game implements Serializable{
 		return new_state;
 	}
 	/**
-	 * { function_description }
+	 * updates the game
 	 *
-	 * @param      c     { parameter_description }
+	 * @param      c     the user input char
 	 */
 	public void updateGame(char c) {
 
@@ -140,7 +140,7 @@ public class Game implements Serializable{
 
 	}
 	/**
-	 * { function_description }
+	 * Prints the char matrix that represents the game state in a String
 	 *
 	 * @param      m     { parameter_description }
 	 *
@@ -173,16 +173,16 @@ public class Game implements Serializable{
 	/**
 	 * Sets the state.
 	 *
-	 * @param      test  The test
+	 * @param      test  The test state
 	 */
 	public void setState(Game.Game_State test) {
 		this.state = test;
 	}
 	/**
-	 * Sets the position hero.
+	 * Sets the position of the hero.
 	 *
-	 * @param      i     { parameter_description }
-	 * @param      j     { parameter_description }
+	 * @param      i     the new x coord
+	 * @param      j     the new y coord
 	 */
 	public void setPosHero(int i, int j) {
 		this.hero.set_x(i);
@@ -190,9 +190,9 @@ public class Game implements Serializable{
 	}
 
 	/**
-	 * Gets the hero position.
+	 * Gets the position of the hero.
 	 *
-	 * @return     The hero position.
+	 * @return     The coordinates of the position of the Hero.
 	 */
 	public Point getHeroPosition() {
 		Point c = new Point(this.hero.get_x(),this.hero.get_y());
@@ -200,9 +200,9 @@ public class Game implements Serializable{
 	}
 
 	/**
-	 * { function_description }
+	 * Moves the hero
 	 *
-	 * @param      c     { parameter_description }
+	 * @param      c     the movement input char
 	 */
 	public void moveHero(char c) {
 		this.hero.set_direction(c);
@@ -210,9 +210,9 @@ public class Game implements Serializable{
 	}
 	
 	/**
-	 * Returns hero.
+	 * Returns the hero.
 	 *
-	 * @return     Hero.
+	 * @return     the Hero.
 	 */
 	public Hero getHero() {
 		return this.hero;

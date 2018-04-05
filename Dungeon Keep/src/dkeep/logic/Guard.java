@@ -17,8 +17,8 @@ public abstract class Guard extends Character{
 	/**
 	 * Constructs the object.
 	 *
-	 * @param      x     { parameter_description }
-	 * @param      y     { parameter_description }
+	 * @param      x     the x coord 
+	 * @param      y     the y coord
 	 */
 	public Guard(int x, int y) {
 		super(x,y);
@@ -36,28 +36,28 @@ public abstract class Guard extends Character{
 	/**
 	 * Sets the sprite.
 	 *
-	 * @param      c     { parameter_description }
+	 * @param      c     the sprite
 	 */
 	public void setSprite(char c) {
 		this.sprite = c;
 	}
 	
 	/**
-	 * { function_description }
+	 * Updates the index of the movement of the Guard.
 	 */
 	public abstract void updateIndex();
 	
 	/**
-	 * { function_description }
+	 * Moves a character in the given map.
 	 *
 	 * @param      map   The map
 	 */
 	public abstract void move(char[][] map);
 	
 	/**
-	 * { function_description }
+	 * moves the Guard in the given map
 	 *
-	 * @param      c     { parameter_description }
+	 * @param      c     the direction
 	 */
 	public void moveGuard(char c) {
 		if(c == 'w'){

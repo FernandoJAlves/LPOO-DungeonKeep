@@ -68,7 +68,7 @@ public class Hero extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Makes the hero pick the key.
 	 */
 	public void pick_key() {
 		this.sprite = 'K';

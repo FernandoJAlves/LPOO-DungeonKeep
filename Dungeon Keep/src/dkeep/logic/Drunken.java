@@ -22,15 +22,15 @@ public class Drunken extends Guard{
 		super(8,1);
 	}
 	/**
-	 * Gets the sleepy.
+	 * Gets the value of the boolean attribute sleepy.
 	 *
-	 * @return     The sleepy.
+	 * @return     The boolean sleepy.
 	 */
 	public boolean getSleepy() {
 		return this.sleepy;
 	}
 	/**
-	 * Gets the inverted.
+	 * Gets the value of the boolean attribute inverted.
 	 *
 	 * @return     The inverted.
 	 */
@@ -38,7 +38,7 @@ public class Drunken extends Guard{
 		return this.inverted;
 	}
 	/**
-	 * { function_description }
+	 * Calculate the next action of the Drunken Guard.
 	 */
 	public void drunkenLogic() {
 		
@@ -48,9 +48,9 @@ public class Drunken extends Guard{
 		this.updateIndex();
 	}
 	/**
-	 * { function_description }
+	 * Calculates the number of turns until the Drunken fall asleep.
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     true if the drunken fell asleepS, otherwise false.
 	 */
 	public boolean reRollController() {
 		boolean previous_inverted = this.inverted;
@@ -66,9 +66,9 @@ public class Drunken extends Guard{
 		return false;
 	}
 	/**
-	 * { function_description }
+	 * Keeps the Drunken sleeping.
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     true if the drunken is still sleeping, otherwise false
 	 */
 	public boolean sleepController() {
 		
@@ -83,7 +83,7 @@ public class Drunken extends Guard{
 		return false;
 	}
 	/**
-	 * Calculates the sleep.
+	 * Calculates the possibility of the drunken sleeping or not.
 	 */
 	public void calculateSleep() {
 		int inverse = ThreadLocalRandom.current().nextInt(0,2);
@@ -100,7 +100,7 @@ public class Drunken extends Guard{
 		}
 	}
 	/**
-	 * { function_description }
+	 * Updates the index of the movement of the guard depending on the direction of the actual movement
 	 */
 	public void updateIndex() {
 		if(this.turning) {
@@ -115,7 +115,7 @@ public class Drunken extends Guard{
 		}
 	}
 	/**
-	 * { function_description }
+	 * Moves the drunken in the given map.
 	 *
 	 * @param      map   The map
 	 */
@@ -126,7 +126,7 @@ public class Drunken extends Guard{
 		}
 
 	/**
-	 * Gets the direction.
+	 * Gets the next step of the movement of the guard.
 	 *
 	 * @return     The direction.
 	 */
