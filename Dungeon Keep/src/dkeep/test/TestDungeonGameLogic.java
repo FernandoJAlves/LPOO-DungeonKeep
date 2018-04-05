@@ -612,23 +612,69 @@ public class TestDungeonGameLogic{
 		}
 	}
 	
-	/*
 	@Test
-	public void testStateRemainsEqualIfNoCollision_Level2() {
+	public void testHeroKeyInteractionLevel2() {
 		
 		Game game = new Game();
-		game.initialize(2, 1, 0, null);
-		
-		((Level2)game.getMap()).getOgres().get(0).set_x(4);
-		((Level2)game.getMap()).getOgres().get(0).set_y(3);
+		game.initialize(2, 0, 0, null);
+		assertEquals(Game.Game_State.LVL2, game.state);
+		assertEquals('I', ((Level2)game.getMap()).getMap(game.state)[1][0]);
+		game.setPosHero(5, 1);
+		game.updateGame('d'); // move hero to the right.
+		assertEquals(Game.Game_State.LVL2, game.state);
+		game.updateGame('d'); // move hero to the right.
+		game.state = ((Level2)game.getMap()).leversUp(game.state);
+		assertEquals(Game.Game_State.LVL2_KEY_PICKED, game.state);
+		assertEquals(' ', ((Level2)game.getMap()).getMap(game.state)[1][7]);
+		BooleanHolder b = new BooleanHolder();
+		b.value = false;
+		((Level2)game.getMap()).map_Logic(game.state, game.getHero(), 'w', b);
+		assertEquals(Game.Game_State.LVL2_KEY_PICKED, game.state);
 		game.setPosHero(1, 1);
-		assertEquals(Game.Game_State.LVL2, game.state);
-		assertFalse(((Level2)game.getMap()).getOgres().get(0).isStunned());
-		((Level2)game.getMap()).ogreCollision(game.state, game.getHero(), ((Level2)game.getMap()).getOgres());
-		assertTrue(((Level2)game.getMap()).getOgres().get(0).isStunned());
-		assertEquals(Game.Game_State.LVL2, game.state);
+		game.updateGame('a');
+		assertEquals(Game.Game_State.LVL2_KEY_TURNED, game.state);
+		assertEquals('S', ((Level2)game.getMap()).getMap(game.state)[1][0]);
+		game.updateGame('a');
+		assertEquals(Game.Game_State.WIN, game.state);
 	}
-	*/
+	
+
+	@Test(timeout=1000)
+	public void testDrunken() {
+		
+		Game game = new Game();
+		game.initialize(1, 0, 1, null);
+		assertEquals(new Point(8,1), ((Level1)game.getMap()).getGuard().getPoint());
+		assertFalse(((Drunken)(((Level1)game.getMap()).getGuard())).getSleepy());
+		assertFalse(((Drunken)(((Level1)game.getMap()).getGuard())).getInverted());
+		assertEquals(0, ((Drunken)(((Level1)game.getMap()).getGuard())).getSleepCounter());
+		assertEquals(5, ((Drunken)(((Level1)game.getMap()).getGuard())).getReRollSleep());
+		((Level1)game.getMap()).move_npc();
+		assertEquals(0, ((Drunken)(((Level1)game.getMap()).getGuard())).getSleepCounter());
+		assertEquals(4, ((Drunken)(((Level1)game.getMap()).getGuard())).getReRollSleep());
+		assertEquals(new Point(7,1), ((Level1)game.getMap()).getGuard().getPoint());
+		((Level1)game.getMap()).move_npc();
+		((Level1)game.getMap()).move_npc();
+		((Level1)game.getMap()).move_npc();
+		((Level1)game.getMap()).move_npc();
+		assertEquals(5, ((Drunken)(((Level1)game.getMap()).getGuard())).getReRollSleep());
+		
+		while(!((Drunken)(((Level1)game.getMap()).getGuard())).getSleepy()) {
+			((Level1)game.getMap()).move_npc();
+		}
+		
+		while(!((Drunken)(((Level1)game.getMap()).getGuard())).getInverted()) {
+			((Level1)game.getMap()).move_npc();
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	
 	

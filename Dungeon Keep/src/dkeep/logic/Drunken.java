@@ -141,4 +141,23 @@ public class Drunken extends Guard{
 	}
 	return 0;
 	}
+	
+	/**
+	 * Gets the sleepCounter.
+	 *
+	 * @return     The inverted.
+	 */
+	public int getSleepCounter() {
+		return this.sleepCounter;
+	}
+	
+	/**
+	 * Gets the reRollSleep.
+	 *
+	 * @return     The inverted.
+	 */
+	public int getReRollSleep() {
+		return this.reRollSleep;
+	}
+	
 }
