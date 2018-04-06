@@ -9,5 +9,4 @@
 Documentation: https://raidenkyu.github.io/LPOO1718_T3G5/
 
 Fernando Jorge Alves up201605270 up201605270@fe.up.pt
-
 João Carlos Maduro up201605219 up201605219@fe.up.pt
