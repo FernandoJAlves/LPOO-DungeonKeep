@@ -2,20 +2,19 @@ package dkeep.logic;
 
 import dkeep.logic.Game.Game_State;
 /**
- * Class for level 1.
+ * Level1.java - a class for the level 1.
+ * @see Map
  */
 public class Level1 extends Map{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private Guard guard;
 	
 	/**
-	 * Constructs the object.
+	 * Constructs the Level1 object.
 	 *
-	 * @param      guard_number  The guard number
+	 * @param      guard_number  The number that represents the personality of the guard
 	 */
 	public Level1(int guard_number){
 		super();
@@ -59,22 +58,22 @@ public class Level1 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Turns the key in the door
 	 *
 	 * @param      state  The state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     The updated Game_State
 	 */
 	public Game_State turnKey(Game_State state) {
 		return state;
 	}
 	
 	/**
-	 * { function_description }
+	 * push the lever
 	 *
 	 * @param      state  The state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State leversUp(Game.Game_State state) {
 		if(state == Game.Game_State.LVL1_LEVER_ACT) {
@@ -86,12 +85,12 @@ public class Level1 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Updates the game state
 	 *
 	 * @param      state  The state
 	 * @param      pos    The position
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State updateState(Game.Game_State state, char pos){
 		
@@ -109,12 +108,12 @@ public class Level1 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Detects collision between the hero and his enemies
 	 *
 	 * @param      state  The state
 	 * @param      hero   The hero
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State character_collision(Game.Game_State state, Hero hero){
 		
@@ -148,14 +147,14 @@ public class Level1 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Applies the logic of the map to the game
 	 *
 	 * @param      state   The state
 	 * @param      hero    The hero
-	 * @param      c       { parameter_description }
+	 * @param      c       the input
 	 * @param      update  The update
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update){
 		update.value = true;
@@ -163,14 +162,14 @@ public class Level1 extends Map{
 	}
 
 	/**
-	 * { function_description }
+	 * Moves the NPC's of the level
 	 */
 	public void move_npc() {
 		this.guard.move(this.char_map);
 	}
 
 	/**
-	 * Draws characters.
+	 * Draws the characters.
 	 *
 	 * @param      aux   The auxiliary
 	 */

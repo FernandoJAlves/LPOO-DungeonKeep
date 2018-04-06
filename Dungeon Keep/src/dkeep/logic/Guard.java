@@ -1,13 +1,11 @@
 package dkeep.logic;
 
 /**
- * Class for guard.
+ * Guard.java - a class for guard.
+ * @see Character
  */
 public abstract class Guard extends Character{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6431670539463691776L;
 	protected char sprite = 'G';
 	protected int index = 0;

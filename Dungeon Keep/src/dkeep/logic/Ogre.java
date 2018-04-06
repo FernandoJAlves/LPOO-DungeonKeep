@@ -2,12 +2,11 @@ package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Class for ogre.
+ * Ogre.java - a class for the ogre.
+ * @see Character
  */
 public class Ogre extends Character{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -6517053137579825828L;
 	private int direction = 0;
 	public Point club_hit = new Point(this.get_x(),this.get_y());
@@ -16,25 +15,25 @@ public class Ogre extends Character{
 	/**
 	 * Constructs the object.
 	 *
-	 * @param      x     { parameter_description }
-	 * @param      y     { parameter_description }
+	 * @param      x     the x coordinate
+	 * @param      y     the y coordinate
 	 */
 	public Ogre(int x, int y) {
 		super(x,y);
 	}
 	/**
-	 * Gets the dir.
+	 * Gets the direction.
 	 *
-	 * @return     The dir.
+	 * @return     The direction.
 	 */
 	public int get_dir() {
 		return this.direction;
 	}
 
 	/**
-	 * Sets the dir.
+	 * Sets the direction.
 	 *
-	 * @param      i     { parameter_description }
+	 * @param      i     the direction
 	 */
 	public void set_dir(int i) {
 		this.direction = i;
@@ -50,7 +49,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Moves the character in the given map
 	 *
 	 * @param      map   The map
 	 */
@@ -62,7 +61,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Sets the position of the Ogre in the given map
 	 *
 	 * @param      map   The map
 	 */
@@ -71,7 +70,6 @@ public class Ogre extends Character{
 		case 0:
 			this.move_up(map);
 			break;
-			
 		case 1:
 			this.move_right(map);
 			break;
@@ -81,15 +79,13 @@ public class Ogre extends Character{
 		case 3:
 			this.move_left(map);
 			break;
-			
-			
 		}
 	}
 	
 	/**
-	 * { function_description }
+	 * Keeps the ogre stunned
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     True if stunned, otherwise false.
 	 */
 	public boolean stunLogic() {
 		if(this.isStunned()) {
@@ -103,7 +99,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Moves the ogre up
 	 *
 	 * @param      map   The map
 	 */
@@ -119,7 +115,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Moves the ogre down
 	 *
 	 * @param      map   The map
 	 */
@@ -133,15 +129,9 @@ public class Ogre extends Character{
 		}
 		this.set_y(this.get_y() + 1);
 	}
-
-	/**
-	 * { function_description }
-	 *
-	 * @param      map   The map
-	 */
 	
 	/**
-	 * { function_description }
+	 * Moves the ogre left
 	 *
 	 * @param      map   The map
 	 */
@@ -157,7 +147,7 @@ public class Ogre extends Character{
 	}
 
 	/**
-	 * { function_description }
+	 * Moves the ogre right
 	 *
 	 * @param      map   The map
 	 */
@@ -173,7 +163,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Calculates the position of the next attack of the ogre
 	 *
 	 * @param      map   The map
 	 */
@@ -188,7 +178,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Choose the direction of the attack
 	 *
 	 * @param      map   The map
 	 */
@@ -211,7 +201,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Attack up
 	 *
 	 * @param      map   The map
 	 */
@@ -228,7 +218,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Attack right
 	 *
 	 * @param      map   The map
 	 */
@@ -244,7 +234,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Attack down
 	 *
 	 * @param      map   The map
 	 */
@@ -260,7 +250,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * Attack left
 	 *
 	 * @param      map   The map
 	 */
@@ -276,7 +266,7 @@ public class Ogre extends Character{
 	}
 	
 	/**
-	 * { function_description }
+	 * stun the ogre
 	 */
 	public void stun() {
 		stun_count = 2;

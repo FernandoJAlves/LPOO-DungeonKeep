@@ -2,23 +2,22 @@ package dkeep.logic;
 
 import java.util.concurrent.ThreadLocalRandom;
 /**
- * Class for suspicious.
+ * Suspicious.java - a class for the suspicious guard.
+ * @see Guard
  */
 public class Suspicious extends Guard{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5731692041940503404L;
 	private boolean inverted = false;
 	/**
-	 * Constructs the object.
+	 * Constructs the Suspicious object.
 	 */
 	public Suspicious() {
 		super(8,1);
 	}
 	
 	/**
-	 * Gets the inverted.
+	 * Gets the value of the boolean inverted.
 	 *
 	 * @return     The inverted.
 	 */
@@ -27,7 +26,7 @@ public class Suspicious extends Guard{
 	}
 	
 	/**
-	 * { function_description }
+	 * Moves the character in the given map
 	 *
 	 * @param      map   The map
 	 */
@@ -39,7 +38,7 @@ public class Suspicious extends Guard{
 
 
 	/**
-	 * { function_description }
+	 * Updates the index of the movement of the guard.
 	 */
 	public void updateIndex() {
 		int temp = ThreadLocalRandom.current().nextInt(0,3);

@@ -3,12 +3,11 @@ package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Class for drunken.
+ * Drunken.java - Class for the drunken guard.
+ * @see Guard
  */
 public class Drunken extends Guard{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 4977216385053088310L;
 	private int sleepCounter = 0;
 	private int reRollSleep = 5;
