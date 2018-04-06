@@ -157,11 +157,7 @@ public class Level2 extends Map{
 				aux[this.ogres.get(i).club_hit.y][this.ogres.get(i).club_hit.x] = '*';
 			}
 			
-			if (this.ogres.get(i).get_x() == 7 && this.ogres.get(i).get_y() == 1) {
-				aux[1][7] = '$';
-			} else {
-				aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
-			}
+			aux[this.ogres.get(i).get_y()][this.ogres.get(i).get_x()] = this.ogres.get(i).getSprite();
 		}	
 	}
 	

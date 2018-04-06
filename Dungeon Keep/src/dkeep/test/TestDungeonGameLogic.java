@@ -485,7 +485,7 @@ public class TestDungeonGameLogic{
 		((Level2)game.getMap()).getOgres().get(0).set_x(7);
 		((Level2)game.getMap()).getOgres().get(0).set_y(1);
 		temp = game.drawScreen();
-		assertEquals('$',temp[1][7]);
+		assertEquals('O',temp[1][7]);
 		((Level2)game.getMap()).getOgres().get(0).set_x(6);
 		((Level2)game.getMap()).getOgres().get(0).set_y(1);
 		((Level2)game.getMap()).getOgres().get(0).club_hit.x = 7;
