@@ -3,12 +3,10 @@ package dkeep.logic;
 import java.io.Serializable;
 
 /**
- * Class for point.
+ * Point.java - a class to wrap a pair of coordinates.
  */
 public class Point implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1286240019727748897L;
 	public int x = 0;
 	public int y = 0;
@@ -17,7 +15,7 @@ public class Point implements Serializable{
 		this.y = y;
 	}
 	/**
-	 * Constructs the object.
+	 * Constructs the Point object.
 	 */
 	public Point() {};
 	

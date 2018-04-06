@@ -3,13 +3,10 @@ package dkeep.logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
- * Class for map.
+ * Map.java - a class for the map.
  */
 public abstract class Map implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3133907343984778555L;
 	protected char[][] char_map;
 	/**
@@ -23,68 +20,68 @@ public abstract class Map implements Serializable{
 		return this.char_map;
 	}
 	/**
-	 * { function_description }
+	 * Push the lever
 	 *
 	 * @param      state  The state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public abstract Game.Game_State leversUp(Game.Game_State state);
 	/**
-	 * { function_description }
+	 * turns the key in the door
 	 *
 	 * @param      state  The state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public abstract Game.Game_State turnKey(Game.Game_State state);
 	/**
-	 * { function_description }
+	 * Updates the game state
 	 *
 	 * @param      state  The state
 	 * @param      pos    The position
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public abstract Game.Game_State updateState(Game.Game_State state, char pos);
 	/**
-	 * { function_description }
+	 * Checks if thete's collision between the Hero and his enemies
 	 *
 	 * @param      state  The state
 	 * @param      hero   The hero
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public abstract Game.Game_State character_collision(Game.Game_State state, Hero hero);
 	/**
-	 * { function_description }
+	 * Applies the logic of the map to the game
 	 *
 	 * @param      state   The state
 	 * @param      hero    The hero
-	 * @param      c       { parameter_description }
+	 * @param      c       the input
 	 * @param      update  The update
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public abstract Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update);
 	/**
-	 * { function_description }
+	 * Moves the NPCs 
 	 */
 	public abstract void move_npc();
 	/**
-	 * Draws characters.
+	 * Draws the characters.
 	 *
 	 * @param      aux   The auxiliary
 	 */
 	public abstract void draw_characters(char[][] aux);
 	/**
-	 * { function_description }
+	 * Detects collision between the hero and the ogres
 	 *
 	 * @param      state  The state
 	 * @param      hero   The hero
 	 * @param      ogres  The ogres
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State ogreCollision(Game.Game_State state, Hero hero, ArrayList<Ogre> ogres){
 		for (int k = 0; k < ogres.size(); k++) {

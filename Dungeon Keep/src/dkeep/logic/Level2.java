@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Class for level 2.
+ * Level2.java - a class for the level 2.
+ * @see Map
  */
 public class Level2 extends Map{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 696215245238900987L;
 	private ArrayList<Ogre> ogres;
 	
@@ -49,11 +48,11 @@ public class Level2 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Push the lever
 	 *
 	 * @param      state  The state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State leversUp(Game.Game_State state) {
 
@@ -69,11 +68,11 @@ public class Level2 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Turns the key in the door
 	 *
 	 * @param      state  The state
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State turnKey(Game.Game_State state) {
 		this.char_map[1][0] = 'S';
@@ -81,12 +80,12 @@ public class Level2 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Updates the game state
 	 *
 	 * @param      state  The state
 	 * @param      pos    The position
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State updateState(Game.Game_State state, char pos){
 		
@@ -103,26 +102,26 @@ public class Level2 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Checks if there is collision between the hero and his enemies
 	 *
 	 * @param      state  The state
 	 * @param      hero   The hero
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State character_collision(Game.Game_State state, Hero hero){
 		return super.ogreCollision(state, hero, this.ogres);
 	}
 	
 	/**
-	 * { function_description }
+	 * Applies the logic of the map to the game
 	 *
 	 * @param      state   The state
 	 * @param      hero    The hero
-	 * @param      c       { parameter_description }
+	 * @param      c       the direction
 	 * @param      update  The update
 	 *
-	 * @return     { description_of_the_return_value }
+	 * @return     the updated Game_State
 	 */
 	public Game.Game_State map_Logic(Game.Game_State state, Hero hero, char c, BooleanHolder update){
 		
@@ -135,7 +134,7 @@ public class Level2 extends Map{
 	}
 	
 	/**
-	 * { function_description }
+	 * Moves the NPC's
 	 */
 	public void move_npc() {
 		for (int k = 0; k < this.ogres.size(); k++) {
@@ -145,7 +144,7 @@ public class Level2 extends Map{
 	}
 	
 	/**
-	 * Draws characters.
+	 * Draws the characters.
 	 *
 	 * @param      aux   The auxiliary map
 	 */

@@ -2,12 +2,10 @@ package dkeep.logic;
 
 import java.io.Serializable;
 /**
- * Class for character.
+ * Character.java - a class for the characters and their coordinates.
  */
 public abstract class Character implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -7636713237774526526L;
 	private int x;
 	private int y;

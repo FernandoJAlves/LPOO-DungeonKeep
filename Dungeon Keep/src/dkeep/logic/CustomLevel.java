@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import dkeep.logic.Game.Game_State;
 /**
- * Class for custom level.
+ * CustomLevel.java - a class to generate customized levels.
+ * @see Map
  */
 public class CustomLevel extends Map {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1962158929520915113L;
 	private ArrayList<Ogre> ogres = new ArrayList<>();
 	private int hero_x;
